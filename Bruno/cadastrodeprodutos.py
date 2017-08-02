@@ -1,0 +1,711 @@
+import sys
+from PyQt4 import QtCore,QtGui
+
+import pymysql
+
+
+
+
+
+comfig ={'host':'localhost',
+         'port':3306,
+         'database':'LojaDB',
+         'user':'root',
+         'password':'34387'}
+db= pymysql.connect(** comfig)
+cursor = db.cursor()
+
+
+
+  
+class ClasseAPP(QtGui.QWidget):
+     
+    def __init__(self):
+        super(ClasseAPP, self).__init__()
+        self.initUI()
+
+    def initUI(self):
+
+        super(ClasseAPP, self).__init__()
+        #self.setGeometry(400, 100, 278, 247)
+        self.setGeometry(300,100,0,0)
+        self.setFixedSize(700,650)
+        self.setWindowTitle("Produtos")
+        self.setWindowIcon(QtGui.QIcon('pythonlogo.png'))
+        
+        self.home()
+        
+    def home(self):
+        
+        self.lbcodigo = QtGui.QLabel("Codigo ",self)
+        self.lbcodigo.setGeometry(20, 40, 71, 18)
+        
+        self.txtcodigo = QtGui.QLineEdit(self)
+        self.txtcodigo.setGeometry(90, 40, 113, 21)
+        
+        self.lblnome = QtGui.QLabel("Nome",self)
+        self.lblnome.setGeometry(20, 80, 71, 18)
+        
+        self.txtnome = QtGui.QLineEdit(self)
+        self.txtnome.setGeometry(20, 100, 621, 21)
+        
+        
+        self.txtunidade = QtGui.QLineEdit(self)
+        self.txtunidade.setGeometry(20, 150, 191, 21)
+        
+        self.lblunidade = QtGui.QLabel("Unidade de Medida",self)
+        self.lblunidade.setGeometry(20, 130, 141, 18)
+        
+        self.txtpeso = QtGui.QLineEdit(self)
+        self.txtpeso.setGeometry(240, 150, 191, 21)
+        
+        self.lblpeso = QtGui.QLabel("Peso kg",self)
+        self.lblpeso.setGeometry(240, 130, 141, 18)
+        
+        self.txtcodigoean = QtGui.QLineEdit(self)
+        self.txtcodigoean.setGeometry(QtCore.QRect(20, 200, 191, 21))
+        
+        self.lblcodigoean = QtGui.QLabel("Codigo  EAN",self)
+        self.lblcodigoean.setGeometry(20, 180, 141, 18)
+        
+        self.txtcodigomoeda = QtGui.QLineEdit(self)
+        self.txtcodigomoeda.setGeometry(450, 150, 191, 21)
+        
+        self.lblcodigomoeda = QtGui.QLabel("Codigo Moeda",self)
+        self.lblcodigomoeda.setGeometry(450, 130, 141, 18)
+        
+        self.txtpreco = QtGui.QLineEdit(self)
+        self.txtpreco.setGeometry(450, 200, 191, 21)
+        
+        self.lblpreco = QtGui.QLabel("Valor de Venda",self)
+        self.lblpreco.setGeometry(450, 180, 141, 18)
+        
+        self.txtvalor = QtGui.QLineEdit(self)
+        self.txtvalor.setGeometry(240, 200, 191, 21)
+      
+        self.lblvalor = QtGui.QLabel("Preco de compra",self)
+        self.lblvalor.setGeometry(240, 180, 141, 18)
+        
+        self.tabela = QtGui.QTableWidget(3,20,self)
+        self.tabela.setGeometry(20, 270, 645, 192)
+        self.tabela.setColumnCount(8)
+        self.tabela.setRowCount(10)
+        self.tabela.setHorizontalHeaderLabels(('Codigo', 'Nome', 'Unidade de Medida','Peso kg','Codigo Ean',' Codigo Moeda  ','Preco de compra ','Valor de venda'  ))
+        
+        
+        self.deleti =QtGui.QLabel("Excluir pelo Código",self)
+        self.deleti.setGeometry(20, 470, 141, 18)
+        self.txtdeleti = QtGui.QLineEdit(self)
+        self.txtdeleti.setGeometry(20,490, 200, 21)
+        
+        
+        self.lblcodigoproduto =QtGui.QLabel("Código do Produto",self)
+        self.lblcodigoproduto .setGeometry(20, 530, 141, 18)
+        self.txtcodigoproduto = QtGui.QLineEdit(self)
+        self.txtcodigoproduto.setGeometry(20, 550, 150, 21)
+        
+        self.lblcoluna =QtGui.QLabel("Colunas",self)
+        self.lblcoluna.setGeometry(200, 530, 141, 18)
+        
+        self.cb = QtGui.QComboBox(self)
+        self.cb.setGeometry(200, 550, 160, 21)
+        self.cb.addItem("Nome",self)
+        self.cb.addItem("UnidadedeMedida",self)
+        self.cb.addItem("Peso",self)
+        self.cb.addItem("CodigoEAN",self)
+        self.cb.addItem("CodigoMoeda",self)
+        self.cb.addItem("PrecoCompra",self)
+        self.cb.addItem("ValorVenda",self)
+        
+        
+        self.lblnovoitem =QtGui.QLabel("Novo Item",self)
+        self.lblnovoitem.setGeometry(400, 530, 141, 18)
+        self.txtnovoitem  = QtGui.QLineEdit(self)
+        self.txtnovoitem .setGeometry(400, 550, 160, 21)
+        
+        
+        
+        
+        self.btnincluir = QtGui.QPushButton("Inserir",self)
+        self.btnincluir.setGeometry(20,230, 106, 28)
+        self.btnincluir.clicked.connect(self. create_new_windows)
+       
+        
+        
+        
+        
+        
+        self.btncomsuta = QtGui.QPushButton("Comsultar ",self)
+        self.btncomsuta.setGeometry(140, 230, 106, 28)
+        self.btncomsuta.clicked.connect(self.create_comsuta)
+        
+        
+        self.btnexcluir = QtGui.QPushButton("Excluir",self)
+        self.btnexcluir.setGeometry(250, 485, 106, 28)
+        self.btnexcluir.clicked.connect(self.deletou)
+        self.btnexcluir.clicked.connect(self.txtdeleti.clear)
+       
+        self.btnatualizar = QtGui.QPushButton("Atualizar",self)
+        self.btnatualizar.setGeometry(20,600, 106, 28)
+        self.btnatualizar.clicked.connect(self.Atualizar)
+         
+        
+        self.btnsair = QtGui.QPushButton("Sair",self)
+        self.btnsair.setGeometry(140,600, 106, 28)
+        self.btnsair.clicked.connect(self.sair)
+        self.show()
+    def sair(self):
+        print("Fim!!!")
+        sys.exit()
+      
+        
+    def create_new_windows (self):
+        db= pymysql.connect(** comfig)# criando ponteiro que o intermediario 
+        cursor = db.cursor()
+        comando =("select Codigo from  LojaDB.Produtos " " WHERE Codigo = %s " )
+        fui = self.txtcodigo.text() 
+        cursor.execute (comando,fui)
+        registros = cursor.fetchall()
+        for registros in registros:
+            rui = (registros[0])
+        
+        ppreco = self. txtpreco.text()
+        propreco = len(ppreco)
+        pvalor = self. txtvalor.text()
+        provalor = len(pvalor)
+        pcodigoean = self.txtcodigoean.text()
+        procodigoean = len(pcodigoean)
+        pcodigomoeda = self.txtcodigomoeda.text()
+        procodigomoeda = len(pcodigomoeda)
+        
+        ppeso = self.txtpeso.text()
+        propeso = len(ppeso)
+        
+        pcodigo = self.txtcodigo.text()
+        procodigo = len(pcodigo)
+        print("codigo",procodigo)
+        pnome = self.txtnome.text()
+        pronome = len(pnome)
+        print("vaca",pronome )
+        punidade = self.txtunidade.text()
+        prounidade = len (punidade)
+         
+        pean = self.txtcodigoean.text()
+        proean = len (pean)
+        pmoeda = self.txtcodigomoeda.text()
+        promoeda = len (pmoeda)
+        
+        
+            
+        
+        try:
+            ppeso = float(self.txtpeso.text())
+            peso ="PESO SERTO"
+        except ValueError:
+                peso =" Peso errado ? "
+        try:
+            ppvalor = float(self.txtvalor.text())
+            valor = 'VALOR SERTO'
+        except ValueError:
+                valor =" valor errado? "
+        try:
+            pppreco = float(self.txtpreco.text())
+            preco =  "PREÇO SERTO"
+        except ValueError:
+            preco= " preco erro? "
+        try:
+            rui
+            deletar = "carro"
+        except NameError:
+            deletar= "Não esta cadastrado"
+        
+        
+        
+        
+        
+            
+        if 0 == procodigo :
+            
+            
+            choice = QtGui.QMessageBox.question(self, 'Extract!',
+                                            "O campo Código esta Vazio !",
+                                            QtGui.QMessageBox.Ok  )
+        elif 0 ==pronome:
+            
+            
+            choice = QtGui.QMessageBox.question(self, 'Extract!',
+                                            "O campo Nome esta Vazio !",
+                                                  QtGui.QMessageBox.Ok  )
+        
+        
+        elif 0 ==prounidade:
+            
+            
+            choice = QtGui.QMessageBox.question(self, 'Extract!',
+                                            "O campo Uidade de Medida esta Vazio !",
+                                                  QtGui.QMessageBox.Ok  )
+        
+        elif 0 ==propeso :
+            
+            
+            choice = QtGui.QMessageBox.question(self, 'Extract!',
+                                            "O campo Peso esta Vazio !",
+                                                  QtGui.QMessageBox.Ok  )
+            
+            
+        elif 0 ==procodigomoeda :
+            
+            
+            choice = QtGui.QMessageBox.question(self, 'Extract!',
+                                            "O campo Código Moeda esta Vazio !",
+                                                  QtGui.QMessageBox.Ok  )
+            
+            
+        elif 0 ==procodigoean :
+            
+            
+            choice = QtGui.QMessageBox.question(self, 'Extract!',
+                                            "O campo Código EAN esta Vazio !",
+                                                  QtGui.QMessageBox.Ok  )
+            
+        elif 0 ==provalor  :
+            
+            
+            choice = QtGui.QMessageBox.question(self, 'Extract!',
+                                            "O campo Preço de Compra esta Vazio !",
+                                                  QtGui.QMessageBox.Ok  )
+        elif 0 == propreco  :
+            
+            
+            choice = QtGui.QMessageBox.question(self, 'Extract!',
+                                            "O campo Valor de Venda esta Vazio !",
+                                                  QtGui.QMessageBox.Ok  )
+        
+        
+        elif deletar == "carro":
+            choice = QtGui.QMessageBox.question(self, 'Extract!',
+                                            "Código já Cadastrado",
+                                            QtGui.QMessageBox.Ok)
+        
+        
+         
+         
+        elif peso == " Peso errado ? ":
+            choice = QtGui.QMessageBox.question(self, 'Extract!',
+                                            "O campo Peso só aceita Números !",
+                                            QtGui.QMessageBox.Ok)      
+         
+            
+        elif valor == " valor errado? ":
+            
+            
+            choice = QtGui.QMessageBox.question(self, 'Extract!',
+                                            "O campo Preço de Compra só aceita Números !",
+                                            QtGui.QMessageBox.Ok  )
+        
+        
+                      
+        elif preco ==" preco erro? ":
+            choice = QtGui.QMessageBox.question(self, 'Extract!',
+            "O campo Valor de Venda só aceita Números !",
+            QtGui.QMessageBox.Ok)
+                        
+
+                
+            
+        elif  10 < procodigo :
+           
+            choice = QtGui.QMessageBox.question(self, 'Extract!',
+                                            "O canpo codigo suporta só 10 letras !",
+                                            QtGui.QMessageBox.Ok)    
+            
+                      
+        elif 50<pronome:
+            choice = QtGui.QMessageBox.question(self, 'Extract!',
+            "O canpo Nome suporta só 50 letras",
+            QtGui.QMessageBox.Ok)
+                        
+             
+        elif 3 < prounidade:
+            choice = QtGui.QMessageBox.question(self, 'Extract!',
+                                            "O campo  Unidade  de Medida  suporta só 3 letras !",
+                                            QtGui.QMessageBox.Ok)
+        
+        elif 13 < proean:
+            choice = QtGui.QMessageBox.question(self, 'Extract!',
+                                            "O campo  CódigoEAN suporta só 13 letras !",
+                                            QtGui.QMessageBox.Ok)
+        elif 3 < promoeda:
+            choice = QtGui.QMessageBox.question(self, 'Extract!',
+                                            "O campo  Código Moeda suporta só 3 letras !",
+                                             QtGui.QMessageBox.Ok)
+             
+             
+             
+             
+             
+        else:
+            choice = QtGui.QMessageBox.question(self, 'Extract!',
+                                            " Salvar Registro  ?",
+                                            QtGui.QMessageBox.Yes|QtGui.QMessageBox.No)
+        
+            if choice == QtGui.QMessageBox.No:
+               
+                print("VOCE NÃO QUIS SALVAR")
+                
+            
+            else:
+            
+        
+                db= pymysql.connect(** comfig)# criando ponteiro que o intermediario 
+                cursor = db.cursor()
+        
+        
+                comando =("insert into LojaDB .Produtos (Codigo,Nome,UnidadeMedida,Peso,CodigoEAN,CodigoMoeda,PrecoCompra,ValorVenda) "  " values (%s,%s,%s,%s,%s,%s,%s,%s)" )  # meto
+            
+                pcodigo = self.txtcodigo .text()
+
+                pnome= self.txtnome.text()
+        
+                punidade =self.txtunidade.text()             
+        
+                ppeso = float(self.txtpeso.text())
+        
+                pcodigoean = self.txtcodigoean.text()
+        
+                pcodigomoeda = self.txtcodigomoeda.text()
+        
+                ppreco = float(self.txtpreco.text())
+        
+                pvalor = float(self.txtvalor.text())
+            
+            
+                dados = (pcodigo ,pnome,punidade,ppeso,pcodigoean,pcodigomoeda,ppreco,pvalor )
+                
+                cursor.execute (comando,dados)
+
+                db.commit()
+                print('ja foi')
+
+                cursor.close()
+                db.close
+
+        
+        
+        
+ 
+    
+        
+       
+        
+        
+        
+        
+    def create_comsuta (self):
+        
+        db= pymysql.connect(** comfig)# criando ponteiro que o intermediario 
+        cursor = db.cursor()
+        
+        cursor.execute("select *from  LojaDB.Produtos")# comando mostrando itenis 
+        self.tabela.setRowCount(0)
+        for row, form in enumerate(cursor):
+            self.tabela.insertRow(row)
+            for column, item in enumerate(form):
+                #print(str(item))
+                self.tabela.setItem(row, column, QtGui.QTableWidgetItem(str(item)))       
+               
+
+
+            
+            db.commit()
+            print('ja foi')
+
+            cursor.close()
+            db.close
+    def deletou (self):
+        db= pymysql.connect(** comfig)# criando ponteiro que o intermediario 
+        cursor = db.cursor()
+        comando =("select Codigo from  LojaDB.Produtos " " WHERE Codigo = %s " )
+        fui = self.txtdeleti.text() 
+        cursor.execute (comando,fui)
+        registros = cursor.fetchall()
+        for registros in registros:
+            
+            rui = registros[0]
+        try:
+            rui
+            deletar=("carro")
+        except NameError:
+            choice = QtGui.QMessageBox.question(self, 'Extract!',
+                                            " Código Não Existente ?",
+                                            QtGui.QMessageBox.Ok)
+            print ("Bem, não foi definido depois de tudo!")
+        
+        if deletar == "carro":
+            choice = QtGui.QMessageBox.question(self, 'Extract!',
+                                            "Você quer Excluir Registro ?",
+                                            QtGui.QMessageBox.Yes|QtGui.QMessageBox.No)
+            if choice == QtGui.QMessageBox.No:
+                print("não pode apagar")
+        
+            else:
+                print("pode apagar")
+        
+                db= pymysql.connect(** comfig)# criando ponteiro que o intermediario 
+                cursor = db.cursor()
+        
+                comando=(" delete from LojaDB.Produtos " " where Codigo = %s ")
+                varcodigo = self.txtdeleti.text()
+                cursor.execute(comando, varcodigo)
+                db.commit()
+                print('ja foi')
+
+                cursor.close()
+                db.close
+        
+    def Atualizar(self):
+        
+        text = self.cb.currentText()
+        db= pymysql.connect(** comfig)# criando ponteiro que o intermediario 
+        cursor = db.cursor()
+        comando =("select Codigo from  LojaDB.Produtos " " WHERE Codigo = %s " )
+        fui = self.txtcodigoproduto.text() 
+        cursor.execute (comando,fui)
+        registros = cursor.fetchall()
+        for registros in registros:
+            
+            rui = registros[0]
+        try:
+            rui
+            deletar=("carro")
+        except NameError:
+            choice = QtGui.QMessageBox.question(self, 'Extract!',
+                                            " Código Não Existente ?",
+                                            QtGui.QMessageBox.Ok)
+            print ("Bem, não foi definido depois de tudo!")
+        
+        
+        
+        
+        else:
+         
+            if text == "ValorVenda":
+                puvenda = self.txtnovoitem.text()
+                prounidade = len (puvenda)
+                try:
+                    ppvalor = float(self.txtnovoitem.text())
+                    valor = 'VALOR SERTO'
+                except ValueError:
+                    valor =" valor errado? "
+                    
+                if 0 == prounidade    :
+                        choice = QtGui.QMessageBox.question(self, 'Extract!',
+                                            "O campo Novo Item esta Vaz",
+                                             QtGui.QMessageBox.Ok)   
+                elif valor == " valor errado? ":
+                    choice = QtGui.QMessageBox.question(self, 'Extract!',
+                                            "O campo Valor de Venda só aceita Números !",
+                                            QtGui.QMessageBox.Ok  )
+                else:
+                    db= pymysql.connect(** comfig)# criando ponteiro que o intermediario 
+                    cursor = db.cursor()
+                    comando = ("update  LojaDB.Produtos " " set  ValorVenda = %s  where Codigo = %s ")
+                    text = self.cb.currentText()
+                    varcodigo = self.txtcodigoproduto.text()
+                    varvalor = float(self.txtnovoitem.text())
+                    dados =(varvalor,varcodigo)
+                    cursor.execute (comando,dados)
+                    db.commit()
+                    print('ja foi')
+
+                    cursor.close()
+                    db.close 
+            
+            elif text == "UnidadedeMedida":
+                punidade = self.txtnovoitem.text()
+                prounidade = len (punidade)
+                if 0 == prounidade  :
+                    choice = QtGui.QMessageBox.question(self, 'Extract!',
+                                            "O campo Novo Item esta Vazio !",
+                                            QtGui.QMessageBox.Ok  )
+                elif 3 < prounidade:
+                    choice = QtGui.QMessageBox.question(self, 'Extract!',
+                                            "O campo  Unidade  de Medida  suporta só 3 letras !",
+                                            QtGui.QMessageBox.Ok)
+        
+                else:
+                    db= pymysql.connect(** comfig)# criando ponteiro que o intermediario 
+                    cursor = db.cursor()
+                    comando = ("update  LojaDB.Produtos " " set  UnidadeMedida = %s  where Codigo = %s ")
+                    text = self.cb.currentText()
+                    varcodigo =self.txtcodigoproduto.text()
+                    varvalor = self.txtnovoitem.text()
+                    dados =(varvalor,varcodigo)
+                    cursor.execute (comando,dados)
+                    db.commit()
+                    print('atualisou')
+
+                    cursor.close()
+                    db.close
+            
+            elif text == "Nome":
+                pnome = self.txtnovoitem.text()
+                pronome = len(pnome)
+                
+                if 0 == pronome  :
+                    choice = QtGui.QMessageBox.question(self, 'Extract!',
+                                            "O campo Novo Item esta Vazio !",
+                                            QtGui.QMessageBox.Ok  )
+                if 50 < pronome:
+                    choice = QtGui.QMessageBox.question(self, 'Extract!',
+                                                        "O canpo Nome suporta só 50 letras",
+                                                        QtGui.QMessageBox.Ok)
+                else:
+                    db= pymysql.connect(** comfig)# criando ponteiro que o intermediario 
+                    cursor = db.cursor()
+                    comando = ("update  LojaDB.Produtos " " set  Nome = %s  where Codigo = %s ")
+                    text = self.cb.currentText()
+                    varcodigo = self.txtcodigoproduto.text()
+                    varvalor =  self.txtnovoitem.text()
+                    dados =(varvalor,varcodigo)
+                    cursor.execute (comando,dados)
+                    db.commit()
+                    print('Atualizado')
+
+                    cursor.close()
+                    db.close
+        
+            elif text == "Peso":
+                pesso = self.txtnovoitem.text()
+                propeso = len( pesso)
+                try:
+                    ppeso = float(self.txtnovoitem.text())
+                    peso ="PESO SERTO"
+                except ValueError:
+                    peso =" Peso errado ? "
+                    
+                if 0 == propeso  :
+                        choice = QtGui.QMessageBox.question(self, 'Extract!',
+                                            "O campo Novo Item esta Vazio !",
+                                            QtGui.QMessageBox.Ok  )
+                    
+                elif peso == " Peso errado ? ":
+                    choice = QtGui.QMessageBox.question(self, 'Extract!',
+                                            "O campo Peso só aceita Números !",
+                                            QtGui.QMessageBox.Ok) 
+                else:  
+                    peso =" Peso errado ? "
+                    db= pymysql.connect(** comfig)# criando ponteiro que o intermediario 
+                    cursor = db.cursor()
+                    comando = ("update  LojaDB.Produtos " " set  Peso = %s  where Codigo = %s ")
+                    text = self.cb.currentText()
+                    varcodigo = self.txtcodigoproduto.text()
+                    varvalor = float(self.txtnovoitem.text())
+                    dados =(varvalor,varcodigo)
+                    cursor.execute (comando,dados)
+                    db.commit()
+                    print('Atualizado')
+
+                    cursor.close()
+                    db.close
+        
+            elif text == "CodigoEAN":
+                pean = self.txtnovoitem.text()
+                proean = len (pean)
+                if 0 ==  proean  :
+                        choice = QtGui.QMessageBox.question(self, 'Extract!',
+                                            "O campo Novo Item esta Vaz",
+                                             QtGui.QMessageBox.Ok)
+                elif 13 < proean:
+                    choice = QtGui.QMessageBox.question(self, 'Extract!',
+                                            "O campo  CódigoEAN suporta só 13 letras !",
+                                            QtGui.QMessageBox.Ok)
+                else:
+                    db= pymysql.connect(** comfig)# criando ponteiro que o intermediario 
+                    cursor = db.cursor()
+                    comando = ("update  LojaDB.Produtos " " set  CodigoEAN = %s  where Codigo = %s ")
+                    text = self.cb.currentText()
+                    varcodigo = self.txtcodigoproduto.text()
+                    varvalor = self.txtnovoitem.text()
+                    dados =(varvalor,varcodigo)
+                    cursor.execute (comando,dados)
+                    db.commit()
+                    print('Atualizado')
+
+                    cursor.close()
+                    db.close
+        
+            elif text == "CodigoMoeda":
+                pmoeda = self.txtnovoitem.text()
+                promoeda = len (pmoeda)
+                if 0 ==  promoeda  :
+                        choice = QtGui.QMessageBox.question(self, 'Extract!',
+                                            "O campo Novo Item esta Vaz",
+                                             QtGui.QMessageBox.Ok)
+                elif 3 < promoeda:
+                    choice = QtGui.QMessageBox.question(self, 'Extract!',
+                                            "O campo  Código Moeda suporta só 3 letras !",
+                                             QtGui.QMessageBox.Ok)
+                else:
+                    db= pymysql.connect(** comfig)# criando ponteiro que o intermediario 
+                    cursor = db.cursor()
+                    comando = ("update  LojaDB.Produtos " " set  CodigoMoeda = %s  where Codigo = %s ")
+                    text = self.cb.currentText()
+                    varcodigo = self.txtcodigoproduto.text()
+                    varvalor = self.txtnovoitem.text()
+                    dados =(varvalor,varcodigo)
+                    cursor.execute (comando,dados)
+                    db.commit()
+                    print('Atualizado')
+
+                    cursor.close()
+                    db.close
+            
+            elif text == "PrecoCompra":
+                ppreco = self.txtnovoitem.text()
+                propreco = len (ppreco)
+                try:
+                    ppeso = float(self.txtnovoitem.text())
+                    peso ="PESO SERTO"
+                except ValueError:
+                    peso =" Peso errado ? "
+               
+                if 0 == propreco   :
+                        choice = QtGui.QMessageBox.question(self, 'Extract!',
+                                            "O campo Novo Item esta Vaz",
+                                             QtGui.QMessageBox.Ok)    
+                    
+                
+                if peso == " Peso errado ? ":
+                    choice = QtGui.QMessageBox.question(self, 'Extract!',
+                                            "O campo Peso só aceita Números !",
+                                            QtGui.QMessageBox.Ok) 
+                else:  
+                    peso =" Peso errado ? "
+                    db= pymysql.connect(** comfig)# criando ponteiro que o intermediario 
+                    cursor = db.cursor()
+                    comando = ("update  LojaDB.Produtos " " set  PrecoCompra = %s  where Codigo = %s ")
+                    text = self.cb.currentText()
+                    varcodigo = self.txtcodigoproduto.text()
+                    varvalor = float(self.txtnovoitem.text())
+                    dados =(varvalor,varcodigo)
+                    cursor.execute (comando,dados)
+                    db.commit()
+                    print('Atualizado')
+
+                    cursor.close()
+                    db.close
+            
+            else:
+                print("nao tem ")
+    
+       
+            
+        
+def main():
+    app = QtGui.QApplication(sys.argv)
+    ui = ClasseAPP()
+    sys.exit(app.exec_())
+        
+if __name__ == '__main__':
+    main()
