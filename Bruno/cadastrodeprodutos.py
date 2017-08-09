@@ -1,7 +1,10 @@
+# -*- coding: utf-8 -*-
+
 import sys
 from PyQt4 import QtCore,QtGui
 
 import pymysql
+from builtins import str
 
 
 
@@ -37,7 +40,7 @@ class ClasseAPP(QtGui.QWidget):
         
     def home(self):
         
-        self.lbcodigo = QtGui.QLabel("Codigo ",self)
+        self.lbcodigo = QtGui.QLabel("Código ",self)
         self.lbcodigo.setGeometry(20, 40, 71, 18)
         
         self.txtcodigo = QtGui.QLineEdit(self)
@@ -65,13 +68,13 @@ class ClasseAPP(QtGui.QWidget):
         self.txtcodigoean = QtGui.QLineEdit(self)
         self.txtcodigoean.setGeometry(QtCore.QRect(20, 200, 191, 21))
         
-        self.lblcodigoean = QtGui.QLabel("Codigo  EAN",self)
+        self.lblcodigoean = QtGui.QLabel("Código  EAN",self)
         self.lblcodigoean.setGeometry(20, 180, 141, 18)
         
         self.txtcodigomoeda = QtGui.QLineEdit(self)
         self.txtcodigomoeda.setGeometry(450, 150, 191, 21)
         
-        self.lblcodigomoeda = QtGui.QLabel("Codigo Moeda",self)
+        self.lblcodigomoeda = QtGui.QLabel("Código Moeda",self)
         self.lblcodigomoeda.setGeometry(450, 130, 141, 18)
         
         self.txtpreco = QtGui.QLineEdit(self)
@@ -83,14 +86,14 @@ class ClasseAPP(QtGui.QWidget):
         self.txtvalor = QtGui.QLineEdit(self)
         self.txtvalor.setGeometry(240, 200, 191, 21)
       
-        self.lblvalor = QtGui.QLabel("Preco de compra",self)
+        self.lblvalor = QtGui.QLabel("Preço de compra",self)
         self.lblvalor.setGeometry(240, 180, 141, 18)
         
         self.tabela = QtGui.QTableWidget(3,20,self)
         self.tabela.setGeometry(20, 270, 645, 192)
         self.tabela.setColumnCount(8)
         self.tabela.setRowCount(10)
-        self.tabela.setHorizontalHeaderLabels(('Codigo', 'Nome', 'Unidade de Medida','Peso kg','Codigo Ean',' Codigo Moeda  ','Preco de compra ','Valor de venda'  ))
+        self.tabela.setHorizontalHeaderLabels(('Código', 'Nome', 'Unidade de Medida','Peso kg','Código Ean',' Código Moeda  ','Preço de compra ','Valor de venda'  ))
         
         
         self.deleti =QtGui.QLabel("Excluir pelo Código",self)
