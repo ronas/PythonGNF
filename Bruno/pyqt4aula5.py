@@ -1,6 +1,9 @@
+#!/usr/bin/python 
+# -*- coding: utf-8 -*- 
 import sys
-from PyQt4 import QtCore,QtGui
 import pymysql
+from PyQt4 import QtCore,QtGui
+
   
   
 comfig ={'host':'localhost',# criando metodo de entrada do Mysql
@@ -10,7 +13,7 @@ comfig ={'host':'localhost',# criando metodo de entrada do Mysql
          'password':'34387'}
 db= pymysql.connect(** comfig)# criando ponteiro que o intermediario 
 cursor = db.cursor()
-  
+
 class ClasseAPP(QtGui.QWidget):
      
     def __init__(self):
@@ -29,7 +32,7 @@ class ClasseAPP(QtGui.QWidget):
     
         self.btnSair = QtGui.QPushButton('Sair')
         
-        self.btnSair.clicked.connect(self.sair)# metodo clique no botão  sair 
+        self.btnSair.clicked.connect(self.sair)
         
         self.btnbuscar =  QtGui.QPushButton('Buscar')
         self.btnbuscar.clicked.connect(self.dbmontrarProdutos )

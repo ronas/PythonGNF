@@ -20,7 +20,7 @@ class ClasseAPP(QtGui.QWidget):
     
         self.btnSair = QtGui.QPushButton('Sair')
         
-        self.btnSair.clicked.connect(self.sair)# metodo clique no botão  sair 
+        self.btnSair.clicked.connect(self.sair) 
         
     
         self.lblCodigo = QtGui.QLabel('Codigo')
