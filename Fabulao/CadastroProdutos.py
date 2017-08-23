@@ -6,10 +6,10 @@ from PyQt4 import QtGui
 import pymysql
 
 config = {
-    'host':'localhost',
-    'port' : 3306,
-    'database' : 'LojaDB',
-    'user' : 'root',
+    'host': 'localhost',
+    'port': 3306,
+    'database': 'LojaDB',
+    'user': 'root',
     'password' : 'fbl1978'
 }
 
@@ -46,7 +46,12 @@ class ClasseAPP(QtGui.QWidget):
         self.btnBuscar.clicked.connect(self.dbMostrarProdutos)
         self.btnSair = QtGui.QPushButton('Sair' ,self)
         self.btnSair.clicked.connect(self.Sair)
-
+        self.btnIncluir = QtGui.QPushButton('Incluir' ,self)
+        self.btnIncluir.clicked.connect(self.dbIncluirProdutos)
+        self.btnExcluir = QtGui.QPushButton('Excluir' ,self)
+        self.btnExcluir.clicked.connect(self.dbExcluirProdutos)
+        self.btnAtualizar = QtGui.QPushButton('Atualizar' ,self)
+        self.btnAtualizar.clicked.connect(self.dbAtualizarProdutos)
         self.grid = QtGui.QGridLayout()
         self.grid.setSpacing(10)  
 
@@ -68,16 +73,72 @@ class ClasseAPP(QtGui.QWidget):
         self.grid.addWidget(self.txtValorVenda,8,1)
         self.grid.addWidget(self.btnSair,9,1)
         self.grid.addWidget(self.btnBuscar,9,0)
+        self.grid.addWidget(self.btnIncluir,10,1)
+        self.grid.addWidget(self.btnExcluir,10,0)
+        self.grid.addWidget(self.btnAtualizar,11,1)
         self.setLayout(self.grid)
         self.show()
+
+    def dbIncluirProdutos(self):
+        
+        db = pymysql.connect(**config)
+        cursor = db.cursor()
+        comando = ( 
+            "INSERT INTO LojaDB.Produtos (Codigo, Nome, UnidadeMedida, Peso, CodigoEAN, CodigoMoeda, CodigoCompra, ValorVenda) "
+            "VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+        )
+
+
+        dados = (self.txtCodigo.text(),self.txtNome.text())
+
+        cursor.execute(comando, dados)
+        db.commit()
+
+        cursor.close()
+        db.close()
+
+    def dbExcluirProdutos(self):
+        
+        db = pymysql.connect(**config)
+        cursor = db.cursor()
+        comando = ('delete * from LojaDB.Produtos'
+        "where codigo = (%s) "
+        )
+
+        dados = (self.txtCodigo.text, self.txtNome.text())
+
+        cursor.execute(comando, dados)
+        db.commit()
+
+        cursor.close()
+        db.close()
+
+    def dbAtualizarProdutos(self):
+        
+        db = mysql.connector.connect(**config)
+        cursor = db.cursor()
+        comando = ('update * LojaDB.Produtos '
+        'set precocompra = %s  where codigo =  %s '
+        )
+        
+        dados = (self.txtCodigo.text, self.txtNome.text())
+
+        cursor.execute(comando, dados)
+        db.commit()
+
+        cursor.close
+        db.close()
 
     def dbMostrarProdutos(self):
 
         db = pymysql.connect(**config)
         cursor = db.cursor()
         comando = 'select * from LojaDB.Produtos'
-        cursor.execute(comando)
-        registros = cursor.fetchall()
+        cursor.execute(comando, dados)
+        db.commit()
+
+        cursor.close()
+        db.close()
 
         for registro in registros:
             self.txtCodigo.setText(registro[0])
@@ -88,6 +149,9 @@ class ClasseAPP(QtGui.QWidget):
             self.txtCodigoMoeda.setText(registro[5])
             self.txtPrecoCompra.setText(str(registro[6]))
             self.txtValorVenda.setText(str(registro[7]))
+            self.txtIncluir.text(registro[8])
+            self.txtExcluir.Text(registro[9])
+            self.txtAtualizar.Text(registro[10])
             break
     
     def Sair(self):

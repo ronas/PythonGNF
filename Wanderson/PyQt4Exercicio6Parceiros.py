@@ -9,7 +9,7 @@ config = {
     'user': 'root',
     'password': '12345'
      }
-class classApp(QtGui.QWidget):
+class classApp(QtGui.QWidget):bay
 
     def __init__(self):
         super(classApp,self).__init__()
