@@ -68,9 +68,9 @@ class classApp(QtGui.QWidget):
             "update LojaDB.Produtos "
             "set precocompra = %s where codigo = %s "
             )
-        varcodigo = self.txtCodigoAtualizar.text()
-        varvalor = self.txtPrecoCompraAtualizar.text()
-        dados =(varvalor, varcodigo)
+        varcodigoatualizar
+
+        dados =(, varcodigoatualizar)
         cursor.execute(comando, dados)
         db.commit()
         cursor.close
@@ -174,8 +174,6 @@ class classApp(QtGui.QWidget):
         self.grid.addWidget(self.btnDeletar,10,2)
         self.grid.addWidget(self.lblCodigoAtualizar,11,0)
         self.grid.addWidget(self.txtCodigoAtualizar,11,1)
-        self.grid.addWidget(self.lblPrecoCompraAtualizar,12,0)
-        self.grid.addWidget(self.txtPrecoCompraAtualizar,12,1)
         self.grid.addWidget(self.btnAtualizar,13,1)
         
         self.setLayout(self.grid)
