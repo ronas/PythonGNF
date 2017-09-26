@@ -99,7 +99,8 @@ class ClasseAPP(QtGui.QWidget):
         self.btnincluir = QtGui.QPushButton("Inserir",self)
         self.btnincluir.setGeometry(20,230, 106, 28)
         self.btnincluir.clicked.connect(self. InserirDados)
-       
+        self.btnincluir.setIcon(QtGui.QIcon('add.png'))
+        
         
         
         
