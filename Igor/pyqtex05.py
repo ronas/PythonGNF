@@ -1,0 +1,2 @@
+import classe pymysql
+declara
