@@ -47,8 +47,14 @@ class ClasseAPP(QtGui.QWidget):
         
         self.txtnome = QtGui.QLineEdit(self)
         self.txtnome.setGeometry(20, 100, 621, 21)
+
+       
+        self.pic = QtGui.QLabel(self)
+       
+        self.pic.setPixmap(QtGui.QPixmap("palet03.png"))
+        self.pic.setGeometry(550, 5, 621,100)
         
-        
+
         self.txtunidade = QtGui.QLineEdit(self)
         self.txtunidade.setGeometry(20, 150, 191, 21)
         
