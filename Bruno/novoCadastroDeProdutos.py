@@ -109,22 +109,32 @@ class ClasseAPP(QtGui.QWidget):
         self.btncomsuta = QtGui.QPushButton("Comsultar ",self)
         self.btncomsuta.setGeometry(140, 230, 106, 28)
         self.btncomsuta.clicked.connect(self.create_comsuta)
+        self.btncomsuta.clicked.connect(self. InserirDados)
+        self.btncomsuta.setIcon(QtGui.QIcon('repeat.png'))
         
         
         self.btnexcluir = QtGui.QPushButton("Excluir",self)
         self.btnexcluir.setGeometry(140, 485, 106, 28)
         self.btnexcluir.clicked.connect(self.EXcluir)
+        self.btnexcluir.clicked.connect(self. InserirDados)
+        self.btnexcluir.setIcon(QtGui.QIcon('remove.png'))
        
        
         self.btnatualizar = QtGui.QPushButton("Atualizar",self)
         self.btnatualizar.setGeometry(20,485, 106, 28)
         self.btnatualizar.clicked.connect(self. ATualizar)
-         
+        self.btnatualizar.clicked.connect(self. InserirDados)
+        self.btnatualizar.setIcon(QtGui.QIcon('up.png'))
        
         
         self.btnsair = QtGui.QPushButton("Sair",self)
         self.btnsair.setGeometry(260,485, 106, 28)
         self.btnsair.clicked.connect(self.sair)
+        self.btnsair .clicked.connect(self. InserirDados)
+        self.btnsair .setIcon(QtGui.QIcon('accept.png'))
+       
+
+
         self.TelaExcluir = Excluir(self)
         self.TelaAtulizar = Atualizar(self)
         
