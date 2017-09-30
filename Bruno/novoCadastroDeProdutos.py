@@ -30,7 +30,7 @@ class ClasseAPP(QtGui.QWidget):
         self.setGeometry(300,100,0,0)
         self.setFixedSize(700,550)
         self.setWindowTitle("Produtos")
-        self.setWindowIcon(QtGui.QIcon('pythonlogo.png'))
+        self.setWindowIcon(QtGui.QIcon('palet03.png'))
         
         self.home()
         
@@ -105,31 +105,28 @@ class ClasseAPP(QtGui.QWidget):
         self.btnincluir = QtGui.QPushButton("Inserir",self)
         self.btnincluir.setGeometry(20,230, 106, 28)
         self.btnincluir.clicked.connect(self. InserirDados)
+        self.btnincluir.clicked.connect(self.create_comsuta)
         self.btnincluir.setIcon(QtGui.QIcon('add.png'))
         
         
         
         
         
+        self.create_comsuta()
         
-        self.btncomsuta = QtGui.QPushButton("Comsultar ",self)
-        self.btncomsuta.setGeometry(140, 230, 106, 28)
-        self.btncomsuta.clicked.connect(self.create_comsuta)
-        self.btncomsuta.clicked.connect(self. InserirDados)
-        self.btncomsuta.setIcon(QtGui.QIcon('repeat.png'))
         
         
         self.btnexcluir = QtGui.QPushButton("Excluir",self)
         self.btnexcluir.setGeometry(140, 485, 106, 28)
         self.btnexcluir.clicked.connect(self.EXcluir)
-        self.btnexcluir.clicked.connect(self. InserirDados)
+    
         self.btnexcluir.setIcon(QtGui.QIcon('remove.png'))
        
        
         self.btnatualizar = QtGui.QPushButton("Atualizar",self)
         self.btnatualizar.setGeometry(20,485, 106, 28)
         self.btnatualizar.clicked.connect(self. ATualizar)
-        self.btnatualizar.clicked.connect(self. InserirDados)
+        
         self.btnatualizar.setIcon(QtGui.QIcon('up.png'))
        
         
@@ -501,6 +498,13 @@ class Atualizar(QtGui.QDialog):
         self.lblcodigoproduto .setGeometry(20, 25, 200, 18)
         self.txtcodigoproduto = QtGui.QLineEdit(self)
         self.txtcodigoproduto.setGeometry(20,50, 150, 21)
+
+        self.btnatualizar = QtGui.QPushButton('Atualizar',self)
+        self.btnatualizar.setGeometry(520,45, 120, 28)
+        self.btnatualizar.clicked.connect(self.Atualizar)
+        self.btnatualizar.setIcon(QtGui.QIcon('up.png'))
+
+       
         
         self.lblcoluna =QtGui.QLabel("Colunas",self)
         self.lblcoluna.setGeometry(220, 23, 141, 18)
@@ -520,10 +524,7 @@ class Atualizar(QtGui.QDialog):
         self.txtnovoitem  = QtGui.QLineEdit(self)
         self.txtnovoitem .setGeometry(350, 50, 160, 21)
         
-        self.btnatualizar = QtGui.QPushButton("Atualizar",self)
-        self.btnatualizar.setGeometry(520,45, 120, 28)
-        self.btnatualizar.clicked.connect(self.Atualizar)
-        
+
     def Atualizar(self):
         text = self.cb.currentText()
         db= pymysql.connect(** comfig)# criando ponteiro que o intermediario 
