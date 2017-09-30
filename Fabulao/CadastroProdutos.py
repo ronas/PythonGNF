@@ -84,8 +84,8 @@ class ClasseAPP(QtGui.QWidget):
         db = pymysql.connect(**config)
         cursor = db.cursor()
         comando = ( 
-            "INSERT INTO LojaDB.Produtos (Codigo, Nome, UnidadeMedida, Peso, CodigoEAN, CodigoMoeda, CodigoCompra, ValorVenda) "
-            "VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+            'INSERT INTO LojaDB.Produtos (Codigo, Nome, UnidadeMedida, Peso, CodigoEAN, CodigoMoeda, CodigoCompra, ValorVenda) '
+            'VALUES (%s, %s, %s, %s, %s, %s, %s, %s)'
         )
 
 
@@ -101,11 +101,11 @@ class ClasseAPP(QtGui.QWidget):
         
         db = pymysql.connect(**config)
         cursor = db.cursor()
-        comando = ('delete * from LojaDB.Produtos'
-        "where codigo = (%s) "
+        comando = ('delete  from LojaDB.Produtos '
+        'where codigo = (%s) '
         )
 
-        dados = (self.txtCodigo.text, self.txtNome.text())
+        dados = self.txtCodigo.text()
 
         cursor.execute(comando, dados)
         db.commit()
@@ -129,7 +129,7 @@ class ClasseAPP(QtGui.QWidget):
         cursor.close
         db.close()
 
-    def dbMostrarProdutos(self):
+    def dbBuscarProdutos(self):
 
         db = pymysql.connect(**config)
         cursor = db.cursor()
@@ -152,6 +152,7 @@ class ClasseAPP(QtGui.QWidget):
             self.txtIncluir.text(registro[8])
             self.txtExcluir.Text(registro[9])
             self.txtAtualizar.Text(registro[10])
+            self.txtBuscar.Text(registro[11])
             break
     
     def Sair(self):
