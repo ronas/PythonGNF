@@ -114,7 +114,12 @@ class ClasseAPP(QtGui.QWidget):
         
         self.create_comsuta()
         
-        
+        self.btncomsuta = QtGui.QPushButton("Comsultar ",self) 
+        self.btncomsuta.setGeometry(140, 230, 106, 28) 
+        self.btncomsuta.clicked.connect(self.create_comsuta) 
+         
+        self.btncomsuta.setIcon(QtGui.QIcon('repeat.png')) 
+
         
         self.btnexcluir = QtGui.QPushButton("Excluir",self)
         self.btnexcluir.setGeometry(140, 485, 106, 28)
@@ -424,6 +429,7 @@ class Excluir(QtGui.QDialog):
         self.deleti.setGeometry(20, 25, 200, 18)
         self.txtdeleti = QtGui.QLineEdit(self)
         self.txtdeleti.setGeometry(20,50, 200, 21)
+        
         
         
         
