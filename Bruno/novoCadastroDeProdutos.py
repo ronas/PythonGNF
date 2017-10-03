@@ -5,12 +5,12 @@ import pymysql
 
 varBancoDeDados = 'LojaDB'
 
-comfig ={'host':'localhost',
+config ={'host':'localhost',
          'port':3306,
          'database':varBancoDeDados,
          'user':'root',
-         'password':'12345'}
-db= pymysql.connect(** comfig)
+         'password':'34387'}
+db= pymysql.connect(** config)
 cursor = db.cursor()
 
 
@@ -158,9 +158,9 @@ class ClasseAPP(QtGui.QWidget):
       
         
     def InserirDados (self):
-        db= pymysql.connect(** comfig)# criando ponteiro que o intermediario 
+        db= pymysql.connect(** config)# criando ponteiro que o intermediario 
         cursor = db.cursor()
-        comando =("select Codigo from  LojaDB.Produtos " " WHERE Codigo = %s " )
+        comando =("select Codigo from " + varBancoDeDados + ".Produtos " " WHERE Codigo = %s " )
         fui = self.txtcodigo.text() 
         cursor.execute (comando,fui)
         registros = cursor.fetchall()
@@ -354,11 +354,11 @@ class ClasseAPP(QtGui.QWidget):
             else:
             
         
-                db= pymysql.connect(** comfig)# criando ponteiro que o intermediario 
+                db= pymysql.connect(** config)# criando ponteiro que o intermediario 
                 cursor = db.cursor()
         
         
-                comando =("insert into LojaDB .Produtos (Codigo,Nome,UnidadeMedida,Peso,CodigoEAN,CodigoMoeda,PrecoCompra,ValorVenda) "  " values (%s,%s,%s,%s,%s,%s,%s,%s)" )  # meto
+                comando =("insert into " + varBancoDeDados + " .Produtos (Codigo,Nome,UnidadeMedida,Peso,CodigoEAN,CodigoMoeda,PrecoCompra,ValorVenda) "  " values (%s,%s,%s,%s,%s,%s,%s,%s)" )  # meto
             
                 pcodigo = self.txtcodigo .text()
 
@@ -390,7 +390,7 @@ class ClasseAPP(QtGui.QWidget):
                 
     def create_comsuta (self):
         
-        db= pymysql.connect(** comfig)# criando ponteiro que o intermediario 
+        db= pymysql.connect(** config)# criando ponteiro que o intermediario 
         cursor = db.cursor()
         
         cursor.execute("select * from " + varBancoDeDados + ".Produtos")# comando mostrando itenis 
@@ -437,9 +437,9 @@ class Excluir(QtGui.QDialog):
         self.btnexcluir.clicked.connect(self.txtdeleti.clear)
        
     def deletou (self):
-        db= pymysql.connect(** comfig)# criando ponteiro que o intermediario 
+        db= pymysql.connect(** config)# criando ponteiro que o intermediario 
         cursor = db.cursor()
-        comando =("select Codigo from  LojaDB.Produtos " " WHERE Codigo = %s " )
+        comando =("select Codigo from" + varBancoDeDados + ".Produtos " " WHERE Codigo = %s " )
         fui = self.txtdeleti.text() 
         cursor.execute (comando,fui)
         registros = cursor.fetchall()
@@ -465,10 +465,10 @@ class Excluir(QtGui.QDialog):
             else:
                 print("pode apagar")
         
-                db= pymysql.connect(** comfig)# criando ponteiro que o intermediario 
+                db= pymysql.connect(** config)# criando ponteiro que o intermediario 
                 cursor = db.cursor()
         
-                comando=(" delete from LojaDB.Produtos " " where Codigo = %s ")
+                comando=(" delete from " + varBancoDeDados + " .Produtos " " where Codigo = %s ")
                 varcodigo = self.txtdeleti.text()
                 cursor.execute(comando, varcodigo)
                 db.commit()
@@ -531,9 +531,9 @@ class Atualizar(QtGui.QDialog):
 
     def Atualizar(self):
         text = self.cb.currentText()
-        db= pymysql.connect(** comfig)# criando ponteiro que o intermediario 
+        db= pymysql.connect(** config)# criando ponteiro que o intermediario 
         cursor = db.cursor()
-        comando =("select Codigo from  LojaDB.Produtos " " WHERE Codigo = %s " )
+        comando =("select Codigo from " + varBancoDeDados + " .Produtos " " WHERE Codigo = %s " )
         fui = self.txtcodigoproduto.text() 
         cursor.execute (comando,fui)
         registros = cursor.fetchall()
@@ -555,9 +555,9 @@ class Atualizar(QtGui.QDialog):
         else:
          
             if text == "ValorVenda":
-                db= pymysql.connect(** comfig)# criando ponteiro que o intermediario 
+                db= pymysql.connect(** config)# criando ponteiro que o intermediario 
                 cursor = db.cursor()
-                comando = ("update  LojaDB.Produtos " " set  ValorVenda = %s  where Codigo = %s ")
+                comando = ("update " + varBancoDeDados + ".Produtos " " set  ValorVenda = %s  where Codigo = %s ")
                 text = self.cb.currentText()
                 varcodigo = self.txtcodigoproduto.text()
                 varvalor = float(self.txtnovoitem.text())
@@ -570,9 +570,9 @@ class Atualizar(QtGui.QDialog):
                 db.close 
             
             elif text == "UnidadedeMedida":
-                db= pymysql.connect(** comfig)# criando ponteiro que o intermediario 
+                db= pymysql.connect(** config)# criando ponteiro que o intermediario 
                 cursor = db.cursor()
-                comando = ("update  LojaDB.Produtos " " set  UnidadedeMedada = %s  where Codigo = %s ")
+                comando = ("update " + varBancoDeDados + ".Produtos " " set  UnidadedeMedada = %s  where Codigo = %s ")
                 text = self.cb.currentText()
                 varcodigo =self.txtcodigoproduto.text()
                 varvalor = float (self.txtcodigoproduto.text())
@@ -585,9 +585,9 @@ class Atualizar(QtGui.QDialog):
                 db.close
             
             elif text == "Nome":
-                db= pymysql.connect(** comfig)# criando ponteiro que o intermediario 
+                db= pymysql.connect(** config)# criando ponteiro que o intermediario 
                 cursor = db.cursor()
-                comando = ("update  LojaDB.Produtos " " set  Nome = %s  where Codigo = %s ")
+                comando = ("update " + varBancoDeDados + ".Produtos " " set  Nome = %s  where Codigo = %s ")
                 text = self.cb.currentText()
                 varcodigo = self.txtcodigoproduto.text()
                 varvalor =  self.txtnovoitem.text()
@@ -600,9 +600,9 @@ class Atualizar(QtGui.QDialog):
                 db.close
         
             elif text == "Peso":
-                db= pymysql.connect(** comfig)# criando ponteiro que o intermediario 
+                db= pymysql.connect(** config)# criando ponteiro que o intermediario 
                 cursor = db.cursor()
-                comando = ("update  LojaDB.Produtos " " set  Peso = %s  where Codigo = %s ")
+                comando = ("update " + varBancoDeDados + ".Produtos " " set  Peso = %s  where Codigo = %s ")
                 text = self.cb.currentText()
                 varcodigo = self.txtcodigoproduto.text()
                 varvalor = float(self.txtnovoitem.text())
@@ -615,9 +615,9 @@ class Atualizar(QtGui.QDialog):
                 db.close
         
             elif text == "CodigoEAN":
-                db= pymysql.connect(** comfig)# criando ponteiro que o intermediario 
+                db= pymysql.connect(** config)# criando ponteiro que o intermediario 
                 cursor = db.cursor()
-                comando = ("update  LojaDB.Produtos " " set  CodigoEAN = %s  where Codigo = %s ")
+                comando = ("update " + varBancoDeDados + " .Produtos " " set  CodigoEAN = %s  where Codigo = %s ")
                 text = self.cb.currentText()
                 varcodigo = self.txtcodigoproduto.text()
                 varvalor = self.txtnovoitem.text()
@@ -630,9 +630,9 @@ class Atualizar(QtGui.QDialog):
                 db.close
         
             elif text == "CodigoMoeda":
-                db= pymysql.connect(** comfig)# criando ponteiro que o intermediario 
+                db= pymysql.connect(** config)# criando ponteiro que o intermediario 
                 cursor = db.cursor()
-                comando = ("update  LojaDB.Produtos " " set  CodigoMoeda = %s  where Codigo = %s ")
+                comando = ("update  " + varBancoDeDados + " .Produtos " " set  CodigoMoeda = %s  where Codigo = %s ")
                 text = self.cb.currentText()
                 varcodigo = self.txtcodigoproduto.text()
                 varvalor = self.txtnovoitem.text()
@@ -645,9 +645,9 @@ class Atualizar(QtGui.QDialog):
                 db.close
             
             elif text == "PrecoCompra":
-                db= pymysql.connect(** comfig)# criando ponteiro que o intermediario 
+                db= pymysql.connect(** config)# criando ponteiro que o intermediario 
                 cursor = db.cursor()
-                comando = ("update  LojaDB.Produtos " " set  PrecoCompra = %s  where Codigo = %s ")
+                comando = ("update " + varBancoDeDados + " .Produtos " " set  PrecoCompra = %s  where Codigo = %s ")
                 text = self.cb.currentText()
                 varcodigo = self.txtcodigoproduto.text()
                 varvalor = float(self.txtnovoitem.text())
@@ -660,9 +660,9 @@ class Atualizar(QtGui.QDialog):
                 db.close
             
             elif text == "ValorVenda":
-                db= pymysql.connect(** comfig)# criando ponteiro que o intermediario 
+                db= pymysql.connect(** config)# criando ponteiro que o intermediario 
                 cursor = db.cursor()
-                comando = ("update  LojaDB.Produtos " " set  ValorVenda = %s  where Codigo = %s ")
+                comando = ("update  " + varBancoDeDados + ".Produtos " " set  ValorVenda = %s  where Codigo = %s ")
                 text = self.cb.currentText()
                 varcodigo =self.txtcodigoproduto.text()
                 varvalor = float(self.txtnovoitem.text())
