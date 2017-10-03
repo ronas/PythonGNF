@@ -3,15 +3,13 @@ from PyQt4 import QtCore,QtGui
 
 import pymysql
 
-
-
-
+varBancoDeDados = 'LojaDB'
 
 comfig ={'host':'localhost',
          'port':3306,
-         'database':'LojaDB',
+         'database':varBancoDeDados,
          'user':'root',
-         'password':'34387'}
+         'password':'12345'}
 db= pymysql.connect(** comfig)
 cursor = db.cursor()
 
@@ -395,7 +393,7 @@ class ClasseAPP(QtGui.QWidget):
         db= pymysql.connect(** comfig)# criando ponteiro que o intermediario 
         cursor = db.cursor()
         
-        cursor.execute("select *from  LojaDB.Produtos")# comando mostrando itenis 
+        cursor.execute("select * from " + varBancoDeDados + ".Produtos")# comando mostrando itenis 
         self.tabela.setRowCount(0)
         for row, form in enumerate(cursor):
             self.tabela.insertRow(row)
