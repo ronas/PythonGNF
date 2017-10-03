@@ -9,7 +9,7 @@ import pymysql
 
 comfig ={'host':'localhost',
          'port':3306,
-         'database':'LojaDB',#
+         'database':'LojaDB',
          'user':'root',
          'password':'34387'}
 db= pymysql.connect(** comfig)
