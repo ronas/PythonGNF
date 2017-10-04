@@ -93,7 +93,7 @@ class ClasseAPP(QtGui.QWidget):
         self.tabela.setGeometry(20, 270, 645, 192)
         self.tabela.setColumnCount(8)
         self.tabela.setRowCount(10)
-        self.tabela.setHorizontalHeaderLabels(('Código', 'Nome', 'Unidade de Medida','Peso kg',' Código Moeda  ','Código Ean','Preço de compra ','Valor de venda'  ))
+        self.tabela.setHorizontalHeaderLabels(('Código', 'Nome', 'Unidade de Medida','Peso kg','Código Ean',' Código Moeda  ','Valor de venda','Preço de compra '  ))
         
         
 
