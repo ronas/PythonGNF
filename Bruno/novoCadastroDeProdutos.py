@@ -3,7 +3,6 @@ from PyQt4 import QtCore,QtGui
 
 import pymysql
 
-varBancoDeDados = 'LojaDBBuno'
 varCaminho = sys.path[0] + '/'
 
 config ={'host':'localhost',
