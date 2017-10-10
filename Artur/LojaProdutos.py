@@ -66,25 +66,18 @@ class classApp(QtGui.QWidget):
         cursor = db.cursor()
         comando = (
             "update LojaDB.Produtos "
-            "set precocompra = %s where codigo = %s "
+            "set razao = %s,set UnidadeMedida = %s,set Peso = %s,set CodigoEAN = %s,set CodigoMoeda = %s,PrecoCompra = %s,ValorVenda = %s where codigo = %s "
             )
-        varcodigoatualizar
+        varcodigoat = self.txtCodigo.text()
+        varrazaoat = self.txtRazao.text() 
 
-        dados =(, varcodigoatualizar)
+
+        dados =(, varcodigoat)
         cursor.execute(comando, dados)
         db.commit()
         cursor.close
         db.close    
-        
-        
-        
-        
-        
-        
-        
-        
-        
-    
+           
     def bdMostrarProdutos(self):
         db = pymysql.connect(**config)
         cursor = db.cursor()
@@ -169,12 +162,10 @@ class classApp(QtGui.QWidget):
         self.grid.addWidget(self.btnSair,9,1)
         self.grid.addWidget(self.btnBuscar,9,0)
         self.grid.addWidget(self.btnInserir,9,2)
-        self.grid.addWidget(self.lblCodigoDeletar,10,0)
-        self.grid.addWidget(self.txtCodigoDeletar,10,1)
-        self.grid.addWidget(self.btnDeletar,10,2)
-        self.grid.addWidget(self.lblCodigoAtualizar,11,0)
-        self.grid.addWidget(self.txtCodigoAtualizar,11,1)
-        self.grid.addWidget(self.btnAtualizar,13,1)
+        self.grid.addWidget(self.lblCodigoDeletar,8,0)
+        self.grid.addWidget(self.txtCodigoDeletar,8,1)
+        self.grid.addWidget(self.btnDeletar,9,3)
+        self.grid.addWidget(self.btnAtualizar,9,4)
         
         self.setLayout(self.grid)
         

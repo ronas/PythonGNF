@@ -43,7 +43,7 @@ class ClasseAPP(QtGui.QWidget):
         self.txtValorVenda = QtGui.QLineEdit()
 
         self.btnBuscar = QtGui.QPushButton('Buscar' ,self)
-        self.btnBuscar.clicked.connect(self.dbMostrarProdutos)
+        self.btnBuscar.clicked.connect(self.dbBuscarProdutos)
         self.btnSair = QtGui.QPushButton('Sair' ,self)
         self.btnSair.clicked.connect(self.Sair)
         self.btnIncluir = QtGui.QPushButton('Incluir' ,self)
@@ -84,12 +84,20 @@ class ClasseAPP(QtGui.QWidget):
         db = pymysql.connect(**config)
         cursor = db.cursor()
         comando = ( 
-            'INSERT INTO LojaDB.Produtos (Codigo, Nome, UnidadeMedida, Peso, CodigoEAN, CodigoMoeda, CodigoCompra, ValorVenda) '
+            'INSERT INTO LojaDB.Produtos (Codigo, Nome, UnidadeMedida, Peso, CodigoEAN, CodigoMoeda, PrecoCompra, ValorVenda) '
             'VALUES (%s, %s, %s, %s, %s, %s, %s, %s)'
         )
 
 
-        dados = (self.txtCodigo.text(),self.txtNome.text())
+        dados = (self.txtCodigo.text(),
+            self.txtNome.text(),
+            self.txtUnidadeMedida.text(),
+            self.txtPeso.text(),
+            self.txtCodigoEAN.text(),
+            self.txtCodigoMoeda.text(),
+            self.txtPrecoCompra.text(),
+            self.txtValorVenda.text(),
+            )
 
         cursor.execute(comando, dados)
         db.commit()
@@ -115,13 +123,22 @@ class ClasseAPP(QtGui.QWidget):
 
     def dbAtualizarProdutos(self):
         
-        db = mysql.connector.connect(**config)
+        db = pymysql.connect(**config)
         cursor = db.cursor()
-        comando = ('update * LojaDB.Produtos '
-        'set precocompra = %s  where codigo =  %s '
+        comando = ('update LojaDB.Produtos '
+        'set Nome = %s, UnidadeMedida = %s, Peso = %s, CodigoEAN = %s, CodigoMoeda = %s, PrecoCompra = %s, ValorVenda = %s  where Codigo =  %s '
         )
         
-        dados = (self.txtCodigo.text, self.txtNome.text())
+        dados = ( 
+            self.txtNome.text(),
+            self.txtUnidadeMedida.text(),
+            self.txtPeso.text(),
+            self.txtCodigoEAN.text(),
+            self.txtCodigoMoeda.text(),
+            self.txtPrecoCompra.text(),
+            self.txtValorVenda.text(),
+            self.txtCodigo.text(),
+        )
 
         cursor.execute(comando, dados)
         db.commit()
