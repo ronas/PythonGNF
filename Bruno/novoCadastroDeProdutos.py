@@ -10,7 +10,7 @@ config ={'host':'localhost',
          'port':3306,
          'database':varBancoDeDados,
          'user':'root',
-         'password':'12345'}
+         'password':'34387'}
 db= pymysql.connect(** config)
 cursor = db.cursor()
   
