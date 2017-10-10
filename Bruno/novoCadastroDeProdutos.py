@@ -4,7 +4,7 @@ from PyQt4 import QtCore,QtGui
 import pymysql
 
 varBancoDeDados = 'LojaDBBuno'
-varPath = sys.path[0] + '/'
+varCaminho = sys.path[0] + '/'
 
 config ={'host':'localhost',
          'port':3306,
@@ -26,7 +26,7 @@ class ClasseAPP(QtGui.QWidget):
         self.setGeometry(300,100,0,0)
         self.setFixedSize(700,550)
         self.setWindowTitle("Produtos")
-        self.setWindowIcon(QtGui.QIcon(varPath + 'palet03.png'))
+        self.setWindowIcon(QtGui.QIcon(varCaminho + 'palet03.png'))
         
         self.home()
         
@@ -47,7 +47,7 @@ class ClasseAPP(QtGui.QWidget):
        
         self.pic = QtGui.QLabel(self)
        
-        self.pic.setPixmap(QtGui.QPixmap(varPath + "palet03.png"))
+        self.pic.setPixmap(QtGui.QPixmap(varCaminho + "palet03.png"))
         self.pic.setGeometry(550, 5, 621,100)
         
 
@@ -102,7 +102,7 @@ class ClasseAPP(QtGui.QWidget):
         self.btnincluir.setGeometry(20,230, 106, 28)
         self.btnincluir.clicked.connect(self. InserirDados)
         self.btnincluir.clicked.connect(self.create_comsuta)
-        self.btnincluir.setIcon(QtGui.QIcon(varPath + 'add.png'))
+        self.btnincluir.setIcon(QtGui.QIcon(varCaminho + 'add.png'))
         
         
         
@@ -114,28 +114,28 @@ class ClasseAPP(QtGui.QWidget):
         self.btncomsuta.setGeometry(140, 230, 106, 28) 
         self.btncomsuta.clicked.connect(self.create_comsuta) 
          
-        self.btncomsuta.setIcon(QtGui.QIcon(varPath + 'repeat.png')) 
+        self.btncomsuta.setIcon(QtGui.QIcon(varCaminho + 'repeat.png')) 
 
         
         self.btnexcluir = QtGui.QPushButton("Excluir",self)
         self.btnexcluir.setGeometry(140, 485, 106, 28)
         self.btnexcluir.clicked.connect(self.EXcluir)
     
-        self.btnexcluir.setIcon(QtGui.QIcon(varPath + 'remove.png'))
+        self.btnexcluir.setIcon(QtGui.QIcon(varCaminho + 'remove.png'))
        
        
         self.btnatualizar = QtGui.QPushButton("Atualizar",self)
         self.btnatualizar.setGeometry(20,485, 106, 28)
         self.btnatualizar.clicked.connect(self. ATualizar)
         
-        self.btnatualizar.setIcon(QtGui.QIcon(varPath + 'up.png'))
+        self.btnatualizar.setIcon(QtGui.QIcon(varCaminho + 'up.png'))
        
         
         self.btnsair = QtGui.QPushButton("Sair",self)
         self.btnsair.setGeometry(260,485, 106, 28)
         self.btnsair.clicked.connect(self.sair)
         self.btnsair .clicked.connect(self. InserirDados)
-        self.btnsair .setIcon(QtGui.QIcon(varPath + 'accept.png'))
+        self.btnsair .setIcon(QtGui.QIcon(varCaminho + 'accept.png'))
        
 
 
@@ -414,7 +414,7 @@ class Excluir(QtGui.QDialog):
         self.setGeometry(450,260,0,0)
         self.setFixedSize(380,120)
         self.setWindowTitle("Excluir  Produtos")
-        self.setWindowIcon(QtGui.QIcon(varPath + 'pythonlogo.png'))
+        self.setWindowIcon(QtGui.QIcon(varCaminho + 'pythonlogo.png'))
         
         self.home()
         
@@ -489,7 +489,7 @@ class Atualizar(QtGui.QDialog):
         self.setGeometry(325,260,0,0)
         self.setFixedSize(650,120)
         self.setWindowTitle("Produtos")
-        self.setWindowIcon(QtGui.QIcon(varPath + 'pythonlogo.png'))
+        self.setWindowIcon(QtGui.QIcon(varCaminho + 'pythonlogo.png'))
         
         self.home()
         
@@ -504,7 +504,7 @@ class Atualizar(QtGui.QDialog):
         self.btnatualizar = QtGui.QPushButton('Atualizar',self)
         self.btnatualizar.setGeometry(520,45, 120, 28)
         self.btnatualizar.clicked.connect(self.Atualizar)
-        self.btnatualizar.setIcon(QtGui.QIcon(varPath + 'up.png'))
+        self.btnatualizar.setIcon(QtGui.QIcon(varCaminho + 'up.png'))
 
        
         
