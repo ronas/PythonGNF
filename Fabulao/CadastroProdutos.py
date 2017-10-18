@@ -80,7 +80,7 @@ class ClasseAPP(QtGui.QWidget):
         self.show()
 
     def dbIncluirProdutos(self):
-        
+
         db = pymysql.connect(**config)
         cursor = db.cursor()
         comando = ( 
@@ -89,13 +89,14 @@ class ClasseAPP(QtGui.QWidget):
         )
 
 
-        dados = (self.txtCodigo.text(),
+        dados = (
+            self.txtCodigo.text(),
             self.txtNome.text(),
             self.txtUnidadeMedida.text(),
             self.txtPeso.text(),
             self.txtCodigoEAN.text(),
             self.txtCodigoMoeda.text(),
-            self.txtPrecoCompra.text(),
+            self.txtPrecoCompra.text(), 
             self.txtValorVenda.text(),
             )
 
@@ -150,7 +151,20 @@ class ClasseAPP(QtGui.QWidget):
 
         db = pymysql.connect(**config)
         cursor = db.cursor()
-        comando = 'select * from LojaDB.Produtos'
+        comando = ('select * from LojaDB.Produtos'
+        'set Nome = %s, UnidadeMedida = %s, Peso = %s, CodigoEAN = %s, CodigoMoeda = %s, PrecoCompra = %s, ValorVenda = %s  where Codigo =  %s '
+        )
+        dados = ( 
+            self.txtNome.text(),
+            self.txtUnidadeMedida.text(),
+            self.txtPeso.text(),
+            self.txtCodigoEAN.text(),
+            self.txtCodigoMoeda.text(),
+            self.txtPrecoCompra.text(),
+            self.txtValorVenda.text(),
+            self.txtCodigo.text(),
+        )
+
         cursor.execute(comando, dados)
         db.commit()
 
