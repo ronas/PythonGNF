@@ -1,0 +1,8 @@
+Altura = input("digite a sua altura.")
+Peso = input ("digite seu peso.")
+#Altura = Altura.replace(",",".")
+#Peso = Peso.replace(",",".")
+Altura = float (Altura)
+Peso = float (Peso)
+IMC = Peso / (Altura*Altura)
+print ("O indice de imc e:",IMC) 
