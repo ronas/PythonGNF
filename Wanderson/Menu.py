@@ -55,7 +55,8 @@ while True:
           "m) Mostrar \n"
           "s) Sair \n")
     
-    OpcaoMenu = input("Digite a opcao");
+#    OpcaoMenu = input("Digite a opcao");
+    OpcaoMenu="i"
     if OpcaoMenu == 's':
         print("Sistema Encerrado")
         break
