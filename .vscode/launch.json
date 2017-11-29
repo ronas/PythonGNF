@@ -10,7 +10,7 @@
             "type": "python",
             "request": "launch",
             "stopOnEntry": true,
-            "pythonPath": "${config:python.pythonPath}",
+            "pythonPath": "python3.5",
             "program": "${file}",
             "cwd": "${workspaceRoot}",
             "env": {},
@@ -33,7 +33,7 @@
                 "pythonPath": "${env:SPARK_HOME}/bin/spark-submit.cmd"
             },
             "linux": {
-                "pythonPath": "${env:SPARK_HOME}/bin/spark-submit"
+                "pythonPath": "Python3.5"
             },
             "program": "${file}",
             "cwd": "${workspaceRoot}",
