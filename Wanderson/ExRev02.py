@@ -1,3 +1,5 @@
+import os
+os.system('clear')
 
 Altura = input ("Qual a altura?:")
 Largura = input ("Qual a largura?:")

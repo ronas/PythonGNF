@@ -1,3 +1,5 @@
+import os
+os.system('clear')
 
 Nome = input ("Digite o seu nome:")
 Idade = input ("Digite a sua idade:")
