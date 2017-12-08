@@ -135,7 +135,7 @@ class ClasseAPP(QtGui.QWidget):
         )
 
         cursor.execute(comando, dados)
-        db.commite()
+        db.commit()
         cursor.close()
         db.close()
 
@@ -167,7 +167,7 @@ class ClasseAPP(QtGui.QWidget):
         )
 
         cursor.execute(comando, dados)
-        db.commite()
+        db.commit()
         cursor.close()
         db.close()
 
@@ -198,7 +198,10 @@ class ClasseAPP(QtGui.QWidget):
             self.txtBloqueado.text()
         )
 
-        cursor.execute
+        cursor.execute(comando, dados)
+        db.commit()
+        cursor.close()
+        db.close()
 
     def dbAtualizarClientes(self):
         
@@ -208,6 +211,28 @@ class ClasseAPP(QtGui.QWidget):
         'set Razao = %s, '
 
         )
+
+        dados = (
+            self.txtRazao.text(),
+            self.txtCNPJ.text(),
+            self.txtEndereco.text(),
+            self.txtBairro.text(),
+            self.txtCEP.text(),
+            self.txtCidade.text(),
+            self.txtEstado.text(),
+            self.txtPais.text(),
+            self.txtContato.text(),
+            self.txtTelefone.text(),
+            self.txtEmail.text(),
+            self.txtLimitedeCredito.text(),
+            self.txtAprovadorFinanceiro.text(),
+            self.Bloqueado.text()
+        )
+
+        cursor.execute(comando, dados)
+        db.commit()
+        cursor.close()
+        db.close()
 
 
 
