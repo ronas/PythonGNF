@@ -30,7 +30,7 @@ class ClasseAPP(QtGui.QWidget):
         self.lblUnidadeMedida = QtGui.QLabel('UnidadeMedida')
         self.lblPeso = QtGui.QLabel('Peso')
         self.lblCodigoEAN = QtGui.QLabel('CodigoEAN')
-        self.lblCodigoMoeda = QtGui.QLabel('CodigoMoeda')
+        self.lblCodigoMoeda = QtGui.QLabel('Codigo#Moeda')
         self.lblPrecoCompra = QtGui.QLabel('PrecoCompra')
         self.lblValorVenda = QtGui.QLabel('ValorVenda')
         self.txtCodigo = QtGui.QLineEdit()

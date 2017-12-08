@@ -22,15 +22,15 @@ class ClasseAPP(QtGui.QWidget):
     def initUI(self):
 
         self.setWindowTitle('Parceiros')
-        self.resize(500, 250)
+        self.resize(500, 500)
         self.move(500, 500)
 
         self.lblCodigo = QtGui.QLabel('Codigo')
         self.lblRazao = QtGui.QLabel('Razao')
         self.lblCNPJ = QtGui.QLabel('CNPJ')
         self.lblEndereco = QtGui.QLabel('Endereco')
-        self.lblBairro = QtGui.QLaabel('Bairro')
-        self.lblCEP = QtGUi.QLabel('CEP')
+        self.lblBairro = QtGui.QLabel('Bairro')
+        self.lblCEP = QtGui.QLabel('CEP')
         self.lblCidade = QtGui.QLabel('Cidade')
         self.lblEstado = QtGui.QLabel('Estado')
         self.lblPais = QtGui.QLabel('Pais')
@@ -56,8 +56,8 @@ class ClasseAPP(QtGui.QWidget):
         self.txtAprovadorFinanceiro = QtGui.QLineEdit()
         self.txtBloqueado = QtGui.QLineEdit()
 
-        self.btnBuscar = QtGui.QPushButton('Consultar' ,self)
-        self.btnBuscar.clicked.connect(self.dbConsultarClientes)
+        self.btnConsultar = QtGui.QPushButton('Consultar' ,self)
+        self.btnConsultar.clicked.connect(self.dbConsultarClientes)
         self.btnIncluir = QtGui.QPushButton('Incluir' ,self)
         self.btnIncluir.clicked.connect(self.dbIncluirClientes)
         self.btnExcluir = QtGui.QPushButton('Excluir' ,self)
@@ -84,26 +84,131 @@ class ClasseAPP(QtGui.QWidget):
         self.grid.addWidget(self.lblCidade,7,0)
         self.grid.addWidget(self.txtCidade,7,1)
         self.grid.addWidget(self.lblEstado,8,0)
-        self.grid.addWidget(self.txtEStado,8,1)
+        self.grid.addWidget(self.txtEstado,8,1)
         self.grid.addWidget(self.lblPais,9,0)
         self.grid.addWidget(self.txtPais,9,1)
-        self.grid.addwidget(self.lblContato,10,0)
+        self.grid.addWidget(self.lblContato,10,0)
         self.grid.addWidget(self.txtContato,10,1)
         self.grid.addWidget(self.lblTelefone,11,0)
         self.grid.addWidget(self.txtTelefone,11,1)
         self.grid.addWidget(self.lblEmail,12,0)
         self.grid.addWidget(self.txtEmail,12,1)
         self.grid.addWidget(self.lblLimiteDeCredito,13,0)
-        self.grid.addwidget(self.txtLimiteDeCredito,13,1)
+        self.grid.addWidget(self.txtLimiteDeCredito,13,1)
         self.grid.addWidget(self.lblAprovadorFinanceiro,14,0)
         self.grid.addWidget(self.txtAprovadorFinanceiro,14,1)
-        self.grid.addWidget(self.btnSair,15,1)
-        self.grid.addWidget(self.btnBuscar,16,0)
-        self.grid.addWidget(self.btnIncluir,17,1)
-        self.grid.addWidget(self.btnExcluir,18,0)
-        self.grid.addWidget(self.btnAtualizar,19,1)
+        self.grid.addWidget(self.lblBloqueado,15,0)
+        self.grid.addWidget(self.txtBloqueado,15,1)
+        self.grid.addWidget(self.btnSair,16,1)
+        self.grid.addWidget(self.btnConsultar,17,0)
+        self.grid.addWidget(self.btnIncluir,18,1)
+        self.grid.addWidget(self.btnExcluir,19,0)
+        self.grid.addWidget(self.btnAtualizar,20,1)
         self.setLayout(self.grid)
         self.show()
+
+
+    def dbConsultarClientes(self):
+        
+        db = pymysql.connect(**config)
+        cursor =db.cursor()
+        comando( 'select * fron LojaDB.Parceiros'
+        'set, Razao = %s, CNPJ = %s, Endereco = %s, Bairro = %s, CEP = %s, Cidade = %s, Estado = %s, Pais = %s, Contato = %s, Telefone = %s, Email = %s, LimitedeCredito = %s, AprovadorFinanceiro = %s, Bloqurado = %s '        
+        )
+
+        dados = (
+
+            self.txtRazao.text(),
+            self.txtCNPJ.text(),
+            self.txtEndereco.text(),
+            self.txtBairro.text(),
+            self.txtCEP.text(),
+            self.txtCidade.text(),
+            self.txtEstado.text(),
+            self.txtPais.text(),
+            self.txtContato.text(),
+            self.txtTelefone.text(),
+            self.txtEmail.text(),
+            self.txtLimitedeCredito.text(),
+            self.txtAprovadorFinanceiro.text(),
+            self.txtBloqueado.text()
+        )
+
+        cursor.execute(comando, dados)
+        db.commite()
+        cursor.close()
+        db.close()
+
+
+    def dbIncluirClientes(self):
+        
+        db = pymysql.connect(**config)
+        cursor = db.cursor()
+        comando( 'INSERT INTO LojaDB.Parceiros (Codigo, Razao, CNPJ, Endereco, Bairro, CEP, Cidade, Estado, Pais, Contato, Telefone, Email, LimitedeCredito, AprovadorFinanceiro, Bloqueado) '
+            'VALUES (%, %, %, %, %, %, %, %, %, %, %, %, %, %, %)'     
+        )
+
+        dados = (
+            self.txtCodigo.text(),
+            self.txtRazao.text(),
+            self.txtCNPJ.text(),
+            self.txtEndereco.text(),
+            self.txtBairro.text(),
+            self.txtCEP.text(),
+            self.txtCidade.text(),
+            self.txtEstado.text(),
+            self.txtPais.text(),
+            self.txtContato.text(),
+            self.txtTelefone.text(),
+            self.txtEmail.text(),
+            self.txtLimitedeCredito.text(),
+            self.txtAprovadorFinanceiro.text(),
+            self.txtBloqueado.text()
+        )
+
+        cursor.execute(comando, dados)
+        db.commite()
+        cursor.close()
+        db.close()
+
+
+    def dbExcluirClientes(self):
+        
+        db = pymysql.connect(**config)
+        cursor = db.cursor()
+        comando('delete fron LojaDB.Parceiros'
+        'Where Codigo = (%s) '
+        )
+
+        daDOS = (
+            self.txtCodigo.text(),
+            self.txtRazao.text(),
+            self.txtCNPJ.text(),
+            self.txtEndereco.text(),
+            self.txtBairro.text(),
+            self.txtCEP.text(),
+            self.txtCidade.text(),
+            self.txtEstado.text(),
+            self.txtPais.text(),
+            self.txtContato.text(),
+            self.txtTelefone.text(),
+            self.txtEmail.text(),
+            self.txtLimitedeCredito.text(),
+            self.txtAprovadorFinanceiro.text(),
+            self.txtBloqueado.text()
+        )
+
+        cursor.execute
+
+    def dbAtualizarClientes(self):
+        
+        db = pymysql.connect(**config)
+        cursor = db.cursor()
+        comando('update LojaDB.Parceiros'
+        'set Razao = %s, '
+
+        )
+
 
 
     def Sair(self):
