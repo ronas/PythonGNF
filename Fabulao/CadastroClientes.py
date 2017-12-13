@@ -71,8 +71,8 @@ class ClasseAPP(QtGui.QWidget):
 
         self.grid.addWidget(self.lblCodigo,1,0)
         self.grid.addWidget(self.txtCodigo,1,1)
-        self.grid.addWidget(self.lblRazao,2,0)
-        self.grid.addWidget(self.txtRazao,2,1)
+        self.grid.addWidget(self.lblRazao,1,2)
+        self.grid.addWidget(self.txtRazao,1,3)
         self.grid.addWidget(self.lblCNPJ,3,0)
         self.grid.addWidget(self.txtCNPJ,3,1)
         self.grid.addWidget(self.lblEndereco,4,0)
@@ -112,7 +112,7 @@ class ClasseAPP(QtGui.QWidget):
         
         db = pymysql.connect(**config)
         cursor =db.cursor()
-        comando( 'select * fron LojaDB.Parceiros'
+        comando = ( 'select * fron LojaDB.Parceiros'
         'set, Razao = %s, CNPJ = %s, Endereco = %s, Bairro = %s, CEP = %s, Cidade = %s, Estado = %s, Pais = %s, Contato = %s, Telefone = %s, Email = %s, LimitedeCredito = %s, AprovadorFinanceiro = %s, Bloqurado = %s '        
         )
 
@@ -131,7 +131,7 @@ class ClasseAPP(QtGui.QWidget):
             self.txtEmail.text(),
             self.txtLimitedeCredito.text(),
             self.txtAprovadorFinanceiro.text(),
-            self.txtBloqueado.text()
+            self.txtBloqueado.text(),
         )
 
         cursor.execute(comando, dados)
@@ -144,8 +144,9 @@ class ClasseAPP(QtGui.QWidget):
         
         db = pymysql.connect(**config)
         cursor = db.cursor()
-        comando( 'INSERT INTO LojaDB.Parceiros (Codigo, Razao, CNPJ, Endereco, Bairro, CEP, Cidade, Estado, Pais, Contato, Telefone, Email, LimitedeCredito, AprovadorFinanceiro, Bloqueado) '
-            'VALUES (%, %, %, %, %, %, %, %, %, %, %, %, %, %, %)'     
+        comando = (
+            'INSERT INTO LojaDB.Parceiros (Codigo, Razao, CNPJ, Endereco, Bairro, CEP, Cidade, Estado, Pais, Contato, Telefone, Email, LimiteDeCredito, AprovadorFinanceiro, Bloqueado ) '
+            'VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s )'     
         )
 
         dados = (
@@ -161,13 +162,14 @@ class ClasseAPP(QtGui.QWidget):
             self.txtContato.text(),
             self.txtTelefone.text(),
             self.txtEmail.text(),
-            self.txtLimitedeCredito.text(),
+            self.txtLimiteDeCredito.text(),
             self.txtAprovadorFinanceiro.text(),
-            self.txtBloqueado.text()
+            self.txtBloqueado.text(),
         )
 
         cursor.execute(comando, dados)
         db.commit()
+        
         cursor.close()
         db.close()
 
@@ -176,30 +178,18 @@ class ClasseAPP(QtGui.QWidget):
         
         db = pymysql.connect(**config)
         cursor = db.cursor()
-        comando('delete fron LojaDB.Parceiros'
+        comando = ('delete fron LojaDB.Parceiros'
         'Where Codigo = (%s) '
         )
 
-        daDOS = (
+        dados = (
             self.txtCodigo.text(),
-            self.txtRazao.text(),
-            self.txtCNPJ.text(),
-            self.txtEndereco.text(),
-            self.txtBairro.text(),
-            self.txtCEP.text(),
-            self.txtCidade.text(),
-            self.txtEstado.text(),
-            self.txtPais.text(),
-            self.txtContato.text(),
-            self.txtTelefone.text(),
-            self.txtEmail.text(),
-            self.txtLimitedeCredito.text(),
-            self.txtAprovadorFinanceiro.text(),
-            self.txtBloqueado.text()
+            
         )
 
         cursor.execute(comando, dados)
         db.commit()
+
         cursor.close()
         db.close()
 
@@ -207,8 +197,8 @@ class ClasseAPP(QtGui.QWidget):
         
         db = pymysql.connect(**config)
         cursor = db.cursor()
-        comando('update LojaDB.Parceiros'
-        'set Razao = %s, '
+        comando = ('update LojaDB.Parceiros'
+        'set Razao = %s, CNPJ = %s, Endereco = %s, Bairro = %s, CEP = %s, Cidade = %s, Estado = %s, Pais = %s, Contato = %s, Telefone = %s, Email = %s, LimiteDeCredito = %s, AprovadorFinanceiro = %s, Bloqueado = %s '
 
         )
 
@@ -224,13 +214,14 @@ class ClasseAPP(QtGui.QWidget):
             self.txtContato.text(),
             self.txtTelefone.text(),
             self.txtEmail.text(),
-            self.txtLimitedeCredito.text(),
+            self.txtLimiteDeCredito.text(),
             self.txtAprovadorFinanceiro.text(),
-            self.Bloqueado.text()
+            self.Bloqueado.text(),
         )
 
         cursor.execute(comando, dados)
         db.commit()
+        
         cursor.close()
         db.close()
 
