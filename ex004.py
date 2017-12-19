@@ -1,9 +1,9 @@
-r = "S"
-while r == "S":
+r = "N"
+while r != "S":
     a = int(input("Digite a quantidade de votos do candidato A: "))
     b = int(input("Digite a quantidade de votos do candidato B: "))
     c = int(input("Digite a quantidade de votos do candidato C: "))
-    r = str(input("Para sair Precione [S]. "))
+    r = str(input("Para sair Precione [S]. ")).upper()
     if a > b and a > c:
         print("O candidato \033[30;42mA\033[m Venceu com {} votos.".format(a))
     if b > a and b > c:
