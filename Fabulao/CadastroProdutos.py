@@ -114,7 +114,9 @@ class ClasseAPP(QtGui.QWidget):
         'where codigo = (%s) '
         )
 
-        dados = self.txtCodigo.text()
+        dados = (
+            self.txtCodigo.text()
+        )
 
         cursor.execute(comando, dados)
         db.commit()
@@ -126,7 +128,7 @@ class ClasseAPP(QtGui.QWidget):
         
         db = pymysql.connect(**config)
         cursor = db.cursor()
-        comando = ('update LojaDB.Produtos '
+        comando = ('update LojaDB.Produtos'
         'set Nome = %s, UnidadeMedida = %s, Peso = %s, CodigoEAN = %s, CodigoMoeda = %s, PrecoCompra = %s, ValorVenda = %s  where Codigo =  %s '
         )
         
@@ -152,9 +154,10 @@ class ClasseAPP(QtGui.QWidget):
         db = pymysql.connect(**config)
         cursor = db.cursor()
         comando = ('select * from LojaDB.Produtos'
-        'set Nome = %s, UnidadeMedida = %s, Peso = %s, CodigoEAN = %s, CodigoMoeda = %s, PrecoCompra = %s, ValorVenda = %s  where Codigo =  %s '
+        'set Codigo = %s, Nome = %s, UnidadeMedida = %s, Peso = %s, CodigoEAN = %s, CodigoMoeda = %s, PrecoCompra = %s, ValorVenda = %s  where Codigo =  %s '
         )
         dados = ( 
+            self.txtCodigo.text(),
             self.txtNome.text(),
             self.txtUnidadeMedida.text(),
             self.txtPeso.text(),
