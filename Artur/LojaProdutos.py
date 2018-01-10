@@ -10,7 +10,7 @@ config = {
     'port' : 3306,
     'database' : 'LojaDB',
     'user' : 'root',
-    'password' : 'admin'
+    'password' : ''
     }
 
 def sair():
@@ -39,15 +39,15 @@ class classApp(QtGui.QWidget):
             "insert into Produtos (Codigo,Nome,UnidadeMedida,Peso,CodigoEAN,CodigoMoeda,PrecoCompra,ValorVenda)"
             "values(%s,%s,%s,%s,%s,%s,%s,%s)"
             )
-# Codigo  Nome  UnidadeMedida  Peso  CodigoEAN CodigoMoeda  PrecoCompra  ValorVenda 
-        varcodigo = self.txtCodigo.text()   #QtGui.QLabel()   #QtGui.QLabel(self.txtCodigo)   #input(self.txtCodigo) 
-        varnome = self.txtNome.text()   #QtGui.QLabel()   #QtGui.QLabel(self.txtNome)   #input(self.txtNome)
-        varunidademedida = self.txtUnidadeMedida.text()   #QtGui.QLabel()   #QtGui.QLabel(self.txtUnidadeMedida)   #input(self.txtUnidadeMedida)
-        varpeso = self.txtPeso.text()   #QtGui.QLabel()   #QtGui.QLabel(self.txtPeso)   #input(self.txtPeso)
-        varcodigoean = self.txtCodigoEAN.text()   #QtGui.QLabel()   #QtGui.QLabel(self.txtCodigoEAN)   #input(self.txtCodigoEAN)
-        varcodigomoeda = self.txtCodigoMoeda.text()   #QtGui.QLabel()   #QtGui.QLabel(self.txtCodigoMoeda)   #input(self.txtCodigoMoeda)
-        varprecocompra = self.txtPrecoCompra.text()   #QtGui.QLabel()   #QtGui.QLabel(self.txtPrecoCompra)   #input(self.txtPrecoCompra)
-        varvalorvenda = self.txtValorVenda.text()   #QtGui.QLabel()   #QtGui.QLabel(self.txtValorVenda)    #input(self.txtValorVenda)
+#correto
+        varcodigo = self.txtCodigo.text()
+        varnome = self.txtNome.text()  
+        varunidademedida = self.txtUnidadeMedida.text()
+        varpeso = self.txtPeso.text()
+        varcodigoean = self.txtCodigoEAN.text()
+        varcodigomoeda = self.txtCodigoMoeda.text() 
+        varprecocompra = self.txtPrecoCompra.text()
+        varvalorvenda = self.txtValorVenda.text() 
         dados = (varcodigo,
                  varnome,
                  varunidademedida,
@@ -61,23 +61,87 @@ class classApp(QtGui.QWidget):
         cursor.close
         db.close
         
-    def bdAtualizarProdutos(self):
+    def bdAtualizarNome(self):
         db = pymysql.connect(**config)
         cursor = db.cursor()
         comando = (
             "update LojaDB.Produtos "
-            "set razao = %s,set UnidadeMedida = %s,set Peso = %s,set CodigoEAN = %s,set CodigoMoeda = %s,PrecoCompra = %s,ValorVenda = %s where codigo = %s "
+            "set Nome = %s where Codigo = %s "
             )
-        varcodigoat = self.txtCodigo.text()
-        varrazaoat = self.txtRazao.text() 
+        varcodigoat = self.txtCodigoAt.text()
+        varnomeat = self.txtNomeAt.text() 
 
-
-        dados =(, varcodigoat)
-        cursor.execute(comando, dados)
+        dados =(varnomeat,varcodigoat)
+        cursor.execute(comando,dados)
         db.commit()
         cursor.close
         db.close    
-           
+         
+def bdAtualizarUnidadeMedida(self):
+        db = pymysql.connect(**config)
+        cursor = db.cursor()
+        comando = (
+            "update LojaDB.Produtos "
+            "set UnidadeMedida = %s where Codigo = %s "
+            )
+        varcodigoat = self.txtCodigoAt.text()
+        varunidademedidaat = self.txtUnidadeMedidaAt.text() 
+
+        dados =(varunidaddemedidaat,varcodigoat)
+        cursor.execute(comando,dados)
+        db.commit()
+        cursor.close
+        db.close    
+
+def bdAtualizarPeso(self):
+        db = pymysql.connect(**config)
+        cursor = db.cursor()
+        comando = (
+            "update LojaDB.Produtos "
+            "set Peso = %s where Codigo = %s "
+            )
+        varcodigoat = self.txtCodigoAt.text()
+        varpesoat = self.txtPesoAt.text() 
+
+        dados =(varpesoat,varcodigoat)
+        cursor.execute(comando,dados)
+        db.commit()
+        cursor.close
+        db.close    
+
+def bdAtualizarCodigoEAN(self):
+        db = pymysql.connect(**config)
+        cursor = db.cursor()
+        comando = (
+            "update LojaDB.Produtos "
+            "set CodigoEAN = %s where Codigo = %s "
+            )
+        varcodigoat = self.txtCodigoAt.text()
+        varcodigoeanat = self.txtCodigoEANAt.text() 
+
+        dados =(varcodigoeanat,varcodigoat)
+        cursor.execute(comando,dados)
+        db.commit()
+        cursor.close
+        db.close    
+
+def bdAtualizarCodigoMoeda(self):
+        db = pymysql.connect(**config)
+        cursor = db.cursor()
+        comando = (
+            "update LojaDB.Produtos "
+            "set CodigoMoeda = %s where Codigo = %s "
+            )
+        varcodigoat = self.txtCodigoAt.text()
+        varcodigomoedaat = self.txtCodigoMoedaAt.text() 
+
+        dados =(varcodigomoedaat,varcodigoat)
+        cursor.execute(comando,dados)
+        db.commit()
+        cursor.close
+        db.close    
+#Correto
+__________________________________________________________________________________________________________________  
     def bdMostrarProdutos(self):
         db = pymysql.connect(**config)
         cursor = db.cursor()
