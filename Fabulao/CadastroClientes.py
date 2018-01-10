@@ -111,31 +111,37 @@ class ClasseAPP(QtGui.QWidget):
     def dbConsultarClientes(self):
         
         db = pymysql.connect(**config)
-        cursor =db.cursor()
-        comando = ( 'select * fron LojaDB.Parceiros'
-        'set, Razao = %s, CNPJ = %s, Endereco = %s, Bairro = %s, CEP = %s, Cidade = %s, Estado = %s, Pais = %s, Contato = %s, Telefone = %s, Email = %s, LimitedeCredito = %s, AprovadorFinanceiro = %s, Bloqurado = %s '        
-        )
+        cursor = db.cursor()
 
-        dados = (
-
-            self.txtRazao.text(),
-            self.txtCNPJ.text(),
-            self.txtEndereco.text(),
-            self.txtBairro.text(),
-            self.txtCEP.text(),
-            self.txtCidade.text(),
-            self.txtEstado.text(),
-            self.txtPais.text(),
-            self.txtContato.text(),
-            self.txtTelefone.text(),
-            self.txtEmail.text(),
-            self.txtLimitedeCredito.text(),
-            self.txtAprovadorFinanceiro.text(),
-            self.txtBloqueado.text(),
-        )
+        comando = ('select * from LojaDB.Parceiros where Codigo = %s')
+        dados = (self.txtCodigo.text())
 
         cursor.execute(comando, dados)
-        db.commit()
+
+        registros = cursor.fetchall()
+
+        for registro in registros:
+            self.txtCodigo.setText(registro[0])
+            self.txtRazao.setText(registro[1])
+            self.txtCNPJ.setText(registro[2])
+            self.txtEndereco.setText(registro[3])
+            self.txtBairro.setText(registro[4])
+            self.txtCEP.setText(registro[5])
+            self.txtCidade.setText(registro[6])
+            self.txtEstado.setText(registro[7])
+            self.txtPais.setText(registro[8])
+            self.txtContato.setText(registro[9])
+            self.txtTelefone.setText(registro[10])
+            self.txtEmail.setText(registro[11])
+            self.txtLimiteDeCredito.setText(registro[12])
+            self.txtAprovadorFinanceiro.setText(registro[13])
+            self.txtBloqueado.setText(registro[14])
+            self.txtConsultar.setText(registro[15])
+            self.txtIncluir.setText(registro[16])
+            self.txtExcluir.setText(registro[17])
+            self.txtAtualizar.setText(registro[18])
+            break
+
         cursor.close()
         db.close()
 
@@ -178,7 +184,7 @@ class ClasseAPP(QtGui.QWidget):
         
         db = pymysql.connect(**config)
         cursor = db.cursor()
-        comando = ('delete fron LojaDB.Parceiros'
+        comando = ('delete from LojaDB.Parceiros '
         'Where Codigo = (%s) '
         )
 
@@ -197,7 +203,7 @@ class ClasseAPP(QtGui.QWidget):
         
         db = pymysql.connect(**config)
         cursor = db.cursor()
-        comando = ('update LojaDB.Parceiros'
+        comando = ('update LojaDB.Parceiros '
         'set Razao = %s, CNPJ = %s, Endereco = %s, Bairro = %s, CEP = %s, Cidade = %s, Estado = %s, Pais = %s, Contato = %s, Telefone = %s, Email = %s, LimiteDeCredito = %s, AprovadorFinanceiro = %s, Bloqueado = %s '
 
         )
@@ -224,8 +230,6 @@ class ClasseAPP(QtGui.QWidget):
         
         cursor.close()
         db.close()
-
-
 
     def Sair(self):
         sys.exit()
