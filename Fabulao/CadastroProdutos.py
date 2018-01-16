@@ -128,7 +128,7 @@ class ClasseAPP(QtGui.QWidget):
         
         db = pymysql.connect(**config)
         cursor = db.cursor()
-        comando = ('update LojaDB.Produtos'
+        comando = ('update LojaDB.Produtos '
         'set Nome = %s, UnidadeMedida = %s, Peso = %s, CodigoEAN = %s, CodigoMoeda = %s, PrecoCompra = %s, ValorVenda = %s  where Codigo =  %s '
         )
         
@@ -153,11 +153,10 @@ class ClasseAPP(QtGui.QWidget):
 
         db = pymysql.connect(**config)
         cursor = db.cursor()
-        comando = ('select * from LojaDB.Produtos'
-        'set Codigo = %s, Nome = %s, UnidadeMedida = %s, Peso = %s, CodigoEAN = %s, CodigoMoeda = %s, PrecoCompra = %s, ValorVenda = %s  where Codigo =  %s '
+        comando = ('select * from LojaDB.Produtos '
+        'set Nome = %s, UnidadeMedida = %s, Peso = %s, CodigoEAN = %s, CodigoMoeda = %s, PrecoCompra = %s, ValorVenda = %s  where Codigo =  %s '
         )
-        dados = ( 
-            self.txtCodigo.text(),
+        dados = 
             self.txtNome.text(),
             self.txtUnidadeMedida.text(),
             self.txtPeso.text(),
@@ -181,12 +180,12 @@ class ClasseAPP(QtGui.QWidget):
             self.txtPeso.setText(str(registro[3]))
             self.txtCodigoEAN.setText(registro[4])
             self.txtCodigoMoeda.setText(registro[5])
-            self.txtPrecoCompra.setText(str(registro[6]))
-            self.txtValorVenda.setText(str(registro[7]))
-            self.txtIncluir.text(registro[8])
-            self.txtExcluir.Text(registro[9])
-            self.txtAtualizar.Text(registro[10])
-            self.txtBuscar.Text(registro[11])
+            self.txtPrecoCompra.setText(str(registro[6])
+            self.txtValorVenda.setText(str(registro[7])
+            self.txtIncluir.setText(registro[8])
+            self.txtExcluir.setText(registro[9])
+            self.txtAtualizar.setText(registro[10])
+            self.txtBuscar.setText(registro[11])
             break
     
     def Sair(self):

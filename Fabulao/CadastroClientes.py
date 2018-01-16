@@ -73,37 +73,37 @@ class ClasseAPP(QtGui.QWidget):
         self.grid.addWidget(self.txtCodigo,1,1)
         self.grid.addWidget(self.lblRazao,1,2)
         self.grid.addWidget(self.txtRazao,1,3)
-        self.grid.addWidget(self.lblCNPJ,3,0)
-        self.grid.addWidget(self.txtCNPJ,3,1)
-        self.grid.addWidget(self.lblEndereco,4,0)
-        self.grid.addWidget(self.txtEndereco,4,1)
-        self.grid.addWidget(self.lblBairro,5,0)
-        self.grid.addWidget(self.txtBairro,5,1)
-        self.grid.addWidget(self.lblCEP,6,0)
-        self.grid.addWidget(self.txtCEP,6,1)
-        self.grid.addWidget(self.lblCidade,7,0)
-        self.grid.addWidget(self.txtCidade,7,1)
-        self.grid.addWidget(self.lblEstado,8,0)
-        self.grid.addWidget(self.txtEstado,8,1)
-        self.grid.addWidget(self.lblPais,9,0)
-        self.grid.addWidget(self.txtPais,9,1)
-        self.grid.addWidget(self.lblContato,10,0)
-        self.grid.addWidget(self.txtContato,10,1)
-        self.grid.addWidget(self.lblTelefone,11,0)
-        self.grid.addWidget(self.txtTelefone,11,1)
-        self.grid.addWidget(self.lblEmail,12,0)
-        self.grid.addWidget(self.txtEmail,12,1)
-        self.grid.addWidget(self.lblLimiteDeCredito,13,0)
-        self.grid.addWidget(self.txtLimiteDeCredito,13,1)
-        self.grid.addWidget(self.lblAprovadorFinanceiro,14,0)
-        self.grid.addWidget(self.txtAprovadorFinanceiro,14,1)
-        self.grid.addWidget(self.lblBloqueado,15,0)
-        self.grid.addWidget(self.txtBloqueado,15,1)
-        self.grid.addWidget(self.btnSair,16,1)
-        self.grid.addWidget(self.btnConsultar,17,0)
-        self.grid.addWidget(self.btnIncluir,18,1)
-        self.grid.addWidget(self.btnExcluir,19,0)
-        self.grid.addWidget(self.btnAtualizar,20,1)
+        self.grid.addWidget(self.lblCNPJ,2,0)
+        self.grid.addWidget(self.txtCNPJ,2,1)
+        self.grid.addWidget(self.lblEndereco,2,2)
+        self.grid.addWidget(self.txtEndereco,2,3)
+        self.grid.addWidget(self.lblBairro,3,0)
+        self.grid.addWidget(self.txtBairro,3,1)
+        self.grid.addWidget(self.lblCEP,3,2)
+        self.grid.addWidget(self.txtCEP,3,3)
+        self.grid.addWidget(self.lblCidade,4,0)
+        self.grid.addWidget(self.txtCidade,4,1)
+        self.grid.addWidget(self.lblEstado,4,2)
+        self.grid.addWidget(self.txtEstado,4,3)
+        self.grid.addWidget(self.lblPais,5,0)
+        self.grid.addWidget(self.txtPais,5,1)
+        self.grid.addWidget(self.lblContato,5,2)
+        self.grid.addWidget(self.txtContato,5,3)
+        self.grid.addWidget(self.lblTelefone,6,0)
+        self.grid.addWidget(self.txtTelefone,6,1)
+        self.grid.addWidget(self.lblEmail,6,2)
+        self.grid.addWidget(self.txtEmail,6,3)
+        self.grid.addWidget(self.lblLimiteDeCredito,7,0)
+        self.grid.addWidget(self.txtLimiteDeCredito,7,1)
+        self.grid.addWidget(self.lblAprovadorFinanceiro,7,2)
+        self.grid.addWidget(self.txtAprovadorFinanceiro,7,3)
+        self.grid.addWidget(self.lblBloqueado,8,0)
+        self.grid.addWidget(self.txtBloqueado,8,1)
+        self.grid.addWidget(self.btnSair,10,0)
+        self.grid.addWidget(self.btnConsultar,9,0)
+        self.grid.addWidget(self.btnIncluir,9,1)
+        self.grid.addWidget(self.btnExcluir,9,2)
+        self.grid.addWidget(self.btnAtualizar,9,3)
         self.setLayout(self.grid)
         self.show()
 
@@ -111,31 +111,37 @@ class ClasseAPP(QtGui.QWidget):
     def dbConsultarClientes(self):
         
         db = pymysql.connect(**config)
-        cursor =db.cursor()
-        comando = ( 'select * fron LojaDB.Parceiros'
-        'set, Razao = %s, CNPJ = %s, Endereco = %s, Bairro = %s, CEP = %s, Cidade = %s, Estado = %s, Pais = %s, Contato = %s, Telefone = %s, Email = %s, LimitedeCredito = %s, AprovadorFinanceiro = %s, Bloqurado = %s '        
-        )
+        cursor = db.cursor()
 
-        dados = (
-
-            self.txtRazao.text(),
-            self.txtCNPJ.text(),
-            self.txtEndereco.text(),
-            self.txtBairro.text(),
-            self.txtCEP.text(),
-            self.txtCidade.text(),
-            self.txtEstado.text(),
-            self.txtPais.text(),
-            self.txtContato.text(),
-            self.txtTelefone.text(),
-            self.txtEmail.text(),
-            self.txtLimitedeCredito.text(),
-            self.txtAprovadorFinanceiro.text(),
-            self.txtBloqueado.text(),
-        )
+        comando = ('select * from LojaDB.Parceiros where Codigo = %s')
+        dados = (self.txtCodigo.text())
 
         cursor.execute(comando, dados)
-        db.commit()
+
+        registros = cursor.fetchall()
+
+        for registro in registros:
+            self.txtCodigo.setText(registro[0])
+            self.txtRazao.setText(registro[1])
+            self.txtCNPJ.setText(registro[2])
+            self.txtEndereco.setText(registro[3])
+            self.txtBairro.setText(registro[4])
+            self.txtCEP.setText(registro[5])
+            self.txtCidade.setText(registro[6])
+            self.txtEstado.setText(registro[7])
+            self.txtPais.setText(registro[8])
+            self.txtContato.setText(registro[9])
+            self.txtTelefone.setText(registro[10])
+            self.txtEmail.setText(registro[11])
+            self.txtLimiteDeCredito.setText(str(registro[12]))
+            self.txtAprovadorFinanceiro.setText(str(registro[13]))
+            self.txtBloqueado.setText(registro[14])
+            self.txtConsultar.setText(registro[15])
+            self.txtIncluir.setText(registro[16])
+            self.txtExcluir.setText(registro[17])
+            self.txtAtualizar.setText(registro[18])
+            break
+
         cursor.close()
         db.close()
 
@@ -145,7 +151,7 @@ class ClasseAPP(QtGui.QWidget):
         db = pymysql.connect(**config)
         cursor = db.cursor()
         comando = (
-            'INSERT INTO LojaDB.Parceiros (Codigo, Razao, CNPJ, Endereco, Bairro, CEP, Cidade, Estado, Pais, Contato, Telefone, Email, LimiteDeCredito, AprovadorFinanceiro, Bloqueado ) '
+            'INSERT INTO LojaDB.Parceiros (Codigo, Razao, CNPJ, Endereco, Bairro, CEP, Cidade, Estado, Pais, Contato, Telefone, Email, LimiteDeCredito, AprovadorFinanceiro, Bloqueado )'
             'VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s )'     
         )
 
@@ -164,7 +170,7 @@ class ClasseAPP(QtGui.QWidget):
             self.txtEmail.text(),
             self.txtLimiteDeCredito.text(),
             self.txtAprovadorFinanceiro.text(),
-            self.txtBloqueado.text(),
+            self.txtBloqueado.text()
         )
 
         cursor.execute(comando, dados)
@@ -178,7 +184,7 @@ class ClasseAPP(QtGui.QWidget):
         
         db = pymysql.connect(**config)
         cursor = db.cursor()
-        comando = ('delete fron LojaDB.Parceiros'
+        comando = ('delete from LojaDB.Parceiros '
         'Where Codigo = (%s) '
         )
 
@@ -197,7 +203,7 @@ class ClasseAPP(QtGui.QWidget):
         
         db = pymysql.connect(**config)
         cursor = db.cursor()
-        comando = ('update LojaDB.Parceiros'
+        comando = ('update LojaDB.Parceiros '
         'set Razao = %s, CNPJ = %s, Endereco = %s, Bairro = %s, CEP = %s, Cidade = %s, Estado = %s, Pais = %s, Contato = %s, Telefone = %s, Email = %s, LimiteDeCredito = %s, AprovadorFinanceiro = %s, Bloqueado = %s '
 
         )
@@ -224,8 +230,6 @@ class ClasseAPP(QtGui.QWidget):
         
         cursor.close()
         db.close()
-
-
 
     def Sair(self):
         sys.exit()
