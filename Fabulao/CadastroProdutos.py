@@ -30,7 +30,7 @@ class ClasseAPP(QtGui.QWidget):
         self.lblUnidadeMedida = QtGui.QLabel('UnidadeMedida')
         self.lblPeso = QtGui.QLabel('Peso')
         self.lblCodigoEAN = QtGui.QLabel('CodigoEAN')
-        self.lblCodigoMoeda = QtGui.QLabel('Codigo#Moeda')
+        self.lblCodigoMoeda = QtGui.QLabel('CodigoMoeda')
         self.lblPrecoCompra = QtGui.QLabel('PrecoCompra')
         self.lblValorVenda = QtGui.QLabel('ValorVenda')
         self.txtCodigo = QtGui.QLineEdit()
@@ -153,26 +153,14 @@ class ClasseAPP(QtGui.QWidget):
 
         db = pymysql.connect(**config)
         cursor = db.cursor()
-        comando = ('select * from LojaDB.Produtos '
-        'set Nome = %s, UnidadeMedida = %s, Peso = %s, CodigoEAN = %s, CodigoMoeda = %s, PrecoCompra = %s, ValorVenda = %s  where Codigo =  %s '
-        )
-        dados = 
-            self.txtNome.text(),
-            self.txtUnidadeMedida.text(),
-            self.txtPeso.text(),
-            self.txtCodigoEAN.text(),
-            self.txtCodigoMoeda.text(),
-            self.txtPrecoCompra.text(),
-            self.txtValorVenda.text(),
-            self.txtCodigo.text(),
-        )
+
+        comando = ('select * from LojaDB.Produtos where Codigo = %s ')
+        dados = (self.txtCodigo.text())
 
         cursor.execute(comando, dados)
-        db.commit()
 
-        cursor.close()
-        db.close()
-
+        registros = cursor.fetchall()
+        
         for registro in registros:
             self.txtCodigo.setText(registro[0])
             self.txtNome.setText(registro[1])
@@ -180,13 +168,12 @@ class ClasseAPP(QtGui.QWidget):
             self.txtPeso.setText(str(registro[3]))
             self.txtCodigoEAN.setText(registro[4])
             self.txtCodigoMoeda.setText(registro[5])
-            self.txtPrecoCompra.setText(str(registro[6])
-            self.txtValorVenda.setText(str(registro[7])
-            self.txtIncluir.setText(registro[8])
-            self.txtExcluir.setText(registro[9])
-            self.txtAtualizar.setText(registro[10])
-            self.txtBuscar.setText(registro[11])
+            self.txtPrecoCompra.setText(str(registro[6]))
+            self.txtValorVenda.setText(str(registro[7]))
             break
+
+        cursor.close()
+        db.close()
     
     def Sair(self):
         sys.exit()
