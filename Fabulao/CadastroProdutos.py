@@ -1,7 +1,7 @@
 # -*- coding: latin -*-
 import sys 
 
-from PyQt4 import QtGui
+from PyQt4 import QtGui,QtCore
 
 import pymysql
 
@@ -100,8 +100,21 @@ class ClasseAPP(QtGui.QWidget):
             self.txtValorVenda.text(),
             )
 
-        cursor.execute(comando, dados)
-        db.commit()
+#        QtGui.QMessageBox.about(self, 'Warning!', 'Please select file from file list!')
+
+        varExisteErro = False
+
+        if self.txtValorVenda.text() == '':
+            choice = QtGui.QMessageBox.question(self, 'Aviso!','O campo Valor Venda esta Vazio! Por favor, preencher.', QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtNome.text() == '':
+            choice = QtGui.QMessageBox.question(self, 'Aviso!','O campo Nome esta Vazio! Por favor, preencher.', QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+                
+        if varExisteErro == False:
+            cursor.execute(comando, dados)
+            db.commit()
 
         cursor.close()
         db.close()
