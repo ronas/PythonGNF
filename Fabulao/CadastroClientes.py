@@ -58,14 +58,19 @@ class ClasseAPP(QtGui.QWidget):
 
         self.btnConsultar = QtGui.QPushButton('Consultar' ,self)
         self.btnConsultar.clicked.connect(self.dbConsultarClientes)
+
         self.btnIncluir = QtGui.QPushButton('Incluir' ,self)
         self.btnIncluir.clicked.connect(self.dbIncluirClientes)
+
         self.btnExcluir = QtGui.QPushButton('Excluir' ,self)
         self.btnExcluir.clicked.connect(self.dbExcluirClientes)
+
         self.btnAtualizar = QtGui.QPushButton('Atualizar' ,self)
         self.btnAtualizar.clicked.connect(self.dbAtualizarClientes)
+
         self.btnSair = QtGui.QPushButton('Sair' ,self)
         self.btnSair.clicked.connect(self.Sair)
+        
         self.grid = QtGui.QGridLayout()
         self.grid.setSpacing(20)
 
