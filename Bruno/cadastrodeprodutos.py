@@ -203,17 +203,17 @@ class ClasseAPP(QtGui.QWidget):
         
         try:
             ppeso = float(self.txtpeso.text())
-            peso ="PESO SERTO"
+            peso ="PESO CERTO"
         except ValueError:
                 peso =" Peso errado ? "
         try:
             ppvalor = float(self.txtvalor.text())
-            valor = 'VALOR SERTO'
+            valor = 'VALOR CERTO'
         except ValueError:
                 valor =" valor errado? "
         try:
             pppreco = float(self.txtpreco.text())
-            preco =  "PREÇO SERTO"
+            preco =  "PREÇO CERTO"
         except ValueError:
             preco= " preco erro? "
         try:

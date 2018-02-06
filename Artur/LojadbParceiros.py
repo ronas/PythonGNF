@@ -10,13 +10,13 @@ config = {
     'port' : 3306,
     'database' : 'LojaDB',
     'user' : 'root',
-    'password' : 'admin'
+    'password' : ''
     }
 def sair():
     sys.exit()
     
 class classApp(QtGui.QWidget):
-
+#Codigo Razao CNPJ Endereco Bairro CEP Cidade Estudante Pais Cotato Telefone Email LimiteDeCredito AprovadorFinanceriro Bloqueado
     def AtualizarParceiros(self):
         db = pymysql.connect(**config)
         cursor = db.cursor()
