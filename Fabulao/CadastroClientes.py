@@ -58,14 +58,19 @@ class ClasseAPP(QtGui.QWidget):
 
         self.btnConsultar = QtGui.QPushButton('Consultar' ,self)
         self.btnConsultar.clicked.connect(self.dbConsultarClientes)
+
         self.btnIncluir = QtGui.QPushButton('Incluir' ,self)
         self.btnIncluir.clicked.connect(self.dbIncluirClientes)
+
         self.btnExcluir = QtGui.QPushButton('Excluir' ,self)
         self.btnExcluir.clicked.connect(self.dbExcluirClientes)
+
         self.btnAtualizar = QtGui.QPushButton('Atualizar' ,self)
         self.btnAtualizar.clicked.connect(self.dbAtualizarClientes)
+
         self.btnSair = QtGui.QPushButton('Sair' ,self)
         self.btnSair.clicked.connect(self.Sair)
+        
         self.grid = QtGui.QGridLayout()
         self.grid.setSpacing(20)
 
@@ -113,7 +118,7 @@ class ClasseAPP(QtGui.QWidget):
         db = pymysql.connect(**config)
         cursor = db.cursor()
 
-        comando = ('select * from LojaDB.Parceiros where Codigo = %s')
+        comando = ('select * from LojaDB.Parceiros where Codigo = %s ')
         dados = (self.txtCodigo.text())
 
         cursor.execute(comando, dados)
@@ -136,10 +141,6 @@ class ClasseAPP(QtGui.QWidget):
             self.txtLimiteDeCredito.setText(str(registro[12]))
             self.txtAprovadorFinanceiro.setText(str(registro[13]))
             self.txtBloqueado.setText(registro[14])
-            self.txtConsultar.setText(registro[15])
-            self.txtIncluir.setText(registro[16])
-            self.txtExcluir.setText(registro[17])
-            self.txtAtualizar.setText(registro[18])
             break
 
         cursor.close()
@@ -205,6 +206,7 @@ class ClasseAPP(QtGui.QWidget):
         cursor = db.cursor()
         comando = ('update LojaDB.Parceiros '
         'set Razao = %s, CNPJ = %s, Endereco = %s, Bairro = %s, CEP = %s, Cidade = %s, Estado = %s, Pais = %s, Contato = %s, Telefone = %s, Email = %s, LimiteDeCredito = %s, AprovadorFinanceiro = %s, Bloqueado = %s '
+        'where Codigo = (%s)'
 
         )
 
@@ -222,7 +224,8 @@ class ClasseAPP(QtGui.QWidget):
             self.txtEmail.text(),
             self.txtLimiteDeCredito.text(),
             self.txtAprovadorFinanceiro.text(),
-            self.Bloqueado.text(),
+            self.txtBloqueado.text(),
+            self.txtCodigo.text()
         )
 
         cursor.execute(comando, dados)

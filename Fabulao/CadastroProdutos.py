@@ -1,7 +1,7 @@
 # -*- coding: latin -*-
 import sys 
 
-from PyQt4 import QtGui
+from PyQt4 import QtGui,QtCore
 
 import pymysql
 
@@ -30,7 +30,7 @@ class ClasseAPP(QtGui.QWidget):
         self.lblUnidadeMedida = QtGui.QLabel('UnidadeMedida')
         self.lblPeso = QtGui.QLabel('Peso')
         self.lblCodigoEAN = QtGui.QLabel('CodigoEAN')
-        self.lblCodigoMoeda = QtGui.QLabel('Codigo#Moeda')
+        self.lblCodigoMoeda = QtGui.QLabel('CodigoMoeda')
         self.lblPrecoCompra = QtGui.QLabel('PrecoCompra')
         self.lblValorVenda = QtGui.QLabel('ValorVenda')
         self.txtCodigo = QtGui.QLineEdit()
@@ -100,8 +100,45 @@ class ClasseAPP(QtGui.QWidget):
             self.txtValorVenda.text(),
             )
 
-        cursor.execute(comando, dados)
-        db.commit()
+#        QtGui.QMessageBox.about(self, 'Warning!', 'Please select file from file list!')
+
+        varExisteErro = False
+
+        if self.txtCodigo.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Codigo esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtNome.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Nome esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtUnidadeMedida.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Unidade Medida esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtPeso.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Peso esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtCodigoEAN.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso','O campo Unidade EAN esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtCodigoMoeda.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso','O campo Codigo Moeda esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtPrecoCompra.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Preço Compra esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtValorVenda.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Valor Venda esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+                
+        if varExisteErro == False:
+            cursor.execute(comando, dados)
+            db.commit()
 
         cursor.close()
         db.close()
@@ -118,8 +155,15 @@ class ClasseAPP(QtGui.QWidget):
             self.txtCodigo.text()
         )
 
-        cursor.execute(comando, dados)
-        db.commit()
+        varExisteErro = False
+
+        if self.txtCodigo.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Codigo esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if varExisteErro == False:
+            cursor.execute(comando, dados)
+            db.commit()
 
         cursor.close()
         db.close()
@@ -143,36 +187,59 @@ class ClasseAPP(QtGui.QWidget):
             self.txtCodigo.text(),
         )
 
-        cursor.execute(comando, dados)
-        db.commit()
+        varExisteErro = False
 
-        cursor.close
+        if self.txtNome.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Nome esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtUnidadeMedida.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Unidade Medida esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtPeso.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Peso esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.CodigoEAN.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso','O campo Unidade EAN esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtCodigoMoeda.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso','O campo Codigo Moeda esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtPrecoCompra.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Preço Compra esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtValorVenda.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Valor Venda esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtCodigo.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Codigo esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+                
+        if varExisteErro == False:
+            cursor.execute(comando, dados)
+            db.commit()
+
+        cursor.close()
         db.close()
 
     def dbBuscarProdutos(self):
 
         db = pymysql.connect(**config)
         cursor = db.cursor()
-        comando = ('select * from LojaDB.Produtos '
-        'set Nome = %s, UnidadeMedida = %s, Peso = %s, CodigoEAN = %s, CodigoMoeda = %s, PrecoCompra = %s, ValorVenda = %s  where Codigo =  %s '
-        )
-        dados = 
-            self.txtNome.text(),
-            self.txtUnidadeMedida.text(),
-            self.txtPeso.text(),
-            self.txtCodigoEAN.text(),
-            self.txtCodigoMoeda.text(),
-            self.txtPrecoCompra.text(),
-            self.txtValorVenda.text(),
-            self.txtCodigo.text(),
-        )
+
+        comando = ('select * from LojaDB.Produtos where Codigo = %s ')
+        dados = (self.txtCodigo.text())
 
         cursor.execute(comando, dados)
-        db.commit()
 
-        cursor.close()
-        db.close()
-
+        registros = cursor.fetchall()
+        
         for registro in registros:
             self.txtCodigo.setText(registro[0])
             self.txtNome.setText(registro[1])
@@ -180,13 +247,20 @@ class ClasseAPP(QtGui.QWidget):
             self.txtPeso.setText(str(registro[3]))
             self.txtCodigoEAN.setText(registro[4])
             self.txtCodigoMoeda.setText(registro[5])
-            self.txtPrecoCompra.setText(str(registro[6])
-            self.txtValorVenda.setText(str(registro[7])
-            self.txtIncluir.setText(registro[8])
-            self.txtExcluir.setText(registro[9])
-            self.txtAtualizar.setText(registro[10])
-            self.txtBuscar.setText(registro[11])
+            self.txtPrecoCompra.setText(str(registro[6]))
+            self.txtValorVenda.setText(str(registro[7]))
             break
+
+        if self.txtCodigo.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Codigo esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if varExisteErro == False:
+            cursor.execute(comando, dados)
+            db.commit()
+
+        cursor.close()
+        db.close()
     
     def Sair(self):
         sys.exit()
