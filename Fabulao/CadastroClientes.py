@@ -1,7 +1,7 @@
 # -*- coding: latin -*-
 import sys 
 
-from PyQt4 import QtGui
+from PyQt4 import QtGui,QtCore
 
 import pymysql
 
@@ -58,14 +58,19 @@ class ClasseAPP(QtGui.QWidget):
 
         self.btnConsultar = QtGui.QPushButton('Consultar' ,self)
         self.btnConsultar.clicked.connect(self.dbConsultarClientes)
+
         self.btnIncluir = QtGui.QPushButton('Incluir' ,self)
         self.btnIncluir.clicked.connect(self.dbIncluirClientes)
+
         self.btnExcluir = QtGui.QPushButton('Excluir' ,self)
         self.btnExcluir.clicked.connect(self.dbExcluirClientes)
+
         self.btnAtualizar = QtGui.QPushButton('Atualizar' ,self)
         self.btnAtualizar.clicked.connect(self.dbAtualizarClientes)
+
         self.btnSair = QtGui.QPushButton('Sair' ,self)
         self.btnSair.clicked.connect(self.Sair)
+        
         self.grid = QtGui.QGridLayout()
         self.grid.setSpacing(20)
 
@@ -169,6 +174,15 @@ class ClasseAPP(QtGui.QWidget):
             self.txtBloqueado.text()
         )
 
+        varExisteErro = False
+
+        if self.txtCodigo.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O Campo Codigo esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok )
+            varExisteErro = True 
+
+        if self.txtRazao.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O Campo Razao esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok )
+            varExisteErro
         cursor.execute(comando, dados)
         db.commit()
         
