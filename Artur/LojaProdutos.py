@@ -19,7 +19,7 @@ class classApp(QtGui.QWidget):
         db = pymysql.connect(**config)
         cursor = db.cursor()
         comando = ("delete from LojaDB.Produtos "
-                   "where Codigo = '%s' ")
+                   "where Codigo = (%s) ")
         varcodigodelete = self.txtCodigoDeletar.text()
     
         cursor.execute(comando,varcodigodelete)
@@ -63,7 +63,7 @@ class classApp(QtGui.QWidget):
         cursor = db.cursor()
         comando = (
             "update LojaDB.Produtos "
-            "set Nome = %s,UnidadeMedida = %s,Peso = %s,CodigoEAN = %s,PrecoCompra = %s,ValorVenda = %s where Codigo = %s "
+            "set Nome = %s,UnidadeMedida = %s,Peso = %s,CodigoEAN = %s,CodigoMoeda = %s,PrecoCompra = %s,ValorVenda = %s where Codigo = %s "
             )
         varcodigoat = self.txtCodigoAt.text()
         varnomeat = self.txtNomeAt.text() 
@@ -81,125 +81,18 @@ class classApp(QtGui.QWidget):
         db.close    
                  
         
-#    def bdAtualizarNome(self):
-#        db = pymysql.connect(**config)
-#        cursor = db.cursor()
-#        comando = (
-#            "update LojaDB.Produtos "
-#            "set Nome = %s where Codigo = %s "
-#            )
-#        varcodigoat = self.txtCodigoAt.text()
-#        varnomeat = self.txtNomeAt.text() 
-#
-#        dados =(varnomeat,varcodigoat)
-#        cursor.execute(comando,dados)
-#        db.commit()
-#        cursor.close
-#        db.close    
-         
-#def bdAtualizarUnidadeMedida(self):
-#        db = pymysql.connect(**config)
-#        cursor = db.cursor()
-#        comando = (
-#            "update LojaDB.Produtos "
-#            "set UnidadeMedida = %s where Codigo = %s "
-#            )
-#        varcodigoat = self.txtCodigoAt.text()
-#        varunidademedidaat = self.txtUnidadeMedidaAt.text() 
-#
-#        dados =(varunidaddemedidaat,varcodigoat)
-#        cursor.execute(comando,dados)
-#        db.commit()
-#        cursor.close
-#        db.close    
-
-#def bdAtualizarPeso(self):
-#        db = pymysql.connect(**config)
-#        cursor = db.cursor()
-#        comando = (
-#            "update LojaDB.Produtos "
-#            "set Peso = %s where Codigo = %s "
-#            )
-#        varcodigoat = self.txtCodigoAt.text()
-#        varpesoat = self.txtPesoAt.text() 
-#
-#        dados =(varpesoat,varcodigoat)
-#        cursor.execute(comando,dados)
-#        db.commit()
-#        cursor.close
-#        db.close    
-
-#def bdAtualizarCodigoEAN(self):
-#        db = pymysql.connect(**config)
-#        cursor = db.cursor()
-#        comando = (
-#            "update LojaDB.Produtos "
-#            "set CodigoEAN = %s where Codigo = %s "
-#            )
-#        varcodigoat = self.txtCodigoAt.text()
-#        varcodigoeanat = self.txtCodigoEANAt.text() 
-#
-#        dados =(varcodigoeanat,varcodigoat)
-#        cursor.execute(comando,dados)
-#        db.commit()
-#        cursor.close
-#        db.close    
-
-#def bdAtualizarCodigoMoeda(self):
-#        db = pymysql.connect(**config)
-#        cursor = db.cursor()
-#        comando = (
-#            "update LojaDB.Produtos "
-#            "set CodigoMoeda = %s where Codigo = %s "
-#            )
-#        varcodigoat = self.txtCodigoAt.text()
-#        varcodigomoedaat = self.txtCodigoMoedaAt.text() 
-
-#        dados =(varcodigomoedaat,varcodigoat)
-#        cursor.execute(comando,dados)
-#        db.commit()
-#        cursor.close
-#        db.close    
-
-#def bdAtualizarPrecoCompra(self):
-#        db = pymysql.connect(**config)
-#        cursor = db.cursor()
-#        comando = (
-#            "update LojaDB.Produtos "
-#            "set PrecoCompra = %s where Codigo = %s "
-#            )
-#        varcodigoat = self.txtCodigoAt.text()
-#        varprecocompraat = self.txtPrecoCompraAt.text() 
-#
-#        dados =(varprecocompraat,varcodigoat)
-#        cursor.execute(comando,dados)
-#        db.commit()
-#        cursor.close
-#        db.close    
-
-#def bdAtualizarValorVenda(self):
-#        db = pymysql.connect(**config)
-#        cursor = db.cursor()
-#        comando = (
-#            "update LojaDB.Produtos "
-#            "set ValorVenda = %s where Codigo = %s "
-#            )
-#        varcodigoat = self.txtCodigoAt.text()
-#        varvalorvendaat = self.txtValorVendaAt.text() 
-
-#        dados =(varvalorvendaat,varcodigoat)
-#        cursor.execute(comando,dados)
-#        db.commit()
-#        cursor.close
-#        db.close    
-
-  
     def bdMostrarProdutos(self):
+
         db = pymysql.connect(**config)
         cursor = db.cursor()
-        comando = 'select * from produtos'
-        cursor.execute(comando)
+
+        comando = ('select * from LojaDB.produtos where Codigo = %s ')
+        dados = (self.txtCodigoM.text())
+
+        cursor.execute(comando, dados)
+
         registros = cursor.fetchall()
+
         for registro in registros:
             self.txtCodigoM.setText(registro[0])
             self.txtNomeM.setText(registro[1])
@@ -209,7 +102,8 @@ class classApp(QtGui.QWidget):
             self.txtCodigoMoedaM.setText(registro[5])
             self.txtPrecoCompraM.setText(str(registro[6]))
             self.txtValorVendaM.setText(str(registro[7]))
-            
+            break
+
         cursor.close
         db.close 
          
@@ -283,8 +177,8 @@ class classApp(QtGui.QWidget):
 
         self.grid.addWidget(self.lblCodigo,2,0)
         self.grid.addWidget(self.txtCodigoM,2,1)
-        self.grid.addWidget(self.txtCodigoIn,2,3)
-        self.grid.addWidget(self.txtCodigoAt,2,4)
+        self.grid.addWidget(self.txtCodigoIn,2,2)
+        self.grid.addWidget(self.txtCodigoAt,2,3)
 
         self.grid.addWidget(self.lblNome,3,0)
         self.grid.addWidget(self.txtNomeM,3,1)
