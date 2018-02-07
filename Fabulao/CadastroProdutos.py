@@ -121,7 +121,7 @@ class ClasseAPP(QtGui.QWidget):
             varExisteErro = True
 
         if self.txtCodigoEAN.text() == '':
-            choice = QtGui.QMessageBox.question(self,'Aviso','O campo Unidade EAN esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            choice = QtGui.QMessageBox.question(self,'Aviso','O campo Codigo EAN esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
             varExisteErro = True
 
         if self.txtCodigoMoeda.text() == '':
@@ -155,15 +155,16 @@ class ClasseAPP(QtGui.QWidget):
             self.txtCodigo.text()
         )
 
-        varExisteErro = False
+        escolha = QtGui.QMessageBox.question(self, 'Extract!',
+                                " Excluir Registro  ?",
+                                QtGui.QMessageBox.Yes|QtGui.QMessageBox.No)
 
-        if self.txtCodigo.text() == '':
-            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Codigo esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
-            varExisteErro = True
-
-        if varExisteErro == False:
+        if escolha == QtGui.QMessageBox.Yes:
             cursor.execute(comando, dados)
             db.commit()
+
+        
+        
 
         cursor.close()
         db.close()
@@ -202,7 +203,7 @@ class ClasseAPP(QtGui.QWidget):
             varExisteErro = True
 
         if self.CodigoEAN.text() == '':
-            choice = QtGui.QMessageBox.question(self,'Aviso','O campo Unidade EAN esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            choice = QtGui.QMessageBox.question(self,'Aviso','O campo Codigo EAN esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
             varExisteErro = True
 
         if self.txtCodigoMoeda.text() == '':
@@ -250,14 +251,6 @@ class ClasseAPP(QtGui.QWidget):
             self.txtPrecoCompra.setText(str(registro[6]))
             self.txtValorVenda.setText(str(registro[7]))
             break
-
-        if self.txtCodigo.text() == '':
-            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Codigo esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
-            varExisteErro = True
-
-        if varExisteErro == False:
-            cursor.execute(comando, dados)
-            db.commit()
 
         cursor.close()
         db.close()
