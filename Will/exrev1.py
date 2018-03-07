@@ -1,0 +1,8 @@
+nome = input("Qual é o seu nome")
+idade = input("Qual é a sua idade")
+sexo = input("Qual é o seu sexo")
+nomeDaMae = input("Qual é o nome da sua mãe")
+print ("seu nome é ", nome)
+print ("sua idade é ", idade)
+print ("seu sexo é ", sexo)
+print ("o nome da sua mae é ", nomeDaMae)
