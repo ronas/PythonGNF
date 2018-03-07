@@ -33,26 +33,39 @@ class classApp(QtGui.QWidget):
         db = pymysql.connect(**config)
         cursor = db.cursor()
         comando =(
-            "insert into Produtos (Codigo,Razao,CNPJ,Endereco,Bairro,CEP,Cidade,Estado,Pais,Contato,Telefone,Email,LimiteDeCredito,AprovadorFinaceiro,Bloqueado)"
+            "insert into Parceiros (Codigo,Razao,CNPJ,Endereco,Bairro,CEP,Cidade,Estado,Pais,Contato,Telefone,Email,LimiteDeCredito,AprovadorFinanceiro,Bloqueado)"
             "values(%s,%s,%s,%s,%s,%s,%s,%s)"
             )
-#Codigo,Razao,CNPJ,Endereco,Bairro,CEP,Cidade,Estado,Pais,Contato,Telefone,Email,LimiteDeCredito,AprovadorFinaceiro,Bloqueado
+#Codigo,Razao,CNPJ,Endereco,Bairro,CEP,Cidade,Estado,Pais,Contato,Telefone,Email,LimiteDeCredito,AprovadorFinanceiro,Bloqueado
         varcodigoin = self.txtCodigoIn.text()
         varrazoin = self.txtRazaoIn.text()  
-        varCNPJin = self.txtCNPJIn.text()
-        varEnderecoin = self.txtEnderecoIn.text()
+        varcnpjin = self.txtCNPJIn.text()
+        varenderecoin = self.txtEnderecoIn.text()
         varbairroin = self.txtBairroIn.text()
         varcepin = self.txtCEPIn.text() 
         varcidadein = self.txtCidadeIn.text()
-        varestadoin = self.txtEstadoIn.text() 
+        varestadoin = self.txtEstadoIn.text()
+        varpaisin = self.txtPaisIn.text()
+        varcontatoin = self.txtContatoIn.text()
+        vartelefonein = self.txtTelefoneIn.text()
+        varemailin = self.txtEmailIn.text()
+        varlimitedecreditoin = self.txtLimiteDeCreditoIn.text()
+        varaprovadorfinanceiroin = self.txtAprovadorFinanceiroIn.text() 
+        varbloqueadoin = self.txtBloqueadoIn.text()
         dados = (varcodigoin,
-                 varnomein,
-                 varunidademedidain,
-                 varpesoin,
-                 varcodigoeanin,
-                 varcodigomoedain,
-                 varprecocomprain,
-                 varvalorvendain)
+                 varrazaoin,
+                 varcnpjin,
+                 varenderecoin,
+                 varbairroin,
+                 varcepin,
+                 varcidadein,
+                 varestadoin,
+                 varpaisin,
+                 varcontatoin,
+                 vartelefonein,
+                 varemailin,
+                 varlimitedecreditoin,
+                 varbloqueadoin)
         cursor.execute(comando,dados)
         db.commit()
         cursor.close
@@ -62,19 +75,26 @@ class classApp(QtGui.QWidget):
         db = pymysql.connect(**config)
         cursor = db.cursor()
         comando = (
-            "update LojaDB.Produtos "
-            "set Nome = %s,UnidadeMedida = %s,Peso = %s,CodigoEAN = %s,CodigoMoeda = %s,PrecoCompra = %s,ValorVenda = %s where Codigo = %s "
+            "update LojaDB.Parceiros "
+            "set Razao = %s,CNPJ = %s,Endereco = %s,Bairro = %s,CEP = %s,Cidade = %s,Estado = %s,Pais = %s,Contato = %s,Telefone = %s,Email = %s,LimiteDeCredito = %s,AprovadorFinanceiro = %s,Bloqueado = %s where Codigo = %s "
             )
+#Codigo,Razao,CNPJ,Endereco,Bairro,CEP,Cidade,Estado,Pais,Contato,Telefone,Email,LimiteDeCredito,AprovadorFinanceiro,Bloqueado
         varcodigoat = self.txtCodigoAt.text()
-        varnomeat = self.txtNomeAt.text() 
-        varunidademedidaat = self.txtUnidadeMedidaAt.text()
-        varpesoat = self.txtPesoAt.text()
-        varcodigoeanat = self.txtCodigoEANAt.text()
-        varcodigomoedaat = self.txtCodigoMoedaAt.text()
-        varprecocompraat = self.txtPrecoCompraAt.text()
-        varvalorvendaat = self.txtValorVendaAt.text()
+        varrazaoat = self.txtRazaoAt.text() 
+        varcnpjat = self.txtCNPJAt.text()
+        varenderecoat = self.txtEnderecoAt.text()
+        varbairroat = self.txtBairroAt.text()
+        varcepat = self.txtCEPAt.text()
+        varcidadeat = self.txtCidadeAt.text()
+        varestadoat = self.txtEstadoAt.text()
+        varpaisat = self.txtPaisAt.text()
+        varcontatoat = self.txtContatoAt.text()
+        vartelefoneat = self.txtTelefoneAt.text()
+        varemailat = self.txtEmailAt.text()
+        varlimitedecreditoat = self.txtLimiteDeCreditoAt.text()
+        varaprovadorfinanceiroat = self.txtAprovadorFinanceiroAt.text()
 
-        dados =(varnomeat,varunidademedidaat,varpesoat,varcodigoeanat,varcodigomoedaat,varprecocompraat,varvalorvendaat,varcodigoat)
+        dados =(varrazaoat,varcnpjat,varenderecoat,varbairroat,varcepat,varcidadeat,varestadoat,varpaisat,varcontatoat,vartelefoneat,varemailat,varlimitedecreditoat,varaprovadorfinanceiroat,varbloqueadoat,varcodigoat)
         cursor.execute(comando,dados)
         db.commit()
         cursor.close
@@ -86,22 +106,29 @@ class classApp(QtGui.QWidget):
         db = pymysql.connect(**config)
         cursor = db.cursor()
 
-        comando = ('select * from LojaDB.produtos where Codigo = %s ')
+        comando = ('select * from LojaDB.parceiros where Codigo = %s ')
         dados = (self.txtCodigoM.text())
 
         cursor.execute(comando, dados)
 
         registros = cursor.fetchall()
-
+#Codigo,Razao,CNPJ,Endereco,Bairro,CEP,Cidade,Estado,Pais,Contato,Telefone,Email,LimiteDeCredito,AprovadorFinanceiro,Bloqueado
         for registro in registros:
             self.txtCodigoM.setText(registro[0])
-            self.txtNomeM.setText(registro[1])
-            self.txtUnidadeMedidaM.setText(registro[2])
-            self.txtPesoM.setText(str(registro[3]))
-            self.txtCodigoEANM.setText(registro[4])
-            self.txtCodigoMoedaM.setText(registro[5])
-            self.txtPrecoCompraM.setText(str(registro[6]))
-            self.txtValorVendaM.setText(str(registro[7]))
+            self.txtRazaoM.setText(registro[1])
+            self.txtCNPJM.setText(registro[2])
+            self.txtEnderecoM.setText(registro[3])
+            self.txtBairroM.setText(registro[4])
+            self.txtCEPM.setText(registro[5])
+            self.txtCidadeM.setText(registro[6])
+            self.txtEstadoM.setText(registro[7])
+            self.txtPaisM.setText(registro[8])
+            self.txtContatoM.setText(registro[9])
+            self.txtTelefoneM.setText(registro[10])
+            self.txtEmailM.setText(registro[11])
+            self.txtLimiteDeCreditoM.setText(str(registro[12]))
+            self.txtAprovadorFinanceiroM.setText(registro[13])
+            self.txtBloqueadoM.setText(registro[14])
             break
 
         cursor.close
@@ -115,27 +142,39 @@ class classApp(QtGui.QWidget):
         self.setWindowTitle('SistemaLojinha5')
         self.resize(250,150)
         self.move(300,300)        
-        
+
         self.lblCodigo = QtGui.QLabel('Codigo')
-        self.lblNome = QtGui.QLabel('Nome')
-        self.lblUnidadeMedida = QtGui.QLabel('UnidadeDeMedida')
-        self.lblPeso = QtGui.QLabel('Peso')
-        self.lblCodigoEAN = QtGui.QLabel('CodigoEAN')
-        self.lblCodigoMoeda = QtGui.QLabel('CodigoMoeda')
-        self.lblPrecoCompra = QtGui.QLabel('PrecoCompra')
-        self.lblValorVenda = QtGui.QLabel('ValorVenda')
+        self.lblRazao = QtGui.QLabel('Razao')
+        self.lblCNPJ = QtGui.QLabel('CNPJ')
+        self.lblEndereco = QtGui.QLabel('Endereco')
+        self.lblBairro = QtGui.QLabel('Bairro')
+        self.lblCEP = QtGui.QLabel('CEP')
+        self.lblCidade = QtGui.QLabel('Cidade')
+        self.lblEstado = QtGui.QLabel('Estado')
+        self.lblPais = QtGui.QLabel('Pais')
+        self.lblContato = QtGui.QLabel('Contato')
+        self.lblTelefone = QtGui.QLabel('Telefone')
+        self.lblEmail = QtGui.QLabel('Email')
+        self.lblLimiteDeCredito = QtGui.QLabel('LimiteDeCredito')
+        self.lblAprovadorFinanceiro = QtGui.QLabel('AprovadorFinanceiro')
+        self.lblBloqueado = QtGui.QLabel(Bloqueado)
 
-        
-        
         self.txtCodigoIn = QtGui.QLineEdit()
-        self.txtNomeIn = QtGui.QLineEdit()
-        self.txtUnidadeMedidaIn = QtGui.QLineEdit()
-        self.txtPesoIn = QtGui.QLineEdit()
-        self.txtCodigoEANIn = QtGui.QLineEdit()
-        self.txtCodigoMoedaIn = QtGui.QLineEdit()
-        self.txtPrecoCompraIn = QtGui.QLineEdit()
-        self.txtValorVendaIn = QtGui.QLineEdit()
-
+        self.txtRazaoIn = QtGui.QLineEdit()
+        self.txtCNPJIn = QtGui.QLineEdit()
+        self.txtEnderecoIn = QtGui.QLineEdit()
+        self.txtBairroIn = QtGui.QLineEdit()
+        self.txtCEPIn = QtGui.QLineEdit()
+        self.txtCidadeIn = QtGui.QLineEdit()
+        self.txtEstadoIn = QtGui.QLineEdit()
+        self.txtPaisIn = QtGui.QLineEdit()
+        self.txtContatoIn = QtGui.QLineEdit()
+        self.txtTelefoneIn = QtGui.QLineEdit()
+        self.txtEmailIn = QtGui.QLineEdit()
+        self.txtLimiteDeCreditoIn = QtGui.QLineEdit()
+        self.txtAprovadorFinanceiroIn = QtGui.QLineEdit()
+        self.txtBloqueadoIn = QtGui.QLineEdit()
+#____________________________________________________________________________________________________________________________________________
         self.txtCodigoAt = QtGui.QLineEdit()
         self.txtNomeAt = QtGui.QLineEdit()
         self.txtUnidadeMedidaAt = QtGui.QLineEdit()        
