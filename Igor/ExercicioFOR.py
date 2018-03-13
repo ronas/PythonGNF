@@ -16,7 +16,7 @@ for meupet in pets:
     print ("Favorito!")
 '''
 '''#Substituição de letra com acento
-nome = "Rogério Olimpio da Sélva"
+nome = "Igor Nunes de Amorim"
 print (nome)
         
 for letra in nome:

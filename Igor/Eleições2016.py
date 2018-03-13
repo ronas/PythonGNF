@@ -1,4 +1,4 @@
-
+# -*- coding: latin -*-
 # Eleições 2016
 # Autor: Igor Nunes
 # Materia: Curso Programar em Python
@@ -9,9 +9,9 @@
 
 # Programa Eleitoral
 
-Dilma = 0
-Bolsonaro = 0
-trump = 0
+Dilma = 1
+Bolsonaro = 2
+trump = 3
 
 Eleitores = int(input("Quantidade de Eletores ?"))
 

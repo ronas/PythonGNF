@@ -147,7 +147,7 @@ cursor.close ()
 db.close ()
 while True:
 print ( "| _____________________________________________________ | \ n"
-"| PRDTUTOS | PARCEIROS | \ n"
+"| PROTUTOS | PARCEIROS | \ n"
 "| | | \ N"
 "| 1) Inserir: | 5) Inserir: | \ n"
 "| 2) Atualizar: | 6) Atualizar: | \ n"

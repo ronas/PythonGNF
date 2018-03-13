@@ -1,7 +1,7 @@
 # -*- coding: latin -*-
 import sys 
 
-from PyQt4 import QtGui
+from PyQt4 import QtGui,QtCore
 
 import pymysql
 
@@ -174,6 +174,15 @@ class ClasseAPP(QtGui.QWidget):
             self.txtBloqueado.text()
         )
 
+        varExisteErro = False
+
+        if self.txtCodigo.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O Campo Codigo esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok )
+            varExisteErro = True 
+
+        if self.txtRazao.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O Campo Razao esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok )
+            varExisteErro
         cursor.execute(comando, dados)
         db.commit()
         

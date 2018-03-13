@@ -9,7 +9,7 @@ nomeArquivo = input("Qual seu Arquivo ?")
 
 ponteiro = open(nomeArquivo,'w')
 # Ponteiro = Função logico de salvar no disco "open", 
-#todas as opreções realizadas com arquivo são realizadas com o ponteiro 
+#todas as operações realizadas com arquivo são realizadas com o ponteiro 
 # O W-write = Escrever um Texto
 # O R-read = Somente leitura
 # O A-append = Para incluir novos arquivo 
