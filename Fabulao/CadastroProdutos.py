@@ -202,7 +202,7 @@ class ClasseAPP(QtGui.QWidget):
             choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Peso esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
             varExisteErro = True
 
-        if self.CodigoEAN.text() == '':
+        if self.txtCodigoEAN.text() == '':
             choice = QtGui.QMessageBox.question(self,'Aviso','O campo Codigo EAN esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
             varExisteErro = True
 
