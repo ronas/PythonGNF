@@ -147,6 +147,7 @@ class classApp(QtGui.QWidget):
         self.resize(250,150)
         self.move(300,300)        
 
+        self.lblCodigoDeletar = QtGui.QLabel('CodigoDeletar')
         self.lblCodigo = QtGui.QLabel('Codigo')
         self.lblRazao = QtGui.QLabel('Razao')
         self.lblCNPJ = QtGui.QLabel('CNPJ')
@@ -197,9 +198,10 @@ class classApp(QtGui.QWidget):
         self.grid = QtGui.QGridLayout()
         self.grid.setSpacing(10)         
         
-        self.grid.addWidget(self.btnBuscar,1,1)
-        self.grid.addWidget(self.btnInserir,1,2)
-        self.grid.addWidget(self.btnAtualizar,1,3)
+        self.grid.addWidget(self.btnBuscar,17,0)
+        self.grid.addWidget(self.btnInserir,17,1)
+        self.grid.addWidget(self.btnAtualizar,17,2)
+        self.grid.addWidget(self.btnDeletar,17,3)
 
 
         self.grid.addWidget(self.lblCodigo,2,0)
@@ -261,11 +263,11 @@ class classApp(QtGui.QWidget):
         self.grid.addWidget(self.txtBloqueado,16,1)
 
 
-        self.grid.addWidget(self.txtCodigoDeletar,17,1)
+        self.grid.addWidget(self.txtCodigoDeletar,1,1)
 
-        self.grid.addWidget(self.btnDeletar,17,0)
+        self.grid.addWidget(self.lblCodigoDeletar,1,0)
 
-        self.grid.addWidget(self.btnSair,17,2)
+        self.grid.addWidget(self.btnSair,18,0)
  
         self.setLayout(self.grid)
         
