@@ -45,18 +45,29 @@ class classApp(QtGui.QWidget):
         varcodigomoedain = self.txtCodigoMoedaIn.text() 
         varprecocomprain = self.txtPrecoCompraIn.text()
         varvalorvendain = self.txtValorVendaIn.text() 
-        dados = (varcodigoin,
-                 varnomein,
-                 varunidademedidain,
-                 varpesoin,
-                 varcodigoeanin,
-                 varcodigomoedain,
-                 varprecocomprain,
-                 varvalorvendain)
-        cursor.execute(comando,dados)
-        db.commit()
-        cursor.close
-        db.close
+
+        varExisteErro = False
+
+        if self.txtCodigoIn.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Codigo esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+
+
+
+        if varExisteErro = False
+            dados = (varcodigoin,
+                    varnomein,
+                    varunidademedidain,
+                    varpesoin,
+                    varcodigoeanin,
+                    varcodigomoedain,
+                    varprecocomprain,
+                    varvalorvendain)
+            cursor.execute(comando,dados)
+            db.commit()
+            cursor.close
+            db.close
 
     def bdAtualizar(self):
         db = pymysql.connect(**config)
