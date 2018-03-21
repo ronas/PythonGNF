@@ -42,21 +42,88 @@ class classApp(QtGui.QWidget):
         varcnpjin = self.txtCNPJ.text()
         varenderecoin = self.txtEndereco.text()
         varbairroin = self.txtBairro.text()
-        varcepin = self.txtCEPIn.text() 
+        varcepin = self.txtCEP.text() 
         varcidadein = self.txtCidade.text()
         varestadoin = self.txtEstado.text()
         varpaisin = self.txtPais.text()
         varcontatoin = self.txtContato.text()
         vartelefonein = self.txtTelefone.text()
         varemailin = self.txtEmail.text()
-        varlimitedecreditoin = self.txtLimiteDeCreditoIn.text()
-        varaprovadorfinanceiroin = self.txtAprovadorFinanceiroIn.text() 
-        varbloqueadoin = self.txtBloqueadoIn.text()
-        dados = (varcodigoin,varrazaoin,varcnpjin,varenderecoin,varbairroin,varcepin,varcidadein,varestadoin,varpaisin,varcontatoin,vartelefonein,varemailin,varlimitedecreditoin,varaprovadorfinanceiroin,varbloqueadoin)
-        cursor.execute(comando,dados)
-        db.commit()
-        cursor.close
-        db.close
+        varlimitedecreditoin = self.txtLimiteDeCredito.text()
+        varaprovadorfinanceiroin = self.txtAprovadorFinanceiro.text() 
+        varbloqueadoin = self.txtBloqueado.text()
+
+        varExisteErro = False
+
+        if self.txtCodigo.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Codigo esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtRazaoIn.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Razao esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtCNPJ.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo CNPJ esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtEndereco.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Endereco esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtBairro.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Bairro esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtCEP.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo CEP esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtCidade.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Cidade esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtEstadoIn.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Estado esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtPais.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Pais esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtContatoIn.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Contato esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtTelefone.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Telefone esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtEmail.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Email esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtLimiteDeCredito.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo LimiteDeCredito esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtAprovadorFinanceiro.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo AprovadoFinanceiro esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtBloqueado.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Bloqueado esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        
+
+
+        if varExisteErro == False:
+            dados = (varcodigoin,varrazaoin,varcnpjin,varenderecoin,varbairroin,varcepin,varcidadein,varestadoin,varpaisin,varcontatoin,vartelefonein,varemailin,varlimitedecreditoin,varaprovadorfinanceiroin,varbloqueadoin)
+            cursor.execute(comando,dados)
+            db.commit()
+            cursor.close
+            db.close
 
     def bdAtualizarParceiros(self):
         db = pymysql.connect(**config)
@@ -147,6 +214,7 @@ class classApp(QtGui.QWidget):
         self.resize(250,150)
         self.move(300,300)        
 
+        self.lblCodigoDeletar = QtGui.QLabel('CodigoDeletar')
         self.lblCodigo = QtGui.QLabel('Codigo')
         self.lblRazao = QtGui.QLabel('Razao')
         self.lblCNPJ = QtGui.QLabel('CNPJ')
@@ -197,9 +265,10 @@ class classApp(QtGui.QWidget):
         self.grid = QtGui.QGridLayout()
         self.grid.setSpacing(10)         
         
-        self.grid.addWidget(self.btnBuscar,1,1)
-        self.grid.addWidget(self.btnInserir,1,2)
-        self.grid.addWidget(self.btnAtualizar,1,3)
+        self.grid.addWidget(self.btnBuscar,17,0)
+        self.grid.addWidget(self.btnInserir,17,1)
+        self.grid.addWidget(self.btnAtualizar,17,2)
+        self.grid.addWidget(self.btnDeletar,17,3)
 
 
         self.grid.addWidget(self.lblCodigo,2,0)
@@ -261,11 +330,11 @@ class classApp(QtGui.QWidget):
         self.grid.addWidget(self.txtBloqueado,16,1)
 
 
-        self.grid.addWidget(self.txtCodigoDeletar,17,1)
+        self.grid.addWidget(self.txtCodigoDeletar,1,1)
 
-        self.grid.addWidget(self.btnDeletar,17,0)
+        self.grid.addWidget(self.lblCodigoDeletar,1,0)
 
-        self.grid.addWidget(self.btnSair,17,2)
+        self.grid.addWidget(self.btnSair,18,0)
  
         self.setLayout(self.grid)
         
