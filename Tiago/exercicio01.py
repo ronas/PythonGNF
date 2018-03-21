@@ -1,10 +1,11 @@
 #Exercicio 01
 #Autor Tiago
+#Aula de hoje - comando print e input.
 import os
 os.system("clear") # Aqui chama o comando para excluir informações que o usuário não precisa visualizar.
 #print("hello world")
 varNome=input ("Digite seu nome:") #Variavel criada para pedir informaçao.(usuario digita a informacao)
-#print(varNome)                   
+#print(varNome)            
 varIdade=input ("Digite sua Idade:")
 #print(varIdade)
 varSexo=input ("Digite seu Sexo:")
