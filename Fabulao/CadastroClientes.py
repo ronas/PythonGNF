@@ -200,6 +200,9 @@ class ClasseAPP(QtGui.QWidget):
             choice = QtGui.QMessageBox.question(self,'Aviso!','O Campo CEP está Vazio! Por Favor, Preencher.',QtGui.QMessageBox.OK )
             varExisteErro = True
 
+        if self.txtCidade.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!',)
+            varExisteErro = True
             
         cursor.execute(comando, dados)
         db.commit()
