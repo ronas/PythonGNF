@@ -8,6 +8,15 @@
 #           - Impressão formatada dos dados.
 #
 # Leitura dos dados do teclado ...
+
+def Numero(ParamEntrada):
+    try:
+        val = float(ParamEntrada)
+        return(True)
+
+    except ValueError:
+        return(False)
+
 altura = input("Digite a sua altura: ")
 peso   = input("Digite o seu peso: ")
 
@@ -16,34 +25,39 @@ altura = altura.replace(",", ".")
 peso   = peso.replace(",", ".")
 
 # Conversão dos valores de texto para nomérico (ponto flutuante) ...
-altura = float(altura)
-peso   = float(peso)
+if Numero(altura) == True and Numero(peso) == True :
 
-# Cálculo de IMC ...
-IMC = peso / (altura * altura)
+    altura = float(altura)
+    peso   = float(peso)
 
-# Apresentação do resultado ...
-print ("O índice de IMC é: ", IMC)
-print ("O índice de IMC é: %6.2f" % IMC)
+    # Cálculo de IMC ...
+    IMC = peso / (altura * altura)
 
-# Apresenta a faixa de enquadradamento ...
-if IMC < 17.00 :
-    print ("Muito abaixo do peso!")
-  
-if IMC >= 17.00 and IMC <= 18.49 :
-    print ("Abaixo do peso") 
-    
-if IMC >= 25 and IMC <= 29.99 :
-    print ("Você esta gordo!")
-    
-if IMC >= 30 and IMC <= 34.99 :
-    print ("Caraca obesidade!")
+    # Apresentação do resultado ...
+    print ("O índice de IMC é: ", IMC)
+    print ("O índice de IMC é: %6.2f" % IMC)
 
-if IMC >= 35 and IMC <= 39.99 :
-    print ("Ta tão obeso que parece um elefante")
+    # Apresenta a faixa de enquadradamento ...
+    if IMC < 17.00 :
+        print ("Muito abaixo do peso!")
     
-if IMC >= 40 :
-    print ("Meu Deus a obesidade é tanta que nem da pra ver a cabeça")         
-    
+    if IMC >= 17.00 and IMC <= 18.49 :
+        print ("Abaixo do peso") 
+        
+    if IMC >= 25 and IMC <= 29.99 :
+        print ("Você esta gordo!")
+        
+    if IMC >= 30 and IMC <= 34.99 :
+        print ("Caraca obesidade!")
+
+    if IMC >= 35 and IMC <= 39.99 :
+        print ("Ta tão obeso que parece um elefante")
+        
+    if IMC >= 40 :
+        print ("Meu Deus a obesidade é tanta que nem da pra ver a cabeça")         
+
+else:
+    print ("Peso ou Altura Incorretos!")
+
     
 
