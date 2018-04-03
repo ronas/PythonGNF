@@ -1,4 +1,5 @@
 # -*- coding: latin -*-
+
 import sys
 
 import pymysql
@@ -59,7 +60,7 @@ class classApp(QtGui.QWidget):
             choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Codigo esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
             varExisteErro = True
 
-        if self.txtRazaoIn.text() == '':
+        if self.txtRazao.text() == '':
             choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Razao esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
             varExisteErro = True
 
@@ -83,7 +84,7 @@ class classApp(QtGui.QWidget):
             choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Cidade esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
             varExisteErro = True
 
-        if self.txtEstadoIn.text() == '':
+        if self.txtEstado.text() == '':
             choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Estado esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
             varExisteErro = True
 
@@ -91,7 +92,7 @@ class classApp(QtGui.QWidget):
             choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Pais esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
             varExisteErro = True
 
-        if self.txtContatoIn.text() == '':
+        if self.txtContato.text() == '':
             choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Contato esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
             varExisteErro = True
 
@@ -149,11 +150,76 @@ class classApp(QtGui.QWidget):
         varaprovadorfinanceiroat = self.txtAprovadorFinanceiro.text()
         varbloqueadoat = self.txtBloqueado.text()
 
-        dados =(varrazaoat,varcnpjat,varenderecoat,varbairroat,varcepat,varcidadeat,varestadoat,varpaisat,varcontatoat,vartelefoneat,varemailat,varlimitedecreditoat,varaprovadorfinanceiroat,varbloqueadoat,varcodigoat)
-        cursor.execute(comando,dados)
-        db.commit()
-        cursor.close
-        db.close    
+        varExisteErro = False
+
+        if self.txtCodigo.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Codigo esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtRazao.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Razao esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtCNPJ.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo CNPJ esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtEndereco.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Endereco esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtBairro.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Bairro esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtCEP.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo CEP esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtCidade.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Cidade esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtEstadoIn.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Estado esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtPais.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Pais esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtContato.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Contato esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtTelefone.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Telefone esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtEmail.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Email esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtLimiteDeCredito.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo LimiteDeCredito esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtAprovadorFinanceiro.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo AprovadoFinanceiro esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtBloqueado.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Bloqueado esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+
+        if varExisteErro == False:
+
+            dados =(varrazaoat,varcnpjat,varenderecoat,varbairroat,varcepat,varcidadeat,varestadoat,varpaisat,varcontatoat,vartelefoneat,varemailat,varlimitedecreditoat,varaprovadorfinanceiroat,varbloqueadoat,varcodigoat)
+            cursor.execute(comando,dados)
+            db.commit()
+            cursor.close
+            db.close    
                  
         
     def bdMostrarParceiros(self):
@@ -348,4 +414,4 @@ def main():
     sys.exit(app.exec_())
 
 if __name__ =='__main__':
-    main()                 
+    main()                     
