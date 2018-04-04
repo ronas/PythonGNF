@@ -1,4 +1,5 @@
 # -*- coding: latin -*-
+
 import sys
 
 import pymysql
@@ -14,7 +15,7 @@ config = {
     }
     
 class classApp(QtGui.QWidget):
-    
+  
     def bdExcluirProdutos(self):
         db = pymysql.connect(**config)
         cursor = db.cursor()
@@ -27,69 +28,127 @@ class classApp(QtGui.QWidget):
         cursor.close()
         db.close()
 
-    
+
     def bdInserirProdutos(self):
  
         db = pymysql.connect(**config)
         cursor = db.cursor()
         comando =(
-            "insert into Produtos (Codigo,Nome,UnidadeMedida,Peso,CodigoEAN,CodigoMoeda,PrecoCompra,ValorVenda)"
-            "values(%s,%s,%s,%s,%s,%s,%s,%s)"
+            "insert into Produtos (Codigo,Nome,UnidadeMedida,Peso,CodigoEAN,CEP,CodigoMoeda,PrecoCompra,ValorVenda)"
+            "values(%s,%s,%s,%s,%s,%s,%s,%s,%s)"
             )
-#correto
-        varcodigoin = self.txtCodigoIn.text()
-        varnomein = self.txtNomeIn.text()  
-        varunidademedidain = self.txtUnidadeMedidaIn.text()
-        varpesoin = self.txtPesoIn.text()
-        varcodigoeanin = self.txtCodigoEANIn.text()
-        varcodigomoedain = self.txtCodigoMoedaIn.text() 
-        varprecocomprain = self.txtPrecoCompraIn.text()
-        varvalorvendain = self.txtValorVendaIn.text() 
+
+        varcodigoin = self.txtCodigo.text()
+        varnomein = self.txtNome.text()  
+        varunidademedidain = self.txtUnidadeMedida.text()
+        varpesoin = self.txtPeso.text()
+        varcodigoeanin = self.txtCodigoEAN.text()
+        varcodigomoedain = self.txtCodigoMoeda.text()
+        varprecocomprain = self.txtPrecoCompra.text()
+        varvalorvendain = self.txtValorVenda.text()
 
         varExisteErro = False
 
-        if self.txtCodigoIn.text() == '':
+        if self.txtCodigo.text() == '':
             choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Codigo esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
             varExisteErro = True
 
+        if self.txtNome.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Nome esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtUnidadeMedida.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo UnidadeMedida esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtPeso.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Peso esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtCodigoEAN.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo CodigoEAN esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtCodigoMoeda.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo CodigoMoeda esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtPrecoCompra.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo PrecoCompra esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtValorVenda() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo ValorVenda esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
 
 
-
-        if varExisteErro = False
-            dados = (varcodigoin,
-                    varnomein,
-                    varunidademedidain,
-                    varpesoin,
-                    varcodigoeanin,
-                    varcodigomoedain,
-                    varprecocomprain,
-                    varvalorvendain)
+        if varExisteErro == False:
+            dados = (varcodigoin,varnomein,varunidademedidain,varpesoin,varcodigoeanin,varcodigomoedain,varprecocomprain,varvalorvendain)
             cursor.execute(comando,dados)
             db.commit()
             cursor.close
             db.close
 
-    def bdAtualizar(self):
+    def bdAtualizarProdutos(self):
         db = pymysql.connect(**config)
         cursor = db.cursor()
         comando = (
             "update LojaDB.Produtos "
-            "set Nome = %s,UnidadeMedida = %s,Peso = %s,CodigoEAN = %s,CodigoMoeda = %s,PrecoCompra = %s,ValorVenda = %s where Codigo = %s "
+            "set Nome = %s,UnidadeMedida = %s,Peso = %s,CodigoEAN = %s,CodigoMoeda = %s,PrecoCompra = %s where Codigo = %s "
             )
-        varcodigoat = self.txtCodigoAt.text()
-        varnomeat = self.txtNomeAt.text() 
-        varunidademedidaat = self.txtUnidadeMedidaAt.text()
-        varpesoat = self.txtPesoAt.text()
-        varcodigoeanat = self.txtCodigoEANAt.text()
-        varcodigomoedaat = self.txtCodigoMoedaAt.text()
-        varprecocompraat = self.txtPrecoCompraAt.text()
-        varvalorvendaat = self.txtValorVendaAt.text()
 
-        dados =(varnomeat,varunidademedidaat,varpesoat,varcodigoeanat,varcodigomoedaat,varprecocompraat,varvalorvendaat,varcodigoat)
-        cursor.execute(comando,dados)
-        db.commit()
-        cursor.close
-        db.close    
+        varcodigoat = self.txtCodigo.text()
+        varnomeat = self.txtNome.text() 
+        varunidademedidaat = self.txtUnidadeMedida.text()
+        varpesoat = self.txtPeso.text()
+        varcodigoeanat = self.txtCodigoEAN.text()
+        varcodigomoedaat = self.txtCodigoMoeda.text()
+        varprecocompraat = self.txtPrecoCompra.text()
+        varvalorvendaat = self.txtValorVenda.text()
+
+        varExisteErro = False
+
+        if self.txtCodigo.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Codigo esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtNome.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Nome esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtUnidadeMedida.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo UnidadeMedida esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtPeso.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Peso esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtCodigoEAN.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo CodigoEAN esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtCodigoMoeda.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo CodigoMoeda esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtPrecoCompra.text() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo PrecoCompra esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+        if self.txtValorVenda() == '':
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo ValorVenda esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
+
+
+
+        if varExisteErro == False:
+
+            dados =(varcodigoin,varnomein,varunidademedidain,varpesoin,varcodigoeanin,varcodigomoedain,varprecocomprain,varvalorvendain)
+            cursor.execute(comando,dados)
+            db.commit()
+            cursor.close
+            db.close    
                  
         
     def bdMostrarProdutos(self):
@@ -97,22 +156,32 @@ class classApp(QtGui.QWidget):
         db = pymysql.connect(**config)
         cursor = db.cursor()
 
+        self.txtCodigo.setText(registro[0])
+        self.txtNome.setText('')
+        self.txtUnidadeMedida.setText('')
+        self.txtPeso.setText('')
+        self.CodigoEAN.setText('')
+        self.txtCodigoMoeda.setText('')
+        self.txtPrecoCompra.setText('')
+        self.txtValorVenda.setText('')
+
         comando = ('select * from LojaDB.produtos where Codigo = %s ')
-        dados = (self.txtCodigoM.text())
+        dados = (self.txtCodigo.text())
 
         cursor.execute(comando, dados)
 
         registros = cursor.fetchall()
-
+#Codigo,Razao,CNPJ,Endereco,Bairro,CEP,Cidade,Estado,Pais,Contato,Telefone,Email,LimiteDeCredito,AprovadorFinanceiro,Bloqueado
         for registro in registros:
-            self.txtCodigoM.setText(registro[0])
-            self.txtNomeM.setText(registro[1])
-            self.txtUnidadeMedidaM.setText(registro[2])
-            self.txtPesoM.setText(str(registro[3]))
-            self.txtCodigoEANM.setText(registro[4])
-            self.txtCodigoMoedaM.setText(registro[5])
-            self.txtPrecoCompraM.setText(str(registro[6]))
-            self.txtValorVendaM.setText(str(registro[7]))
+            self.txtCodigo.setText(registro[0])
+            self.txtNome.setText(registro[1])
+            self.txtUnidadeMedida.setText(registro[2])
+            self.txtPeso.setText(str(registro[3]))
+            self.txtCodigoEAN.setText(registro[4])
+            self.txtCodigoMoeda.setText(registro[5])
+            self.txtPrecoCompra.setText(str(registro[6]))
+            self.txtValorVenda.setText(str(registro[7]))
+
             break
 
         cursor.close
@@ -126,111 +195,85 @@ class classApp(QtGui.QWidget):
         self.setWindowTitle('SistemaLojinha5')
         self.resize(250,150)
         self.move(300,300)        
-        
+
+        self.lblCodigoDeletar = QtGui.QLabel('CodigoDeletar')
         self.lblCodigo = QtGui.QLabel('Codigo')
         self.lblNome = QtGui.QLabel('Nome')
-        self.lblUnidadeMedida = QtGui.QLabel('UnidadeDeMedida')
+        self.lblUnidadeMedida = QtGui.QLabel('UnidadeMedida')
         self.lblPeso = QtGui.QLabel('Peso')
         self.lblCodigoEAN = QtGui.QLabel('CodigoEAN')
         self.lblCodigoMoeda = QtGui.QLabel('CodigoMoeda')
         self.lblPrecoCompra = QtGui.QLabel('PrecoCompra')
         self.lblValorVenda = QtGui.QLabel('ValorVenda')
 
-        
-        
-        self.txtCodigoIn = QtGui.QLineEdit()
-        self.txtNomeIn = QtGui.QLineEdit()
-        self.txtUnidadeMedidaIn = QtGui.QLineEdit()
-        self.txtPesoIn = QtGui.QLineEdit()
-        self.txtCodigoEANIn = QtGui.QLineEdit()
-        self.txtCodigoMoedaIn = QtGui.QLineEdit()
-        self.txtPrecoCompraIn = QtGui.QLineEdit()
-        self.txtValorVendaIn = QtGui.QLineEdit()
-
-        self.txtCodigoAt = QtGui.QLineEdit()
-        self.txtNomeAt = QtGui.QLineEdit()
-        self.txtUnidadeMedidaAt = QtGui.QLineEdit()        
-        self.txtPesoAt = QtGui.QLineEdit()
-        self.txtCodigoEANAt = QtGui.QLineEdit()
-        self.txtCodigoMoedaAt = QtGui.QLineEdit()
-        self.txtPrecoCompraAt = QtGui.QLineEdit()
-        self.txtValorVendaAt = QtGui.QLineEdit()
-
-        self.txtCodigoM = QtGui.QLineEdit()
-        self.txtNomeM = QtGui.QLineEdit()
-        self.txtUnidadeMedidaM = QtGui.QLineEdit()
-        self.txtPesoM = QtGui.QLineEdit()
-        self.txtCodigoEANM = QtGui.QLineEdit()
-        self.txtCodigoMoedaM = QtGui.QLineEdit()
-        self.txtPrecoCompraM = QtGui.QLineEdit()
-        self.txtValorVendaM = QtGui.QLineEdit()
+        self.txtCodigo = QtGui.QLineEdit()
+        self.txtNome = QtGui.QLineEdit()
+        self.txtUnidadeMedida = QtGui.QLineEdit()
+        self.txtPeso = QtGui.QLineEdit()
+        self.txtCodigoEAN = QtGui.QLineEdit()
+        self.txtCodigoMoeda = QtGui.QLineEdit()
+        self.txtPrecoCompra = QtGui.QLineEdit()
+        self.txtValorVenda = QtGui.QLineEdit()
 
         self.txtCodigoDeletar = QtGui.QLineEdit()
 
         self.btnSair = QtGui.QPushButton('Sair',self)
         self.btnSair.clicked.connect(self.sair)
         self.btnBuscar = QtGui.QPushButton('Buscar',self)
-        self.btnBuscar.clicked.connect(self.bdMostrarProdutos)
+        self.btnBuscar.clicked.connect(self.bdMostrarParceiros)
         self.btnInserir = QtGui.QPushButton('Inserir',self)
-        self.btnInserir.clicked.connect(self.bdInserirProdutos)
+        self.btnInserir.clicked.connect(self.bdInserirParceiros)
         self.btnDeletar = QtGui.QPushButton('Deletar',self)
-        self.btnDeletar.clicked.connect(self.bdExcluirProdutos)
+        self.btnDeletar.clicked.connect(self.bdExcluirParceiros)
         self.btnAtualizar = QtGui.QPushButton('Atualizar',self)
-        self.btnAtualizar.clicked.connect(self.bdAtualizar)
+        self.btnAtualizar.clicked.connect(self.bdAtualizarParceiros)
         
         self.grid = QtGui.QGridLayout()
         self.grid.setSpacing(10)         
-# Codigo  Nome  UnidadeMedida  Peso  CodigoEAN CodigoMoeda  PrecoCompra  ValorVenda        
-        self.grid.addWidget(self.btnBuscar,1,1)
-        self.grid.addWidget(self.btnInserir,1,2)
-        self.grid.addWidget(self.btnAtualizar,1,3)
+        
+        self.grid.addWidget(self.btnBuscar,17,0)
+        self.grid.addWidget(self.btnInserir,17,1)
+        self.grid.addWidget(self.btnAtualizar,17,2)
+        self.grid.addWidget(self.btnDeletar,17,3)
 
 
         self.grid.addWidget(self.lblCodigo,2,0)
-        self.grid.addWidget(self.txtCodigoM,2,1)
-        self.grid.addWidget(self.txtCodigoIn,2,2)
-        self.grid.addWidget(self.txtCodigoAt,2,3)
+        self.grid.addWidget(self.txtCodigo,2,1)
+
 
         self.grid.addWidget(self.lblNome,3,0)
-        self.grid.addWidget(self.txtNomeM,3,1)
-        self.grid.addWidget(self.txtNomeIn,3,2)
-        self.grid.addWidget(self.txtNomeAt,3,3)
+        self.grid.addWidget(self.txtNome,3,1)
+
 
         self.grid.addWidget(self.lblUnidadeMedida,4,0)
-        self.grid.addWidget(self.txtUnidadeMedidaM,4,1)
-        self.grid.addWidget(self.txtUnidadeMedidaIn,4,2)
-        self.grid.addWidget(self.txtUnidadeMedidaAt,4,3)
+        self.grid.addWidget(self.txtUnidadeMedida,4,1)
+
 
         self.grid.addWidget(self.lblPeso,5,0)
-        self.grid.addWidget(self.txtPesoM,5,1)
-        self.grid.addWidget(self.txtPesoIn,5,2)
-        self.grid.addWidget(self.txtPesoAt,5,3)
+        self.grid.addWidget(self.txtPeso,5,1)
+
 
         self.grid.addWidget(self.lblCodigoEAN,6,0)
-        self.grid.addWidget(self.txtCodigoEANM,6,1)
-        self.grid.addWidget(self.txtCodigoEANIn,6,2)
-        self.grid.addWidget(self.txtCodigoEANAt,6,3)
+        self.grid.addWidget(self.txtCodigoEAN,6,1)
+
 
         self.grid.addWidget(self.lblCodigoMoeda,7,0)
-        self.grid.addWidget(self.txtCodigoMoedaM,7,1)
-        self.grid.addWidget(self.txtCodigoMoedaIn,7,2)
-        self.grid.addWidget(self.txtCodigoMoedaAt,7,3)
+        self.grid.addWidget(self.txtCodigoMoeda,7,1)
+
 
         self.grid.addWidget(self.lblPrecoCompra,8,0)
-        self.grid.addWidget(self.txtPrecoCompraM,8,1)
-        self.grid.addWidget(self.txtPrecoCompraIn,8,2)
-        self.grid.addWidget(self.txtPrecoCompraAt,8,3)
+        self.grid.addWidget(self.txtPrecoCompra,8,1)
+
 
         self.grid.addWidget(self.lblValorVenda,9,0)
-        self.grid.addWidget(self.txtValorVendaM,9,1)
-        self.grid.addWidget(self.txtValorVendaIn,9,2)
-        self.grid.addWidget(self.txtValorVendaAt,9,3)
+        self.grid.addWidget(self.txtValorVenda,9,1)
 
-        self.grid.addWidget(self.txtCodigoDeletar,10,1)
 
-        self.grid.addWidget(self.btnDeletar,10,0)
+        self.grid.addWidget(self.txtCodigoDeletar,1,1)
 
-        self.grid.addWidget(self.btnSair,10,2)
+        self.grid.addWidget(self.lblCodigoDeletar,1,0)
+
+        self.grid.addWidget(self.btnSair,10,0)
  
         self.setLayout(self.grid)
         
@@ -244,4 +287,4 @@ def main():
     sys.exit(app.exec_())
 
 if __name__ =='__main__':
-    main()                 
+    main()                     
