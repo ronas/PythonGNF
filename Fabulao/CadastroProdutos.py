@@ -155,16 +155,12 @@ class ClasseAPP(QtGui.QWidget):
             self.txtCodigo.text()
         )
 
-        choice = QtGui.QMessageBox.question(self, 'Extract!',
-                                " Excluir Registro  ?",
-                                QtGui.QMessageBox.Yes|QtGui.QMessageBox.No)
+        choice = QtGui.QMessageBox.question(self, 'Extract!', "Excluir Registro?",
+        QtGui.QMessageBox.Yes|QtGui.QMessageBox.No)
 
         if choice == QtGui.QMessageBox.Yes:
             cursor.execute(comando, dados)
             db.commit()
-
-        
-        
 
         cursor.close()
         db.close()
@@ -191,7 +187,7 @@ class ClasseAPP(QtGui.QWidget):
         varExisteErro = False
 
         if self.txtNome.text() == '':
-            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Nome esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Nome está Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
             varExisteErro = True
 
         if self.txtUnidadeMedida.text() == '':
