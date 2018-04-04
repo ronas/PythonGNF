@@ -14,13 +14,13 @@ pesop = 1.3
 
 
 
-altca = input ("Qual a altura da cacamba ?    ")     
+altca = float (input ("Qual a altura da cacamba ?    ")     )
 print (" ")
-largca = input ("Qual a largura da cacamba ?    ")    
+largca = float (input ("Qual a largura da cacamba ?    ")    )
 print (" ")
-profunca = input ("Qual a profundidade da cacamba ?    ")
+profunca = float (input ("Qual a profundidade da cacamba ?    "))
 print (" ")
-cargmaxno = input ("Qual a carga maxima Nominal suportada ?   ")
+cargmaxno = float (input ("Qual a carga maxima Nominal suportada ?   "))
 print (" ")
 
 
@@ -42,13 +42,13 @@ quant4 = cargmaxno / pesop
 
 #Mostrando os resultados **
 print ("**-------------------------------------------------------------------**")
-print ("quantidade de caixas enfileiradas na largura:"),  (quant1)
+print ("quantidade de caixas enfileiradas na largura:",  quant1)
 print ("**")
-print ("quantidade de caixas empilhadas (altura):"), (quant2)
+print ("quantidade de caixas empilhadas (altura):", quant2)
 print ("**")
-print ("quantidade de caixas enfileiradas na profundidade:"), (quant3)
+print ("quantidade de caixas enfileiradas na profundidade:", quant3)
 print ("**")
-print ("Quantidade maxima e caixas permitidas:") , (quant4)
+print ("Quantidade maxima e caixas permitidas:" , quant4)
 print ("**-------------------------------------------------------------------**")
 
 
