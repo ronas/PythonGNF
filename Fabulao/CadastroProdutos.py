@@ -230,14 +230,14 @@ class ClasseAPP(QtGui.QWidget):
         db = pymysql.connect(**config)
         cursor = db.cursor()
 
-        self.txtCodigo.setText(registro[0])
+        self.txtCodigo.setText('')
         self.txtNome.setText('')
         self.txtUnidadeMedida.setText('')
-        self.txtPeso.setText(str('')
+        self.txtPeso.setText(str(''))
         self.txtCodigoEAN.setText('')
         self.txtCodigoMoeda.setText('')
-        self.txtPrecoCompra.setText(str(registro[6]))
-        self.txtValorVenda.setText(str(registro[7]))
+        self.txtPrecoCompra.setText(str(''))
+        self.txtValorVenda.setText(str(''))
     
 
         comando = ('select * from LojaDB.Produtos where Codigo = %s ')
