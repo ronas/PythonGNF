@@ -155,16 +155,12 @@ class ClasseAPP(QtGui.QWidget):
             self.txtCodigo.text()
         )
 
-        choice = QtGui.QMessageBox.question(self, 'Extract!',
-                                " Excluir Registro  ?",
-                                QtGui.QMessageBox.Yes|QtGui.QMessageBox.No)
+        choice = QtGui.QMessageBox.question(self, 'Extract!', "Excluir Registro?",
+        QtGui.QMessageBox.Yes|QtGui.QMessageBox.No)
 
         if choice == QtGui.QMessageBox.Yes:
             cursor.execute(comando, dados)
             db.commit()
-
-        
-        
 
         cursor.close()
         db.close()
@@ -191,7 +187,7 @@ class ClasseAPP(QtGui.QWidget):
         varExisteErro = False
 
         if self.txtNome.text() == '':
-            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Nome esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
+            choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Nome está Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
             varExisteErro = True
 
         if self.txtUnidadeMedida.text() == '':
@@ -234,14 +230,14 @@ class ClasseAPP(QtGui.QWidget):
         db = pymysql.connect(**config)
         cursor = db.cursor()
 
-        self.txtCodigo.setText(registro[0])
+        self.txtCodigo.setText('')
         self.txtNome.setText('')
         self.txtUnidadeMedida.setText('')
-        self.txtPeso.setText(str('')
+        self.txtPeso.setText(str(''))
         self.txtCodigoEAN.setText('')
         self.txtCodigoMoeda.setText('')
-        self.txtPrecoCompra.setText(str(registro[6]))
-        self.txtValorVenda.setText(str(registro[7]))
+        self.txtPrecoCompra.setText(str(''))
+        self.txtValorVenda.setText(str(''))
     
 
         comando = ('select * from LojaDB.Produtos where Codigo = %s ')
