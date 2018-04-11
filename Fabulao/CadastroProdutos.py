@@ -230,7 +230,6 @@ class ClasseAPP(QtGui.QWidget):
         db = pymysql.connect(**config)
         cursor = db.cursor()
 
-        self.txtCodigo.setText('')
         self.txtNome.setText('')
         self.txtUnidadeMedida.setText('')
         self.txtPeso.setText(str(''))
