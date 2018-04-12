@@ -15,6 +15,8 @@ config = {
     }
     
 class classApp(QtGui.QWidget):
+
+    
   
     def bdExcluirProdutos(self):
         db = pymysql.connect(**config)
@@ -38,8 +40,9 @@ class classApp(QtGui.QWidget):
             "values(%s,%s,%s,%s,%s,%s,%s,%s,%s)"
             )
 
-        varcodigoin = self.txtCodigo.text()
-        varnomein = self.txtNome.text()  
+        varExisteErro = False
+        varcodigoin = self.txtCodigo.text()    
+        varnomein = self.txtNome.text()
         varunidademedidain = self.txtUnidadeMedida.text()
         varpesoin = self.txtPeso.text()
         varcodigoeanin = self.txtCodigoEAN.text()
@@ -47,7 +50,6 @@ class classApp(QtGui.QWidget):
         varprecocomprain = self.txtPrecoCompra.text()
         varvalorvendain = self.txtValorVenda.text()
 
-        varExisteErro = False
 
         if self.txtCodigo.text() == '':
             choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Codigo esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
@@ -280,6 +282,14 @@ class classApp(QtGui.QWidget):
         self.show()
     def sair(self):
         sys.exit()
+
+def TestaFloat(prmEntrada):
+        try:
+            varfloat = float(prmEntrada)
+            return(True)
+        
+        except ValueError:
+            return(False)
         
 def main():
     app = QtGui.QApplication(sys.argv)
