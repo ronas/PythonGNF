@@ -7,7 +7,7 @@ print("\nEntre com os seguintes dados para calcular seu IMC atual:")
 peso=float(input ('\nDigite seu Peso (Kg): '))
 alt=float(input ('Digite sua altura (mt): '))
 
-result_imc = (peso / alt * alt )
+result_imc = peso / ( alt * alt )
 result_ideal = (72.7 * alt) - 58
-print ('\nSeu IMC atual é:' , result_imc, 'Kg/m2' )
+print ('\nSeu IMC atual é:' , result_imc, 'Kg/m²' )
 print ('Seu peso ideal é: ' , result_ideal , 'Kg' )
