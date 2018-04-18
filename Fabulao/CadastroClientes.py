@@ -349,7 +349,7 @@ class ClasseAPP(QtGui.QWidget):
             varExisteErro = True
 
         if testafloat(self,txtCEP.text()) == False:
-            choice = QtGui.QMessageBox.question(self,'AVISO!','Caracter Invalido no Campo CEP.'QtQgui.QMessageBox.Ok )
+            choice = QtGui.QMessageBox.question(self,'AVISO!','Caracter Invalido no Campo CEP.'QtGui.QMessageBox.Ok )
             varExisteErro = True
 
         if self.txtCidade.text() == '':
