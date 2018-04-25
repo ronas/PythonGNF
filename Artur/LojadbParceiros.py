@@ -1,4 +1,4 @@
-# -*- coding: latin -*-
+# -*- coding: latin -
 
 import sys
 
@@ -41,19 +41,18 @@ class classApp(QtGui.QWidget):
         varExisteErro = False
 
         varcodigoin = self.txtCodigo.text()
-        if TestaFloat(varcodigoin) == false:
+        if TestaFloat(varcodigoin) == False:
             choice = QtGui.QMessageBox.question(self,'Erro!','O campo Codigo deve ser preenchido com apenas numeros e não deve conter virgulas.',QtGui.QMessageBox.Ok  )
             varExisteErro = True
-
-        varrazaoin = self.txtRazao.text()  
+        varrazaoin = self.txtRazao.text()
         varcnpjin = self.txtCNPJ.text()
-        if TestaFloat(varcnpjin) == false:
+        if TestaFloat(varcnpjin) == False:
             choice = QtGui.QMessageBox.question(self,'Erro!','O campo CNPJ deve ser preenchido com apenas numeros e não deve conter virgulas.',QtGui.QMessageBox.Ok  )
             varExisteErro = True
         varenderecoin = self.txtEndereco.text()
         varbairroin = self.txtBairro.text()
         varcepin = self.txtCEP.text()
-        if TestaFloat(varcepin) == false:
+        if TestaFloat(varcepin) == False:
             choice = QtGui.QMessageBox.question(self,'Erro!','O campo CEP deve ser preenchido com apenas numeros e não deve conter virgulas.',QtGui.QMessageBox.Ok  )
             varExisteErro = True 
         varcidadein = self.txtCidade.text()
@@ -61,11 +60,16 @@ class classApp(QtGui.QWidget):
         varpaisin = self.txtPais.text()
         varcontatoin = self.txtContato.text()
         vartelefonein = self.txtTelefone.text()
+        if TestaFloat(vartelefonein) == False:
+            choice = QtGui.QMessageBox.question(self,'Erro!','O campo Telefone deve ser preenchido com apenas numeros e não deve conter virgulas.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True 
         varemailin = self.txtEmail.text()
         varlimitedecreditoin = self.txtLimiteDeCredito.text()
+        if TestaFloat(varlimitedecreditoin) == False:
+            choice = QtGui.QMessageBox.question(self,'Erro!','O campo Limite De Credito deve ser preenchido com apenas numeros e não deve conter virgulas.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True 
         varaprovadorfinanceiroin = self.txtAprovadorFinanceiro.text() 
         varbloqueadoin = self.txtBloqueado.text()
-
 
 
         if self.txtCodigo.text() == '':
@@ -129,8 +133,6 @@ class classApp(QtGui.QWidget):
             varExisteErro = True
 
         
-
-
         if varExisteErro == False:
             dados = (varcodigoin,varrazaoin,varcnpjin,varenderecoin,varbairroin,varcepin,varcidadein,varestadoin,varpaisin,varcontatoin,vartelefonein,varemailin,varlimitedecreditoin,varaprovadorfinanceiroin,varbloqueadoin)
             cursor.execute(comando,dados)
@@ -138,7 +140,7 @@ class classApp(QtGui.QWidget):
             cursor.close
             db.close
 
-            choice = QtGui.QMessageBox.question(self,'Dados inseridos com exito!',QtGui.QMessageBox.Ok  )
+            choice = QtGui.QMessageBox.question(self,'Exito!','Os dados foram inseridos com sucesso.', QtGui.QMessageBox.Ok  )
 
     def bdAtualizarParceiros(self):
         db = pymysql.connect(**config)
@@ -152,18 +154,18 @@ class classApp(QtGui.QWidget):
 
 #Codigo,Razao,CNPJ,Endereco,Bairro,CEP,Cidade,Estado,Pais,Contato,Telefone,Email,LimiteDeCredito,AprovadorFinanceiro,Bloqueado
         varcodigoat = self.txtCodigo.text()
-        if TestaFloat(varcodigoin) == false:
+        if TestaFloat(varcodigoat) == False:
             choice = QtGui.QMessageBox.question(self,'Erro!','O campo Codigo deve ser preenchido com apenas numeros e não deve conter virgulas.',QtGui.QMessageBox.Ok  )
             varExisteErro = True
         varrazaoat = self.txtRazao.text() 
         varcnpjat = self.txtCNPJ.text()
-        if TestaFloat(varcodigoin) == false:
+        if TestaFloat(varcnpjat) == False:
             choice = QtGui.QMessageBox.question(self,'Erro!','O campo CNPJ deve ser preenchido com apenas numeros e não deve conter virgulas.',QtGui.QMessageBox.Ok  )
             varExisteErro = True
         varenderecoat = self.txtEndereco.text()
         varbairroat = self.txtBairro.text()
         varcepat = self.txtCEP.text()
-        if TestaFloat(varcodigoin) == false:
+        if TestaFloat(varcepat) == False:
             choice = QtGui.QMessageBox.question(self,'Erro!','O campo CEP deve ser preenchido com apenas numeros e não deve conter virgulas.',QtGui.QMessageBox.Ok  )
             varExisteErro = True
         varcidadeat = self.txtCidade.text()
@@ -171,8 +173,14 @@ class classApp(QtGui.QWidget):
         varpaisat = self.txtPais.text()
         varcontatoat = self.txtContato.text()
         vartelefoneat = self.txtTelefone.text()
+        if TestaFloat(vartelefoneat) == False:
+            choice = QtGui.QMessageBox.question(self,'Erro!','O campo Telefone deve ser preenchido com apenas numeros e não deve conter virgulas.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
         varemailat = self.txtEmail.text()
         varlimitedecreditoat = self.txtLimiteDeCredito.text()
+        if TestaFloat(varlimitedecreditoat) == False:
+            choice = QtGui.QMessageBox.question(self,'Erro!','O campo Limite de crédito deve ser preenchido com apenas numeros e não deve conter virgulas.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True
         varaprovadorfinanceiroat = self.txtAprovadorFinanceiro.text()
         varbloqueadoat = self.txtBloqueado.text()
 
@@ -252,7 +260,6 @@ class classApp(QtGui.QWidget):
         db = pymysql.connect(**config)
         cursor = db.cursor()
 
-        self.txtCodigo.setText(registro[0])
         self.txtRazao.setText('')
         self.txtCNPJ.setText('')
         self.txtEndereco.setText('')
@@ -323,24 +330,40 @@ class classApp(QtGui.QWidget):
         self.lblBloqueado = QtGui.QLabel('Bloqueado')
 
         self.txtCodigo = QtGui.QLineEdit()
+        self.txtCodigo.setMaxLength(10)
         self.txtRazao = QtGui.QLineEdit()
+        self.txtRazao.setMaxLength(100)
         self.txtCNPJ = QtGui.QLineEdit()
+        self.txtCNPJ.setMaxLength(16)
         self.txtEndereco = QtGui.QLineEdit()
+        self.txtEndereco.setMaxLength(100)
         self.txtBairro = QtGui.QLineEdit()
+        self.txtBairro.setMaxLength(100)
         self.txtCEP = QtGui.QLineEdit()
+        self.txtCEP.setMaxLength(9)
         self.txtCidade = QtGui.QLineEdit()
+        self.txtCidade.setMaxLength(50)
         self.txtEstado = QtGui.QLineEdit()
+        self.txtEstado.setMaxLength(50)
         self.txtPais = QtGui.QLineEdit()
+        self.txtPais.setMaxLength(50)
         self.txtContato = QtGui.QLineEdit()
+        self.txtContato.setMaxLength(30)
         self.txtTelefone = QtGui.QLineEdit()
+        self.txtTelefone.setMaxLength(20)
         self.txtEmail = QtGui.QLineEdit()
+        self.txtEmail.setMaxLength(100)
         self.txtLimiteDeCredito = QtGui.QLineEdit()
+        self.txtLimiteDeCredito.setMaxLength(11)
         self.txtAprovadorFinanceiro = QtGui.QLineEdit()
+        self.txtAprovadorFinanceiro.setMaxLength(30)
         self.txtBloqueado = QtGui.QLineEdit()
-
-
+        self.txtBloqueado.setMaxLength(1)
 
         self.txtCodigoDeletar = QtGui.QLineEdit()
+        self.txtCodigoDeletar.setMaxLength(10)
+
+
 
         self.btnSair = QtGui.QPushButton('Sair',self)
         self.btnSair.clicked.connect(self.sair)
