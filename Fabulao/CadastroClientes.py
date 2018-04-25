@@ -41,11 +41,14 @@ class ClasseAPP(QtGui.QWidget):
         self.lblAprovadorFinanceiro = QtGui.QLabel('AprovadorFinanceiro')
         self.lblBloqueado = QtGui.QLabel('BLoqueado')
         self.txtCodigo = QtGui.QLineEdit()
+        self.txtCodigo.setMaxLength(10)
         self.txtRazao = QtGui.QLineEdit()
         self.txtCNPJ = QtGui.QLineEdit()
+        self.txtCNPJ.setMaxLength(16)
         self.txtEndereco = QtGui.QLineEdit()
         self.txtBairro = QtGui.QLineEdit()
         self.txtCEP = QtGui.QLineEdit()
+        self.txtCEP.setMaxLength(9)
         self.txtCidade = QtGui.QLineEdit()
         self.txtEstado = QtGui.QLineEdit()
         self.txtPais = QtGui.QLineEdit()
@@ -243,7 +246,7 @@ class ClasseAPP(QtGui.QWidget):
             choice = QtGui.QMessageBox.question(self,'AVISO!','O Campo Telefone esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok )
             varExisteErro = True
 
-        if testfloat(self.txtTelefone.text()) == False:
+        if testafloat(self.txtTelefone.text()) == False:
             choice = QtGui.QMessageBox.question(self,'AVISO!','CARACTER Invalido no Campo Telefone.',QtGui.QMessageBox.Ok )
             varExisteErro = True
 
@@ -268,10 +271,17 @@ class ClasseAPP(QtGui.QWidget):
             varExisteErro = True
 
         if varExisteErro == False:
-            cursor.execute(comando, dados)
-            db.commit()
+            try:
+                cursor.execute(comando, dados)
+                db.commit()
+                choice = QtGui.QMessageBox.question(self,'RESULTADO!','Dados Incluidos com Sucesso.',QtGui.QMessageBox.Ok )
 
-            choice = QtGui.QMessageBox.question(self,'RESULTADO','Dados Incluidos com Sucesso.',QtGui.QMessageBox.Ok )
+            except pymysql.err.IntegrityError as error:
+                code, message = error.args
+                if code == 1062: #Erro de duplicidade no Inserts
+                    choice = QtGui.QMessageBox.question(self,'AVISO!','Registro em Duplicidade! CODIGO Cadastrado! ',QtGui.QMessageBox.Ok )
+                else:
+                    choice = QtGui.QMessageBox.question(self,'RESULTADO!','Falha ao Incluir Dados.',QtGui.QMessageBox.Ok )
         
         cursor.close()
         db.close()
@@ -336,7 +346,7 @@ class ClasseAPP(QtGui.QWidget):
             choice = QtGui.QMessageBox.question(self,'AVISO!','O Campo CNPJ esta Vazio!, Por Favor, Preencher.',QtGui.QMessageBox.Ok )
             varExisteErro = True
 
-        if testfloat(self.txtCNPJ.text()) == False:
+        if testafloat(self.txtCNPJ.text()) == False:
             choice = QtGui.QMessageBox.question(self,'AVISO!','Caracter Invalido no Campo CNPJ.',QtGui.QMessageBox.Ok )
             varExisteErro = True
 
@@ -405,10 +415,17 @@ class ClasseAPP(QtGui.QWidget):
             varExisteErro = True
 
         if varExisteErro == False:
-            cursor.execute(comando, dados)
-            db.commit()
+            try:
+                cursor.execute(comando, dados)
+                db.commit()
+                choice = QtGui.QMessageBox.question(self,'RESULTADO!','Dados Atualizados com Sucesso.',QtGui.QMessageBox.Ok )
 
-            choice = QtGui.QMessageBox.question(self,'RESULTADO!','Dados Atualisados com Sucesso.',QtGui.QMessageBox.Ok )
+            except pymysql.err.IntegrityError as error:
+                code, message = error.args
+                if code == 1062: #Erro de duplicidade no Inserts
+                    choice = QtGui.QMessageBox.question(self,'AVISO!','Registro em Duplicidade! CODIGO Cadastrado! ',QtGui.QMessageBox.Ok )
+                else:
+                    choice = QtGui.QMessageBox.question(self,'RESULTADO!','Falha ao Atualizar Dados.',QtGui.QMessageBox.Ok )
                     
         cursor.close()
         db.close()

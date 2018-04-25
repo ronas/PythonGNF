@@ -34,10 +34,12 @@ class ClasseAPP(QtGui.QWidget):
         self.lblPrecoCompra = QtGui.QLabel('PrecoCompra')
         self.lblValorVenda = QtGui.QLabel('ValorVenda')
         self.txtCodigo = QtGui.QLineEdit()
+        self.txtCodigo.setMaxLength(10)
         self.txtNome = QtGui.QLineEdit()
         self.txtUnidadeMedida = QtGui.QLineEdit()
         self.txtPeso = QtGui.QLineEdit()
         self.txtCodigoEAN = QtGui.QLineEdit()
+        self.txtCodigoEAN.setMaxLength(13)
         self.txtCodigoMoeda = QtGui.QLineEdit()
         self.txtPrecoCompra = QtGui.QLineEdit()
         self.txtValorVenda = QtGui.QLineEdit()
@@ -145,10 +147,17 @@ class ClasseAPP(QtGui.QWidget):
             varExisteErro = True
                 
         if varExisteErro == False:
-            cursor.execute(comando, dados)
-            db.commit()
+            try:
+                cursor.execute(comando, dados)
+                db.commit()
+                choice = QtGui.QMessageBox.question(self,'RESULTADO!','Dados Incluidos com Sucesso.',QtGui.QMessageBox.Ok )
 
-            choice = QtGui.QMessageBox.question(self,'RESULTADO!','Dados Incluidos com Sucesso.',QtGui.QMessageBox.Ok )
+            except pymysql.err.IntegrityError as error:
+                code, message = error.args
+                if code == 1062: #Erro de duplicidade no Inserts
+                    choice = QtGui.QMessageBox.question(self,'AVISO!','Registro em Duplicidade! CODIGO Cadastrado! ',QtGui.QMessageBox.Ok )
+                else:
+                    choice = QtGui.QMessageBox.question(self,'RESULTADO!','Falha ao Incluir Dados.',QtGui.QMessageBox.Ok )
 
         cursor.close()
         db.close()
@@ -236,11 +245,15 @@ class ClasseAPP(QtGui.QWidget):
             choice = QtGui.QMessageBox.question(self,'AVISO!','O campo Codigo esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
             varExisteErro = True
                 
-        if varExisteErro == False:
-            cursor.execute(comando, dados)
-            db.commit()
+        if varExisteErro == False:   
+            try:
+                cursor.execute(comando, dados)
+                db.commit()
+                choice = QtGui.QMessageBox.question(self,'RESULTADO!','Dados Atualizados com Sucesso.',QtGui.QMessageBox.Ok )
 
-            choice = QtGui.QMessageBox.question(self,'RESULTADO!','Dados Atualizados com Sucesso.',QtGui.QMEssageBox.Ok )
+            except pymysql.err.IntegrityError as error:
+                code, message = error.args
+                choice = QtGui.QMessageBox.question(self,'RESULTADO!','Falha ao Atualizar Dados.',QtGui.QMessageBox.Ok )
 
         cursor.close()
         db.close()
@@ -282,6 +295,14 @@ class ClasseAPP(QtGui.QWidget):
     
     def Sair(self):
         sys.exit()
+
+def testafloat(prmEntrada):
+    try: 
+        varfloat =float(prmEntrada)
+        return(True)
+
+    except ValueError:
+        return(False)
 
 def main():
     app = QtGui.QApplication(sys.argv)
