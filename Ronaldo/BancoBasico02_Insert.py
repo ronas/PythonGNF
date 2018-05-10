@@ -25,8 +25,17 @@ varNome = input("Digite o nome: ")
 varValor = float(input("Digite o valor: "))
 
 dados = (varCodigo, varNome, varValor)
-cursor.execute(comando, dados)
-dbConexao.commit()
+
+try:
+    cursor.execute(comando, dados)
+    dbConexao.commit()
+
+except pymysql.err.IntegrityError as error:
+    code, message = error.args
+    if code == 1062: # Erro de Duplicidade no Insert!
+        print ("Registro em duplicidade!")
+    else:
+        print ("Ocorreu um erro desconhecido: ", code, message)
 
 cursor.close()
 dbConexao.close()

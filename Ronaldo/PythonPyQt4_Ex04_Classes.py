@@ -3,7 +3,7 @@ from PyQt4 import QtGui
 
   
 class ClasseAPP(QtGui.QWidget):
-     
+
     def __init__(self):
         super(ClasseAPP, self).__init__()
         self.initUI()
@@ -35,7 +35,16 @@ class ClasseAPP(QtGui.QWidget):
         self.show()
         
     def sair(self):
-        sys.exit()
+        if Numero(self.txtCodigo.text()) ==  True:
+            sys.exit()
+
+def Numero(ParamEntrada):
+    try:
+        val = float(ParamEntrada)
+        return(True)
+
+    except ValueError:
+        return(False)        
         
 def main():
     app = QtGui.QApplication(sys.argv)

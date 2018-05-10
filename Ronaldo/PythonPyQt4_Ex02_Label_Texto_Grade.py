@@ -15,6 +15,8 @@ def main():
     lblDescricao = QtGui.QLabel('Descricao')
 
     txtCodigo = QtGui.QLineEdit()
+    txtCodigo.setMaxLength(5)           # Limitar Quantidade de Caracteres no Campo.
+
     txtDescricao = QtGui.QLineEdit()
 
 
