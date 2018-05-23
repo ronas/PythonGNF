@@ -3,15 +3,9 @@
 # <= menor ou igual
 # != diferente 
  
-
-
-
-
 #ler 2 salarios e falar qual é o maior.
 
 #Estruturas de decisão
-
-
 
 salario1 = input('Salario 1: ') 
 salario2 = input('Salario 2: ')
