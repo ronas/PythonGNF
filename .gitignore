@@ -114,3 +114,4 @@ ENV/
 PythonGNF/.vscode/launch.json
 PythonGNF/.vscode/settings.json
 \.vscode/
+.vscode/launch.json
