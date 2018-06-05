@@ -278,7 +278,7 @@ class ClasseAPP(QtGui.QWidget):
 
             except pymysql.err.IntegrityError as error:
                 code, message = error.args
-                if code == 1062: #Erro de duplicidade no Inserts
+                if code == 1062: #Erro de duplicidade no Insert
                     choice = QtGui.QMessageBox.question(self,'AVISO!','Registro em Duplicidade! CODIGO Cadastrado! ',QtGui.QMessageBox.Ok )
                 else:
                     choice = QtGui.QMessageBox.question(self,'RESULTADO!','Falha ao Incluir Dados.',QtGui.QMessageBox.Ok )
