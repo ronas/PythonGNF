@@ -111,5 +111,5 @@ ENV/
 \.vscode/settings\.json
 >>>>>>> master
 
-PythonGNF\.vscode\launch.json
-PythonGNF\.vscode\settings.json
+PythonGNF/.vscode/launch.json
+PythonGNF/.vscode/settings.json
