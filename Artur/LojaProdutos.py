@@ -15,6 +15,8 @@ config = {
     }
     
 class classApp(QtGui.QWidget):
+
+    
   
     def bdExcluirProdutos(self):
         db = pymysql.connect(**config)
@@ -38,16 +40,33 @@ class classApp(QtGui.QWidget):
             "values(%s,%s,%s,%s,%s,%s,%s,%s,%s)"
             )
 
-        varcodigoin = self.txtCodigo.text()
-        varnomein = self.txtNome.text()  
+        varExisteErro = False
+        varcodigoin = self.txtCodigo.text()   
+        if TestaFloat(varcodigoin) == False:
+            choice = QtGui.QMessageBox.question(self,'Erro!','O campo Codigo deve ser preenchido com apenas numeros e não deve conter virgulas.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True 
+        varnomein = self.txtNome.text()
         varunidademedidain = self.txtUnidadeMedida.text()
         varpesoin = self.txtPeso.text()
+        if TestaFloat(varpesoin) == False:
+            choice = QtGui.QMessageBox.question(self,'Erro!','O campo Peso deve ser preenchido com apenas numeros e não deve conter virgulas.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True 
+        varpesoin = varpesoin.replace(',','.')
         varcodigoeanin = self.txtCodigoEAN.text()
+        if TestaLength(varcodigoeanin,13) == False:
+            choice = QtGui.QMessageBox.question(self,'Erro!','O campo Codigo EAN deve possuir extamente 13 caracteres',QtGui.QMessageBox.Ok  )
+            varExisteErro = True 
         varcodigomoedain = self.txtCodigoMoeda.text()
         varprecocomprain = self.txtPrecoCompra.text()
+        if TestaFloat(varprecocomprain) == False:
+            choice = QtGui.QMessageBox.question(self,'Erro!','O Preco Compra deve ser preenchido com apenas numeros e não deve conter virgulas.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True 
+        varprecocomprain = varprecocomprain.replace(',','.')
         varvalorvendain = self.txtValorVenda.text()
-
-        varExisteErro = False
+        if TestaFloat(varvalorvendain) == False:
+            choice = QtGui.QMessageBox.question(self,'Erro!','O campo Valor Venda deve ser preenchido com apenas numeros e não deve conter virgulas.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True 
+        varvalorvendain = varvalorvendain.replace(',','.')
 
         if self.txtCodigo.text() == '':
             choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Codigo esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
@@ -98,13 +117,28 @@ class classApp(QtGui.QWidget):
             )
 
         varcodigoat = self.txtCodigo.text()
+        if TestaFloat(varcodigoat) == False:
+            choice = QtGui.QMessageBox.question(self,'Erro!','O campo Codigo deve ser preenchido com apenas numeros e não deve conter virgulas.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True 
         varnomeat = self.txtNome.text() 
         varunidademedidaat = self.txtUnidadeMedida.text()
         varpesoat = self.txtPeso.text()
+        if TestaFloat(varpesoat) == False:
+            choice = QtGui.QMessageBox.question(self,'Erro!','O campo Peso deve ser preenchido com apenas numeros e não deve conter virgulas.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True 
+        varpesoat = varpesoat.replace(',','.')
         varcodigoeanat = self.txtCodigoEAN.text()
         varcodigomoedaat = self.txtCodigoMoeda.text()
         varprecocompraat = self.txtPrecoCompra.text()
+        if TestaFloat(varprecocompraat) == False:
+            choice = QtGui.QMessageBox.question(self,'Erro!','O campo Preco Compra deve ser preenchido com apenas numeros e não deve conter virgulas.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True 
+        varprecocompraat = varprecocompraat.replace(',','.')
         varvalorvendaat = self.txtValorVenda.text()
+        if TestaFloat(varvalorvendaat) == False:
+            choice = QtGui.QMessageBox.question(self,'Erro!','O campo Valor Venda deve ser preenchido com apenas numeros e não deve conter virgulas.',QtGui.QMessageBox.Ok  )
+            varExisteErro = True 
+        varvalorvendaat = varvalorvendaat.replace(',','.')
 
         varExisteErro = False
 
@@ -144,7 +178,7 @@ class classApp(QtGui.QWidget):
 
         if varExisteErro == False:
 
-            dados =(varcodigoin,varnomein,varunidademedidain,varpesoin,varcodigoeanin,varcodigomoedain,varprecocomprain,varvalorvendain)
+            dados = (varcodigoat,varnomeat,varunidademedidaat,varpesoat,varcodigoeanat,varcodigomoedaat,varprecocompraat,varvalorvendaat)
             cursor.execute(comando,dados)
             db.commit()
             cursor.close
@@ -207,26 +241,42 @@ class classApp(QtGui.QWidget):
         self.lblValorVenda = QtGui.QLabel('ValorVenda')
 
         self.txtCodigo = QtGui.QLineEdit()
+        self.txtCodigo.setMaxLength(10)
+
         self.txtNome = QtGui.QLineEdit()
+        self.txtNome.setMaxLength(50)
+
         self.txtUnidadeMedida = QtGui.QLineEdit()
+        self.txtUnidadeMedida.setMaxLength(3)
+
         self.txtPeso = QtGui.QLineEdit()
+        self.txtPeso.setMaxLength(8)
+
         self.txtCodigoEAN = QtGui.QLineEdit()
+        self.txtCodigoEAN.setMaxLength(13)
+
         self.txtCodigoMoeda = QtGui.QLineEdit()
+        self.txtCodigoMoeda.setMaxLength(3)
+
         self.txtPrecoCompra = QtGui.QLineEdit()
+        self.txtPrecoCompra.setMaxLength(12)
+
         self.txtValorVenda = QtGui.QLineEdit()
+        self.txtValorVenda.setMaxLength(12)
 
         self.txtCodigoDeletar = QtGui.QLineEdit()
+        self.txtCodigoDeletar.setMaxLength(10)
 
         self.btnSair = QtGui.QPushButton('Sair',self)
         self.btnSair.clicked.connect(self.sair)
         self.btnBuscar = QtGui.QPushButton('Buscar',self)
-        self.btnBuscar.clicked.connect(self.bdMostrarParceiros)
+        self.btnBuscar.clicked.connect(self.bdMostrarProdutos)
         self.btnInserir = QtGui.QPushButton('Inserir',self)
-        self.btnInserir.clicked.connect(self.bdInserirParceiros)
+        self.btnInserir.clicked.connect(self.bdInserirProdutos)
         self.btnDeletar = QtGui.QPushButton('Deletar',self)
-        self.btnDeletar.clicked.connect(self.bdExcluirParceiros)
+        self.btnDeletar.clicked.connect(self.bdExcluirProdutos)
         self.btnAtualizar = QtGui.QPushButton('Atualizar',self)
-        self.btnAtualizar.clicked.connect(self.bdAtualizarParceiros)
+        self.btnAtualizar.clicked.connect(self.bdAtualizarProdutos)
         
         self.grid = QtGui.QGridLayout()
         self.grid.setSpacing(10)         
@@ -280,6 +330,21 @@ class classApp(QtGui.QWidget):
         self.show()
     def sair(self):
         sys.exit()
+
+def TestaFloat(prmEntrada):
+        try:
+            varfloat = float(prmEntrada)
+            return(True)
+        
+        except ValueError:
+            return(False)
+
+def TestaLength(prmEntrada,prmTamanho):
+    if len(prmEntrada) < prmTamanho:
+        return False
+
+
+
         
 def main():
     app = QtGui.QApplication(sys.argv)

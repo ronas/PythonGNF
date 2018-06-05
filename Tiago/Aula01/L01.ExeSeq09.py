@@ -1,5 +1,5 @@
 # Faça um programa que pergunte quanto você ganha por hora, 
-# pergunte o número de horas trabalhadas no mês e apresente*: 
+# pergunte o número de horas trabalhadas no mês e apresente o seguinte resultado. 
 # 
 # 1) O total do salário no mês [bruto]. 
 # 2) O valor do Imposto de Renda [11%].

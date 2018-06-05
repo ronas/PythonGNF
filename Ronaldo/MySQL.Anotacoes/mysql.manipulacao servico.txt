@@ -1,0 +1,4 @@
+systemctl enable mysql
+systemctl disable mysql
+start
+stop
