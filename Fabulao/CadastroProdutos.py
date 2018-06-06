@@ -253,7 +253,10 @@ class ClasseAPP(QtGui.QWidget):
 
             except pymysql.err.IntegrityError as error:
                 code, message = error.args
-                choice = QtGui.QMessageBox.question(self,'RESULTADO!','Falha ao Atualizar Dados.',QtGui.QMessageBox.Ok )
+                if code == 1062: #Erro de duplicidade no insert
+                    choice = QtGui.QMessageBox.question(self,'RESSULATDO','Registro em Duplicidade! Codigo Cadastrado! ',QtGui.QMessageBox.Ok )
+                else:
+                    choice = QtGui.QMessageBox.question(self,'RESULTADO!','Falha ao Atualizar Dados.',QtGui.QMessageBox.Ok )
 
         cursor.close()
         db.close()
