@@ -51,7 +51,6 @@ class classApp(QtGui.QWidget):
         if TestaFloat(varpesoin) == False:
             choice = QtGui.QMessageBox.question(self,'Erro!','O campo Peso deve ser preenchido com apenas numeros e não deve conter virgulas.',QtGui.QMessageBox.Ok  )
             varExisteErro = True 
-        varpesoin = varpesoin.replace(',','.')
         varcodigoeanin = self.txtCodigoEAN.text()
         if TestaLength(varcodigoeanin,13) == False:
             choice = QtGui.QMessageBox.question(self,'Erro!','O campo Codigo EAN deve possuir extamente 13 caracteres',QtGui.QMessageBox.Ok  )
@@ -61,12 +60,10 @@ class classApp(QtGui.QWidget):
         if TestaFloat(varprecocomprain) == False:
             choice = QtGui.QMessageBox.question(self,'Erro!','O Preco Compra deve ser preenchido com apenas numeros e não deve conter virgulas.',QtGui.QMessageBox.Ok  )
             varExisteErro = True 
-        varprecocomprain = varprecocomprain.replace(',','.')
         varvalorvendain = self.txtValorVenda.text()
         if TestaFloat(varvalorvendain) == False:
             choice = QtGui.QMessageBox.question(self,'Erro!','O campo Valor Venda deve ser preenchido com apenas numeros e não deve conter virgulas.',QtGui.QMessageBox.Ok  )
             varExisteErro = True 
-        varvalorvendain = varvalorvendain.replace(',','.')
 
         if self.txtCodigo.text() == '':
             choice = QtGui.QMessageBox.question(self,'Aviso!','O campo Codigo esta Vazio! Por Favor, Preencher.',QtGui.QMessageBox.Ok  )
@@ -126,19 +123,19 @@ class classApp(QtGui.QWidget):
         if TestaFloat(varpesoat) == False:
             choice = QtGui.QMessageBox.question(self,'Erro!','O campo Peso deve ser preenchido com apenas numeros e não deve conter virgulas.',QtGui.QMessageBox.Ok  )
             varExisteErro = True 
-        varpesoat = varpesoat.replace(',','.')
         varcodigoeanat = self.txtCodigoEAN.text()
+        if TestaLength(varcodigoeanat,13) == False:
+            choice = QtGui.QMessageBox.question(self,'Erro!','O campo Codigo EAN deve possuir extamente 13 caracteres',QtGui.QMessageBox.Ok  )
+            varExisteErro = True 
         varcodigomoedaat = self.txtCodigoMoeda.text()
         varprecocompraat = self.txtPrecoCompra.text()
         if TestaFloat(varprecocompraat) == False:
             choice = QtGui.QMessageBox.question(self,'Erro!','O campo Preco Compra deve ser preenchido com apenas numeros e não deve conter virgulas.',QtGui.QMessageBox.Ok  )
             varExisteErro = True 
-        varprecocompraat = varprecocompraat.replace(',','.')
         varvalorvendaat = self.txtValorVenda.text()
         if TestaFloat(varvalorvendaat) == False:
             choice = QtGui.QMessageBox.question(self,'Erro!','O campo Valor Venda deve ser preenchido com apenas numeros e não deve conter virgulas.',QtGui.QMessageBox.Ok  )
             varExisteErro = True 
-        varvalorvendaat = varvalorvendaat.replace(',','.')
 
         varExisteErro = False
 
